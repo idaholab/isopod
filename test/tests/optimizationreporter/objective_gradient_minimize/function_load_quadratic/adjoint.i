@@ -25,10 +25,15 @@ function_vals = '0 0 0'
   [pt]
     type = ReporterPointSource
     variable = temperature
-    x_coord_name = point_source/x
-    y_coord_name = point_source/y
-    z_coord_name = point_source/z
-    value_name = point_source/value
+    x_coord_name = misfit/measurement_xcoord
+    y_coord_name = misfit/measurement_ycoord
+    z_coord_name = misfit/measurement_zcoord
+    value_name = misfit/misfit_values
+  []
+[]
+[Reporters]
+  [misfit]
+    type=OptimizationData
   []
 []
 
@@ -133,6 +138,7 @@ function_vals = '0 0 0'
     vector_names = 'x y z value'
     # value = '0.2 0.5 1.5 1.8; 0.5 0.5 0.5 0.5; 0 0 0 0; 10 10 10 10'
     value = '0.2 0.5 1.5 1.8 0.3 0.6 0.9 1.2;0.5 0.5 0.5 0.5 1.1 1.1 1.1 1.1;0 0 0 0 0 0 0 0;10 10 10 10 10 10 10 10'
+    execute_on = LINEAR
   []
   [adjoint_pt]
     type = VectorOfPostprocessors

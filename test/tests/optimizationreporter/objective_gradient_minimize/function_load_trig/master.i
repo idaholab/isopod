@@ -10,7 +10,7 @@
             0.8 0.6 0
             0.2 1.4 0
             0.8 1.8 0'
-  measurement_values = '209 218 164 121'
+  measurement_values = '204 215 166 127'
 []
 
 [Executioner]
@@ -52,8 +52,8 @@
       type = MultiAppReporterTransfer
       multi_app = forward
       direction = from_multiapp
-      from_reporters = 'data_pt/temperature data_pt/temperature'
-      to_reporters = 'OptimizationReporter/simulation_values receiver/measured'
+      from_reporters = 'data_pt/temperature'
+      to_reporters = 'OptimizationReporter/simulation_values'
     []
     [toAdjoint]
       type = MultiAppReporterTransfer
@@ -79,14 +79,6 @@
     from_reporters = 'adjoint_pt/adjoint_pt'
     to_reporters = 'OptimizationReporter/adjoint'
     direction = from_multiapp
-  []
-[]
-
-[Reporters]
-  [receiver]
-    type = ConstantReporter
-    real_vector_names = measured
-    real_vector_values = '0'
   []
 []
 
