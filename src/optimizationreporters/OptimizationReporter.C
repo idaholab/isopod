@@ -3,7 +3,7 @@
 InputParameters
 OptimizationReporter::validParams()
 {
-  InputParameters params = OptimizationData::validParams();
+  InputParameters params = OptimizationReporterBase::validParams();
   params.addClassDescription("Base class for optimization reporter communication.");
   params.addRequiredParam<std::vector<ReporterValueName>>(
       "parameter_names", "List of parameter names, one for each group of parameters.");
@@ -26,7 +26,7 @@ OptimizationReporter::validParams()
 }
 
 OptimizationReporter::OptimizationReporter(const InputParameters & parameters)
-  : OptimizationData(parameters),
+  : OptimizationReporterBase(parameters),
     _parameter_names(getParam<std::vector<ReporterValueName>>("parameter_names")),
     _nparam(_parameter_names.size()),
     _nvalues(getParam<std::vector<dof_id_type>>("num_values")),
@@ -105,19 +105,4 @@ OptimizationReporter::computeAndCheckObjective(bool multiapp_passed)
   if (!multiapp_passed)
     mooseError("Forward solve multiapp failed!");
   return computeObjective();
-}
-
-Real
-OptimizationReporter::computeObjective()
-{
-  for (size_t i = 0; i < _measurement_values.size(); ++i)
-    _misfit_values[i] = _simulation_values[i] - _measurement_values[i];
-
-  Real val = 0;
-  for (auto & misfit : _misfit_values)
-    val += misfit * misfit;
-
-  val = 0.5 * val;
-
-  return val;
 }

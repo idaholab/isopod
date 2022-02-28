@@ -1,13 +1,8 @@
 #pragma once
 
-#include "OptimizationData.h"
+#include "OptimizationReporterBase.h"
 
-#include "OptimizeSolve.h"
-#include "libmesh/petsc_vector.h"
-#include "libmesh/petsc_matrix.h"
-#include "DataIO.h"
-
-class OptimizationReporter : public OptimizationData
+class OptimizationReporter : public OptimizationReporterBase
 {
 public:
   static InputParameters validParams();
@@ -21,47 +16,29 @@ public:
    * Function to initialize petsc vectors from vpp data
    * FIXME: this should be const
    */
-  void setInitialCondition(libMesh::PetscVector<Number> & param);
+  void setInitialCondition(libMesh::PetscVector<Number> & param) override;
 
   /**
    * Functions to get and check bounds
    */
-  bool hasBounds() const { return _upper_bounds.size() > 0 && _lower_bounds.size() > 0; }
-  const std::vector<Real> & getUpperBounds() const { return _upper_bounds; };
-  const std::vector<Real> & getLowerBounds() const { return _lower_bounds; };
+  bool hasBounds() const override { return _upper_bounds.size() > 0 && _lower_bounds.size() > 0; }
+  const std::vector<Real> & getUpperBounds() const override { return _upper_bounds; };
+  const std::vector<Real> & getLowerBounds() const override { return _lower_bounds; };
   /**
    * Function to compute default bounds when user did not provide bounds
    */
-  virtual std::vector<Real> computeDefaultBounds(Real val);
+  std::vector<Real> computeDefaultBounds(Real val) override;
 
   /**
    * Function to compute objective and handle a failed solve.
    * This is the last function called in objective routine
    */
-  virtual Real computeAndCheckObjective(bool solver_converged);
-
-  /**
-   * Function to compute gradient.
-   * This is the last call of the gradient routine.
-   */
-  virtual void computeGradient(libMesh::PetscVector<Number> & /*gradient*/)
-  {
-    mooseError("Gradient function has not been defined for form function type ", _type);
-  }
-
-  /**
-   * Function to compute gradient.
-   * This is the last call of the hessian routine.
-   */
-  virtual void computeHessian(libMesh::PetscMatrix<Number> & /*hessian*/)
-  {
-    mooseError("Hessian function has not been defined for form function type ", _type);
-  }
+  Real computeAndCheckObjective(bool solver_converged) override;
 
   /**
    * Function to get the total number of parameters
    */
-  unsigned int getNumParams() { return _ndof; };
+  unsigned int getNumParams() override { return _ndof; };
 
 protected:
   /// Parameter names
@@ -81,17 +58,8 @@ protected:
   const std::vector<Real> & _upper_bounds;
 
   /**
-   * Function to compute objective.
-   * This is the last function called in objective routine
-   */
-  Real computeObjective();
-
-  /**
    * Function to set parameters.
    * This is the first function called in objective/gradient/hessian routine
    */
-  virtual void updateParameters(const libMesh::PetscVector<Number> & x);
-
-private:
-  friend class OptimizeSolve;
+  virtual void updateParameters(const libMesh::PetscVector<Number> & x) override;
 };
