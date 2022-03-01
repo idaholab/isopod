@@ -37,3 +37,11 @@ OptimizationReporterBase::computeObjective()
 
   return val;
 }
+
+Real
+OptimizationReporterBase::computeAndCheckObjective(bool multiapp_passed)
+{
+  if (!multiapp_passed)
+    mooseError("Forward solve multiapp failed!");
+  return computeObjective();
+}

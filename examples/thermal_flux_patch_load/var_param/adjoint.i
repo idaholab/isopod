@@ -77,42 +77,42 @@
   nl_forced_its = 1
 []
 
-[Postprocessors]
-  [adjoint_0]
-    type = SideIntegralVariablePostprocessor
-    boundary = '100 101'
-    variable = temperature
-  []
-  [adjoint_1]
-    type = SideIntegralVariablePostprocessor
-    boundary = '102 103'
-    variable = temperature
-  []
-  [adjoint_2]
-    type = SideIntegralVariablePostprocessor
-    boundary = '104 105'
-    variable = temperature
-  []
-  [adjoint_3]
-    type = SideIntegralVariablePostprocessor
-    boundary = '106 107'
-    variable = temperature
-  []
-  [adjoint_4]
-    type = SideIntegralVariablePostprocessor
-    boundary = '108 109'
-    variable = temperature
-  []
-[]
-
-[VectorPostprocessors]
-  [adjoint_bc]
-    type = VectorOfPostprocessors
-    postprocessors = 'adjoint_0 adjoint_1
-                      adjoint_2 adjoint_3
-                      adjoint_4'
-  []
-[]
+# [Postprocessors]
+#   [adjoint_0]
+#     type = SideIntegralVariablePostprocessor
+#     boundary = '100 101'
+#     variable = temperature
+#   []
+#   [adjoint_1]
+#     type = SideIntegralVariablePostprocessor
+#     boundary = '102 103'
+#     variable = temperature
+#   []
+#   [adjoint_2]
+#     type = SideIntegralVariablePostprocessor
+#     boundary = '104 105'
+#     variable = temperature
+#   []
+#   [adjoint_3]
+#     type = SideIntegralVariablePostprocessor
+#     boundary = '106 107'
+#     variable = temperature
+#   []
+#   [adjoint_4]
+#     type = SideIntegralVariablePostprocessor
+#     boundary = '108 109'
+#     variable = temperature
+#   []
+# []
+#
+# [VectorPostprocessors]
+#   [adjoint_bc]
+#     type = VectorOfPostprocessors
+#     postprocessors = 'adjoint_0 adjoint_1
+#                       adjoint_2 adjoint_3
+#                       adjoint_4'
+#   []
+# []
 
 
 [VectorPostprocessors]

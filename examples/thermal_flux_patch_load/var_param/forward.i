@@ -3,13 +3,6 @@
     type = FileMeshGenerator
     file = ./../halfSphere.e
   []
-  [lowerd]
-    input = fmg
-    type = LowerDBlockFromSidesetGenerator
-    sidesets = 'flat'
-    new_block_id = 2
-    new_block_name = "bottom"
-  []
 []
 
 [Variables]
@@ -25,7 +18,6 @@
   [p_var_forward]
     order = FIRST
     family = LAGRANGE
-    block = 'bottom'
   []
 []
 
@@ -45,36 +37,6 @@
     coefficient = 0.05
     T_infinity = 100.0
   []
-  # [flat_0]
-  #   type = PostprocessorNeumannBC
-  #   variable = temperature
-  #   boundary = '100 101'
-  #   postprocessor = p0
-  # []
-  # [flat_1]
-  #   type = PostprocessorNeumannBC
-  #   variable = temperature
-  #   boundary = '102 103'
-  #   postprocessor = p1
-  # []
-  # [flat_2]
-  #   type = PostprocessorNeumannBC
-  #   variable = temperature
-  #   boundary = '104 105'
-  #   postprocessor = p2
-  # []
-  # [flat_3]
-  #   type = PostprocessorNeumannBC
-  #   variable = temperature
-  #   boundary = '106 107'
-  #   postprocessor = p3
-  # []
-  # [flat_4]
-  #   type = PostprocessorNeumannBC
-  #   variable = temperature
-  #   boundary = '108 109'
-  #   postprocessor = p4
-  # []
   [bottom]
     type = CoupledVarNeumannBC
     variable = temperature
@@ -84,30 +46,29 @@
 []
 
 [Postprocessors]
-  [p0]
-    type = ConstantValuePostprocessor
-    value = 0
-    execute_on = LINEAR
+  [p_max]
+    type = ElementExtremeValue
+    variable = p_var_forward
+    value_type = max
+    execute_on = 'INITIAL LINEAR'
   []
-  [p1]
-    type = ConstantValuePostprocessor
-    value = 0
-    execute_on = LINEAR
+  [p_min]
+    type = ElementExtremeValue
+    variable = p_var_forward
+    value_type = min
+    execute_on = 'INITIAL LINEAR'
   []
-  [p2]
-    type = ConstantValuePostprocessor
-    value = 0
-    execute_on = LINEAR
+  [T_max]
+    type = ElementExtremeValue
+    variable = temperature
+    value_type = max
+    execute_on = 'INITIAL LINEAR'
   []
-  [p3]
-    type = ConstantValuePostprocessor
-    value = 0
-    execute_on = LINEAR
-  []
-  [p4]
-    type = ConstantValuePostprocessor
-    value = 0
-    execute_on = LINEAR
+  [T_min]
+    type = ElementExtremeValue
+    variable = temperature
+    value_type = min
+    execute_on = 'INITIAL LINEAR'
   []
 []
 
@@ -119,7 +80,7 @@
   []
 []
 
-[Problem]#do we need this
+[Problem] #do we need this
   type = FEProblem
 []
 
@@ -144,7 +105,7 @@
 
 [Reporters]
   [measure_data]
-    type=OptimizationData
+    type = OptimizationData
   []
 []
 
@@ -156,7 +117,6 @@
 
 [Outputs]
   console = true #false
-  exodus = true
-  # csv = true
-  file_base = 'forward'
+  # exodus = true
+  csv = true
 []

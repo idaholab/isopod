@@ -6,22 +6,12 @@
     type = FileMeshGenerator
     file = ./../halfSphere_coarse.e
   []
-  [lowerd]
-    input = fmg
-    type = LowerDBlockFromSidesetGenerator
-    sidesets = 'flat'
-    new_block_id = 2
-    new_block_name = "bottom"
-  []
 []
 
 [OptimizationReporter]
-  type = ObjectiveGradientMinimize
-  parameter_names = 'p0 p1 p2 p3 p4'
-  num_values = '1 1 1 1 1'
-
-  parameter_var = p_var
-
+  type = VariableOptimizationReporter
+  parameter_variable = p_var
+  initial_value = 20
   measurement_points = '4.24  0      2.45
                         4.24  2.45   0
                         4.24  0     -2.45
@@ -46,26 +36,18 @@
   [p_var]
     order = FIRST
     family = LAGRANGE
-    block = 'bottom'
   []
 []
 
-# [AuxKernels]
-#   [p_var_kernel]
-#     type = ConstantAux
-#     variable = p_var
-#     value = 10
-#   []
-# []
-
 [Executioner]
   type = Optimize
-  tao_solver = taonm
-  # petsc_options_iname = '-tao_gatol'# -tao_cg_delta_max'
-  # petsc_options_value = '1e-2'
+  # tao_solver = taonm
+  # petsc_options_iname  = ' -tao_gatol -tao_fmin'
+  # petsc_options_value = ' 1e-1 1e1'
 
-  # petsc_options_iname='-tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_fd_delta -tao_gatol'
-  # petsc_options_value='3 true true false 0.0001 0.0001'
+  tao_solver = taolmvm
+  petsc_options_iname = '-tao_fd_gradient -tao_gatol -tao_fmin'
+  petsc_options_value = ' true            1e-1 1e1'
   verbose = true
 []
 
@@ -74,6 +56,7 @@
     type = OptimizeFullSolveMultiApp
     input_files = forward.i
     execute_on = "FORWARD"
+    reset_app = true
   []
   [adjoint]
     type = OptimizeFullSolveMultiApp
@@ -110,24 +93,13 @@
 # - to forward depends on teh parameter being changed
 # - from adjoint depends on the gradient being computed from the adjoint
 #NOTE:  the adjoint variable we are transferring is actually the gradient
-[toforward]
-  type = OptimizationParameterTransfer
-  multi_app = forward
-  value_names = 'p0 p1 p2 p3 p4'
-  parameters = 'Postprocessors/p0/value
-                Postprocessors/p1/value
-                Postprocessors/p2/value
-                Postprocessors/p3/value
-                Postprocessors/p4/value'
-  to_control = parameterReceiver
-[]
-  [fromadjoint]
-    type = MultiAppReporterTransfer
-    multi_app = adjoint
-    direction = from_multiapp
-    from_reporters = 'adjoint_bc/adjoint_bc' # what is the naming convention for this
-    to_reporters = 'OptimizationReporter/adjoint'
-  []
+  # [fromadjoint]
+  #   type = MultiAppReporterTransfer
+  #   multi_app = adjoint
+  #   direction = from_multiapp
+  #   from_reporters = 'adjoint_bc/adjoint_bc' # what is the naming convention for this
+  #   to_reporters = 'OptimizationReporter/adjoint'
+  # []
   [to_forward_aux]
     type = MultiAppInterpolationTransfer
     direction = to_multiapp
@@ -149,6 +121,6 @@
 []
 
 [Outputs]
-  # csv=true
-  exodus = true
+  csv=true
+  # exodus = true
 []

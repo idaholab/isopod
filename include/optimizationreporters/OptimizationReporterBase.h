@@ -35,19 +35,27 @@ public:
    * Functions to get and check bounds
    */
   virtual bool hasBounds() const = 0;
-  virtual const std::vector<Real> & getUpperBounds() const = 0;
-  virtual const std::vector<Real> & getLowerBounds() const = 0;
+  virtual const std::vector<Real> & getUpperBounds() const
+  {
+    mooseError("Bounds are not implemented for form function type ", _type);
+  }
+  virtual const std::vector<Real> & getLowerBounds() const
+  {
+    mooseError("Bounds are not implemented for form function type ", _type);
+  }
 
   /**
    * Function to compute default bounds when user did not provide bounds
    */
-  virtual std::vector<Real> computeDefaultBounds(Real val) = 0;
-
+  virtual std::vector<Real> computeDefaultBounds(Real /*val*/)
+  {
+    mooseError("Default bounds are not implemented for form function type ", _type);
+  }
   /**
    * Function to compute objective and handle a failed solve.
    * This is the last function called in objective routine
    */
-  virtual Real computeAndCheckObjective(bool solver_converged) = 0;
+  virtual Real computeAndCheckObjective(bool solver_converged);
 
   /**
    * Function to compute gradient.

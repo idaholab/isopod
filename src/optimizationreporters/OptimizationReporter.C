@@ -98,11 +98,3 @@ OptimizationReporter::computeDefaultBounds(Real val)
     vec[i] = val;
   return vec;
 }
-
-Real
-OptimizationReporter::computeAndCheckObjective(bool multiapp_passed)
-{
-  if (!multiapp_passed)
-    mooseError("Forward solve multiapp failed!");
-  return computeObjective();
-}

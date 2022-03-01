@@ -30,12 +30,6 @@ public:
   std::vector<Real> computeDefaultBounds(Real val) override;
 
   /**
-   * Function to compute objective and handle a failed solve.
-   * This is the last function called in objective routine
-   */
-  Real computeAndCheckObjective(bool solver_converged) override;
-
-  /**
    * Function to get the total number of parameters
    */
   unsigned int getNumParams() override { return _ndof; };
