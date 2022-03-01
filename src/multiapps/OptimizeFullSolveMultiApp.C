@@ -25,7 +25,9 @@ OptimizeFullSolveMultiApp::validParams()
   params.suppressParameter<Real>("move_time");
   params.suppressParameter<std::vector<Point>>("move_positions");
   params.suppressParameter<std::vector<unsigned int>>("move_apps");
-  params.set<bool>("use_positions") = false;
+  // We need the sub-app position in order to use the `MultiAppInterpolationTransfer`
+  params.set<bool>("use_positions") = true;
+  params.set<std::vector<Point>>("positions") = {{0.0, 0.0, 0.0}};
 
   return params;
 }
