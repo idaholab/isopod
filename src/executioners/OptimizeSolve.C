@@ -42,7 +42,7 @@ OptimizeSolve::solve()
   // Grab form function
   if (!_problem.hasUserObject("OptimizationReporter"))
     mooseError("No form function object found.");
-  _form_function = &_problem.getUserObject<OptimizationReporter>("OptimizationReporter");
+  _form_function = &_problem.getUserObject<OptimizationReporterBase>("OptimizationReporter");
 
   // Initialize solution and matrix
   _form_function->setInitialCondition(*_parameters.get());
