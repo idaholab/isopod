@@ -30,19 +30,19 @@
     type = NeumannBC
     variable = temperature
     boundary = right
-    value = 100
+    value = 0
   []
   [bottom]
     type = DirichletBC
     variable = temperature
     boundary = bottom
-    value = 200
+    value = 0
   []
   [top]
     type = DirichletBC
     variable = temperature
     boundary = top
-    value = 100
+    value = 0
   []
 []
 
@@ -130,5 +130,5 @@
 [Outputs]
   console = false
   exodus = false
-  file_base = 'forward'
+  file_base = 'hessian'
 []

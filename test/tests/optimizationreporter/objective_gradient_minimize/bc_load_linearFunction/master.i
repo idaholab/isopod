@@ -22,21 +22,35 @@
   parameter_names = 'p1 p2'
   num_values = '1 1'
   measurement_points = '0.2 0.2 0
-            0.8 0.6 0
-            0.2 1.4 0
-            0.8 1.8 0'
+                        0.8 0.6 0
+                        0.2 1.4 0
+                        0.8 1.8 0'
   measurement_values = '207 204 185 125'
 []
 
 [Executioner]
   type = Optimize
-  tao_solver = taolmvm
-  petsc_options_iname = '-tao_gatol'#
-  petsc_options_value = '1e-4'
+  # tao_solver = taobncg
+  # petsc_options_iname = '-tao_gatol'
+  # petsc_options_value = '1e-4'
+
+  tao_solver = taonls
+  petsc_options_iname = '-tao_gttol -tao_nls_pc_type -tao_nls_ksp_type'
+  petsc_options_value = '1e-5 none cg'
+
+  # tao_solver = taonm
+  # petsc_options_iname = '-tao_max_it -tao_gatol'
+  # petsc_options_value = '10000 1e-4'
+
+  # tao_solver = taoblmvm
+  # petsc_options_iname = '-tao_max_it -tao_gatol'
+  # petsc_options_value = '10000 1e-4'
+
   # petsc_options_iname = '-tao_fd_gradient -tao_fd_delta -tao_gatol'
   # petsc_options_value = 'true 0.0001 1e-4'
-  # petsc_options_iname='-tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_fd_delta -tao_gatol'
-  # petsc_options_value='3 true true false 0.0001 0.0001'
+
+  # petsc_options_iname='-tao_max_it -tao_fd_test -tao_test_gradient -tao_test_hessian -tao_fd_delta -tao_gatol -tao_nls_pc_type -tao_nls_ksp_type'
+  # petsc_options_value=' 1           true         true               true              0.0001        0.0001     none             cg'
   verbose = true
 []
 
@@ -51,6 +65,12 @@
     type = OptimizeFullSolveMultiApp
     input_files = adjoint.i
     execute_on = "ADJOINT"
+    clone_master_mesh = true
+  []
+  [homogeneousForward]
+    type = OptimizeFullSolveMultiApp
+    input_files = homogeneous_forward.i
+    execute_on = "HOMOGENEOUS_FORWARD"
     clone_master_mesh = true
   []
 []
@@ -93,6 +113,27 @@
     from_reporters = 'adjoint_bc/adjoint_bc' # what is the naming convention for this
     to_reporters = 'OptimizationReporter/adjoint'
   []
+
+  # HESSIAN transfers.  Same as forward.
+  [fromHomogeneousForward]
+    type = MultiAppReporterTransfer
+    from_multi_app = homogeneousForward
+    from_reporters = 'data_pt/temperature data_pt/temperature'
+    to_reporters = 'OptimizationReporter/simulation_values receiver/measured'
+  []
+  [toHomogeneousForward]
+    type = OptimizationParameterTransfer
+    to_multi_app = homogeneousForward
+    value_names = 'p1 p2'
+    parameters = 'Postprocessors/p1/value Postprocessors/p2/value'
+    to_control = parameterReceiver
+  []
+  [toHomogeneousForward_measument]
+    type = MultiAppReporterTransfer
+    to_multi_app = homogeneousForward
+    from_reporters = 'OptimizationReporter/measurement_xcoord OptimizationReporter/measurement_ycoord OptimizationReporter/measurement_zcoord'
+    to_reporters = 'measure_data/measurement_xcoord measure_data/measurement_ycoord measure_data/measurement_zcoord'
+  []
 []
 
 [Reporters]
@@ -103,13 +144,11 @@
    []
    [optInfo]
      type = OptimizationInfo
-     items = 'current_iterate'
-     #execute_on=timestep_end
+     items = 'current_iterate function_value gnorm'
    []
 []
 
 [Outputs]
   csv=true
   console = false
-  #execute_on = timestepfinal
 []

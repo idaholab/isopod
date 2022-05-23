@@ -24,6 +24,12 @@ public:
   void setInitialCondition(libMesh::PetscVector<Number> & param);
 
   /**
+   * Function to over-ride misfit values with the simulated values from the matrix free hessian
+   * forward solve
+   */
+  void setMisfitToSimulatedValues();
+
+  /**
    * Functions to get and check bounds
    */
   bool hasBounds() const { return _upper_bounds.size() > 0 && _lower_bounds.size() > 0; }
@@ -47,15 +53,6 @@ public:
   virtual void computeGradient(libMesh::PetscVector<Number> & /*gradient*/)
   {
     mooseError("Gradient function has not been defined for form function type ", _type);
-  }
-
-  /**
-   * Function to compute gradient.
-   * This is the last call of the hessian routine.
-   */
-  virtual void computeHessian(libMesh::PetscMatrix<Number> & /*hessian*/)
-  {
-    mooseError("Hessian function has not been defined for form function type ", _type);
   }
 
   /**
