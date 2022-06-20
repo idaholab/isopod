@@ -1,0 +1,11 @@
+[Tests]
+  [taoblmvm]
+    type = CSVDiff
+    max_threads = 1
+    rel_err = 0.01
+    input = main.i
+    csvdiff = main_out_forward0_data_pt_0001.csv
+    # steady solve
+    recover = false
+  []
+[]
