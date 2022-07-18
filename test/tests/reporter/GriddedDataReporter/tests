@@ -1,0 +1,8 @@
+[Tests]
+  [gReporterexo]
+    type = Exodiff
+    input = 'dummy.i'
+    exodiff = 'dummy_out.e'
+    detail = 'diffing the data stored in the GriddedDataReporter'
+  []
+[]
