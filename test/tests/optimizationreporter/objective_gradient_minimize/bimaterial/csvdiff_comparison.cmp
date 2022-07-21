@@ -1,0 +1,5 @@
+GLOBAL VARIABLES relative 5.5e-06 floor 1e-11
+    temperature
+    x
+    y
+    z
