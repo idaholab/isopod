@@ -8,7 +8,6 @@
 //* https://www.gnu.org/licenses/lgpl-2.1.html
 
 #include "PiecewiseMultilinearFromReporter.h"
-#include "GriddedData.h"
 
 registerMooseObject("isopodApp", PiecewiseMultilinearFromReporter);
 
@@ -17,11 +16,10 @@ PiecewiseMultilinearFromReporter::validParams()
 {
   InputParameters params = PiecewiseMultiInterpolationFromReporter::validParams();
   params.addClassDescription(
-      "This is a copy of PiecewiseMultilinear which performs linear interpolation on 1D, 2D, 3D or "
-      "4D "
-      "data, except it is derived from PiecewiseMultiInterpolationFromReporter. If a point lies "
-      "outside the data range, the appropriate end "
-      "value is used.");
+      "This is a copy of PiecewiseMultilinear except it uses a GriddedDataReporter to get the grid "
+      "data.  It performs linear interpolation on 1D, 2D, "
+      "3D or 4D data, except it is derived from PiecewiseMultiInterpolationFromReporter. If a "
+      "point lies outside the data range, the appropriate end value is used.");
   params.addParam<Real>(
       "epsilon", 1e-12, "Finite differencing parameter for gradient and time derivative");
   return params;
@@ -92,7 +90,7 @@ PiecewiseMultilinearFromReporter::sampleInternal(const MooseADWrapper<GridPoint,
           // unusual "end condition" case. weight by 0.5 because we will encounter this twice
           weight *= 0.5;
       }
-    f += _gridded_data->evaluateFcn(arg) * weight;
+    f += evaluateFcn(arg) * weight;
   }
 
   /*
