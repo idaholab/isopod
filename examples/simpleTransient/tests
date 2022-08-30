@@ -15,10 +15,10 @@
       detail = 'only forward solve;'
     []
     [gradient]
-      type = JSONDiff
+      type = SchemaDiff
       input = main_gradient.i
       cli_args = 'Outputs/out/execute_system_information_on=none'
-      jsondiff = main_gradient_out.json
+      schemadiff = main_gradient_out.json
       rel_err = 1e-4
       heavy = true
       method = OPT
