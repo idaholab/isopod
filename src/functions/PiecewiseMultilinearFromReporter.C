@@ -133,3 +133,9 @@ PiecewiseMultilinearFromReporter::timeDerivative(Real t, const Point & p) const
   return (sample(pointInGrid<false>(t + _epsilon, p)) - sample(pointInGrid<false>(t, p))) /
          _epsilon;
 }
+
+std::vector<Real>
+PiecewiseMultilinearFromReporter::parameterGradient(Real /*t*/, const Point & /*p*/) const
+{
+  mooseError("parameterGradient needs to be implemented");
+}

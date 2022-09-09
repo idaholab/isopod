@@ -12,7 +12,7 @@
 InputParameters
 PiecewiseMultiInterpolationFromReporter::validParams()
 {
-  InputParameters params = Function::validParams();
+  InputParameters params = OptimizationFunction::validParams();
 
   params.addClassDescription(
       "This is very similar to PiecewiseMultiInterpolation.  However, it uses a "
@@ -41,7 +41,7 @@ PiecewiseMultiInterpolationFromReporter::validParams()
 
 PiecewiseMultiInterpolationFromReporter::PiecewiseMultiInterpolationFromReporter(
     const InputParameters & parameters)
-  : Function(parameters),
+  : OptimizationFunction(parameters),
     ReporterInterface(this),
     _grid(getReporterValue<std::vector<std::vector<Real>>>("grid_name", REPORTER_MODE_REPLICATED)),
     _axes(getReporterValue<std::vector<int>>("axes_name", REPORTER_MODE_REPLICATED)),
@@ -142,8 +142,8 @@ PiecewiseMultiInterpolationFromReporter::initialSetup()
                "your GriddedDataReporter file.");
 }
 
-Real
-PiecewiseMultiInterpolationFromReporter::evaluateFcn(const GridIndex & ijk) const
+unsigned int
+PiecewiseMultiInterpolationFromReporter::getIndex(const GridIndex & ijk) const
 {
   unsigned int gridEntries = 1;
   for (unsigned int i = 0; i < _dim; ++i)
@@ -168,5 +168,17 @@ PiecewiseMultiInterpolationFromReporter::evaluateFcn(const GridIndex & ijk) cons
                " of function, but it contains only ",
                _values.size(),
                " entries");
-  return _values[index];
+  return index;
+}
+
+Real
+PiecewiseMultiInterpolationFromReporter::evaluateFcn(const GridIndex & ijk) const
+{
+  return _values[getIndex(ijk)];
+}
+
+std::vector<Real>
+PiecewiseMultiInterpolationFromReporter::parameterGradient(Real /*t*/, const Point & /*p*/) const
+{
+  mooseError("parameterGradient needs to be implemented");
 }

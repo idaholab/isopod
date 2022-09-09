@@ -33,6 +33,8 @@ public:
   virtual RealGradient gradient(Real t, const Point & p) const override;
   virtual Real timeDerivative(Real t, const Point & p) const override;
 
+  virtual std::vector<Real> parameterGradient(Real t, const Point & p) const override;
+
 protected:
   virtual Real sample(const GridPoint & pt) const override;
   virtual ADReal sample(const ADGridPoint & pt) const override;
