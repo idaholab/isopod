@@ -31,14 +31,22 @@
   [from_forward]
     type = MultiAppReporterTransfer
     from_multi_app = forward
-    from_reporters = 'measured_data/misfit_values measured_data/simulation_values'
-    to_reporters = 'OptimizationReporter/misfit_values OptimizationReporter/simulation_values'
+    from_reporters = 'measured_data/misfit_values
+                      measured_data/simulation_values
+                      measured_data/measurement_values
+                      measured_data/measurement_time'
+    to_reporters = 'OptimizationReporter/misfit_values
+                      OptimizationReporter/simulation_values
+                      OptimizationReporter/measurement_values
+                      OptimizationReporter/measurement_time'
   []
   [to_adjoint]
     type = MultiAppReporterTransfer
     to_multi_app = adjoint
-    from_reporters = 'OptimizationReporter/source OptimizationReporter/misfit_values'
-    to_reporters = 'src_values/values measured_data/misfit_values'
+    from_reporters = 'OptimizationReporter/source
+                      OptimizationReporter/misfit_values'
+    to_reporters = 'src_values/values
+                      measured_data/misfit_values'
   []
   [from_adjoint]
     type = MultiAppReporterTransfer
@@ -52,13 +60,16 @@
   type = Optimize
   solve_on = none
   tao_solver = taolmvm
-  petsc_options_iname='-tao_gatol -tao_ls_type'
-  petsc_options_value='1e-3 unit'
+   petsc_options_iname='-tao_gatol -tao_ls_type'
+   petsc_options_value='2e-4 unit'
+#  petsc_options_iname='-tao_gatol -tao_ls_type -tao_test_gradient'
+#  petsc_options_value='1e-3 unit true'
   verbose = true
 []
 
 [Outputs]
   [out]
+    execute_system_information_on=none
     type = JSON
   []
 []

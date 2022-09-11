@@ -76,6 +76,7 @@
     coord_y = src_values/coordy
     time = src_values/time
     value = src_values/values
+    time_shift_factor = 0.5
   []
 []
 
@@ -97,6 +98,9 @@
   solve_type = NEWTON
   petsc_options_iname = '-pc_type -pc_hypre_type'
   petsc_options_value = 'hypre boomeramg'
+  [TimeIntegrator]
+    type = ImplicitEuler
+  []
 []
 
 [Outputs]
