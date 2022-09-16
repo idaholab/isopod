@@ -5,14 +5,14 @@
   type = ObjectiveGradientMinimize
 
   parameter_names = 'source'
-  num_values = '24'
+  num_values = '40'
 []
 
 [Executioner]
   type = Optimize
   # tao_solver = taolmvm
-  # petsc_options_iname='-tao_gatol'
-  # petsc_options_value='1e-3'
+  # petsc_options_iname='-tao_gatol -tao_ls_type'
+  # petsc_options_value='1e-1 unit'
 
   tao_solver = taonls
   petsc_options_iname = '-tao_gttol -tao_nls_pc_type -tao_nls_ksp_type'
@@ -28,17 +28,17 @@
 [MultiApps]
   [forward]
     type = OptimizeFullSolveMultiApp
-    input_files = forward.i
+    input_files = forward_const.i
     execute_on = FORWARD
   []
   [adjoint]
     type = OptimizeFullSolveMultiApp
-    input_files = adjoint.i
+    input_files = adjoint_const.i
     execute_on = ADJOINT
   []
   [homogeneous_forward]
     type = OptimizeFullSolveMultiApp
-    input_files = forward.i
+    input_files = forward_const.i
     execute_on = "HOMOGENEOUS_FORWARD"
   []
 []
@@ -95,7 +95,6 @@
                       OptimizationReporter/measurement_values
                       OptimizationReporter/measurement_time'
   []
-
 []
 
 [Outputs]

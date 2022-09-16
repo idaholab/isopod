@@ -2,16 +2,33 @@
   [Steady]
     design = 'VectorNearestPointFunction.md'
     issues = '#52'
-    [hessian]
+    requirement = 'The system shall be able to perform hessian based steady '
+                  'state force-inversion optimization for a body force function given by '
+    [linear]
       type = CSVDiff
       input = main.i
-      csvdiff = main_out_OptimizationReporter_0001.csv
+      csvdiff = 'main_out_forward0_line1_0001.csv main_out_forward0_line2_0001.csv'
       abs_zero = 0.01
       rel_err = 0.01
       max_threads = 1
       # steady solve
       recover = false
-      requirement = 'The system shall be able to perform hessian based steady state force-inversion optimization for a body force described by the VectorNearestPointFunction'
+      detail = 'a PiecewiseMultilinearFromReporter'
+      heavy = true
+      valgrind = none
+    []
+    [constant]
+      type = CSVDiff
+      input = main_const.i
+      csvdiff = 'main_const_out_forward0_line1_0001.csv main_const_out_forward0_line2_0001.csv'
+      abs_zero = 0.01
+      rel_err = 0.01
+      max_threads = 1
+      # steady solve
+      recover = false
+      detail = 'a PiecewiseMulticonstantFromReporter'
+      heavy = true
+      valgrind = none
     []
   []
 []

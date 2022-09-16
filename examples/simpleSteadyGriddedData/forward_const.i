@@ -57,15 +57,9 @@
 []
 
 [Functions]
-  ###----- Function to produce BodyForce for synthetic measurement data
-  # [synthetic]
-  #   type = ParsedFunction
-  #   vars='A1 L1 C1 A2 L2 C2'
-  #   vals='10 1.5 0 -10 2 0'
-  #   value =  'A1*sin(2*pi/L1*(x+C1))*A2*sin(2*pi/L2*(y+C2))'
-  # []
   [source]
-    type = PiecewiseMultilinearFromReporter
+    type = PiecewiseMulticonstantFromReporter
+    direction = 'right right'
     values_name = 'gridData/parameter'
     grid_name = 'gridData/grid'
     axes_name = 'gridData/axes'
@@ -96,18 +90,12 @@
   []
   [gridData]
     type = GriddedDataReporter
-    data_file = 'gridded_source_params.txt'
+    data_file = 'gridded_source_params_const.txt'
     outputs = none
   []
 []
 
 [VectorPostprocessors]
- ###----- VPP produce synthetic measurement data
- # [nodal]
- #   type = NodalValueSampler
- #   sort_by = id
- #   variable = u
- # []
  [line1]
    type = LineValueSampler
    start_point = '0.5 -0.9 0'

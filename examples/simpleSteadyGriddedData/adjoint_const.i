@@ -62,7 +62,7 @@
   []
   [gridData]
     type = GriddedDataReporter
-    data_file = 'gridded_source_params.txt'
+    data_file = 'gridded_source_params_const.txt'
     outputs = none
   []
 []
@@ -81,7 +81,8 @@
 
 [Functions]
   [source]
-    type = PiecewiseMultilinearFromReporter
+    type = PiecewiseMulticonstantFromReporter
+    direction = 'right right'
     values_name = 'gridData/parameter'
     grid_name = 'gridData/grid'
     axes_name = 'gridData/axes'
