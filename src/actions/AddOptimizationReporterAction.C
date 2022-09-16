@@ -14,7 +14,10 @@ AddOptimizationReporterAction::validParams()
   return params;
 }
 
-AddOptimizationReporterAction::AddOptimizationReporterAction(InputParameters params) : MooseObjectAction(params) {}
+AddOptimizationReporterAction::AddOptimizationReporterAction(const InputParameters & params)
+  : MooseObjectAction(params)
+{
+}
 
 void
 AddOptimizationReporterAction::act()
