@@ -44,4 +44,13 @@ protected:
 private:
   template <bool is_ad>
   MooseADWrapper<Real, is_ad> sampleInternal(const MooseADWrapper<GridPoint, is_ad> pt) const;
+  Real getVolume(const GridIndex & left, const GridIndex & right) const;
+
+  template <bool is_ad>
+  void getWeight(unsigned int i,
+                 const MooseADWrapper<GridPoint, is_ad> & pt,
+                 const GridIndex & left,
+                 const GridIndex & right,
+                 MooseADWrapper<Real, is_ad> & weight,
+                 GridIndex & arg) const;
 };

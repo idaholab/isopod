@@ -54,7 +54,7 @@
 [Reporters]
   [measured_data]
     type = OptimizationData
-    measurement_file = syntheticLineData.csv
+    measurement_file = syntheticNodal.csv
     file_xcoord = x
     file_ycoord = y
     file_zcoord = z
@@ -81,8 +81,9 @@
 
 [Functions]
   [source]
-    type = PiecewiseMulticonstantFromReporter
-    direction = 'right right'
+    type = PiecewiseMultilinearFromReporter
+    # type = PiecewiseMulticonstantFromReporter
+    # direction = 'right right'
     values_name = 'gridData/parameter'
     grid_name = 'gridData/grid'
     axes_name = 'gridData/axes'

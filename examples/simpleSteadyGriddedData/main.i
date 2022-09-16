@@ -18,6 +18,10 @@
   petsc_options_iname = '-tao_gttol -tao_nls_pc_type -tao_nls_ksp_type'
   petsc_options_value = '1e-5 none cg'
 
+  # petsc_options = '-tao_test_gradient_view'
+  # petsc_options_iname='-tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_fd_delta -tao_gatol'
+  # petsc_options_value='1 true true false 0.0001 0.0001'
+
   verbose = true
 []
 

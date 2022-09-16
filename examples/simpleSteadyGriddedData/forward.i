@@ -58,8 +58,9 @@
 
 [Functions]
   [source]
-    type = PiecewiseMulticonstantFromReporter
-    direction = 'right right'
+    type = PiecewiseMultilinearFromReporter
+    # type = PiecewiseMulticonstantFromReporter
+    # direction = 'right right'
     values_name = 'gridData/parameter'
     grid_name = 'gridData/grid'
     axes_name = 'gridData/axes'
@@ -79,7 +80,7 @@
 [Reporters]
   [measured_data]
     type = OptimizationData
-    measurement_file = syntheticLineData.csv
+    measurement_file = syntheticNodal.csv
     file_xcoord = x
     file_ycoord = y
     file_zcoord = z
@@ -95,29 +96,35 @@
 
 []
 
-# [VectorPostprocessors]
-#   #----- BEGIN: VPP produce synthetic data
-#   [line1]
-#     type = LineValueSampler
-#     start_point = '0.5 -0.9 0'
-#     end_point = '0.5 1.4 0'
-#     num_points = 5
-#     sort_by = id
-#     variable = u
-#   []
-#   [line2]
-#     type = LineValueSampler
-#     start_point = '-0.5 -0.9 0'
-#     end_point = '-0.5 1.4 0'
-#     num_points = 5
-#     sort_by = id
-#     variable = u
-#   []
-#   #----- END: VPP produce synthetic data
-# []
+[VectorPostprocessors]
+  #----- BEGIN: VPP produce synthetic data
+  [nodal]
+    type = NodalValueSampler
+    sort_by = id
+    variable = u
+  []
+  [line1]
+    type = LineValueSampler
+    start_point = '0.5 -0.9 0'
+    end_point = '0.5 1.4 0'
+    num_points = 5
+    sort_by = id
+    variable = u
+  []
+  [line2]
+    type = LineValueSampler
+    start_point = '-0.5 -0.9 0'
+    end_point = '-0.5 1.4 0'
+    num_points = 5
+    sort_by = id
+    variable = u
+  []
+  #----- END: VPP produce synthetic data
+[]
 
 
 [Outputs]
-  exodus = true
+  # exodus = true
+  # csv = true
   console = false
 []

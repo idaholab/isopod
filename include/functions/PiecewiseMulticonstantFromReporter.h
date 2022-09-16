@@ -46,4 +46,6 @@ protected:
 private:
   /// direction where to look for value if interpolation order is constant
   MultiMooseEnum _direction;
+
+  void getGridIndex(const GridPoint & pt, GridIndex & arg) const;
 };
