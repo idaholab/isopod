@@ -1,26 +1,19 @@
 [Tests]
   [transient]
-    design = 'ObjectiveMinimize.md'
+    design = 'ElementOptimizationSourceFunctionInnerProduct.md VectorPointSource.md'
     issues = '#42'
     requirement = 'The system shall be able to perform force-inversion optimization with time-dependent parameters and outputs with'
-    [gradient]
-      type = JSONDiff
-      input = main_bfgs.i
-      jsondiff = main_bfgs_out.json
-      rel_err = 1e-2
+    [hessian]
+      type = CSVDiff
+      input = main.i
+      csvdiff = main_out_forward0_out.csv
+      rel_err = 1e-3
       abs_zero = 1e-2
       heavy = true
       method = OPT
-      detail = ' bfgs solve;'
-    []
-    [hessian]
-      type = JSONDiff
-      input = main_nls.i
-      jsondiff = main_nls_out.json
-      rel_err = 1e-4
-      heavy = true
-      method = OPT
-      detail = ' nls solve;'
+      recover = false
+      max_threads = 1
+      detail = ' implicit Euler time integration and Hessian based nls solve.'
     []
   []
 []

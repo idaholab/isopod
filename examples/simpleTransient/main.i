@@ -6,6 +6,7 @@
 
   parameter_names = 'source'
   num_values = '44'
+  outputs = none
 []
 
 [MultiApps]
@@ -94,8 +95,4 @@
 []
 
 [Outputs]
-  [out]
-    execute_system_information_on=none
-    type = JSON
-  []
 []

@@ -57,7 +57,7 @@
     coord_y = measured_data/measurement_ycoord
     coord_z = measured_data/measurement_zcoord
     time = measured_data/measurement_time
-    reverse_time_end = 1.01
+    reverse_time_end = 1.05
   []
 []
 
@@ -66,6 +66,7 @@
     type = CSVReader
     csv_file = source_params.csv
     header = true
+    outputs = none
   []
 []
 
@@ -84,19 +85,19 @@
     type = ElementOptimizationSourceFunctionInnerProduct
     variable = u
     function = source
-    reverse_time_end = 1.01
+    reverse_time_end = 1.05
   []
 []
 
 [Executioner]
   type = Transient
 
-  num_steps = 100
+  num_steps = 20
   end_time = 1
 
   solve_type = NEWTON
-  petsc_options_iname = '-pc_type -pc_hypre_type'
-  petsc_options_value = 'hypre boomeramg'
+  petsc_options_iname = '-ksp_type -pc_type -pc_factor_mat_solver_package'
+  petsc_options_value = 'preonly lu       superlu_dist'
   [TimeIntegrator]
     type = ImplicitEuler
   []

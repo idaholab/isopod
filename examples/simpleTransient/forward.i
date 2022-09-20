@@ -21,6 +21,7 @@
     type = CSVReader
     csv_file = source_params.csv
     header = true
+    outputs=none
   []
 []
 
@@ -73,12 +74,11 @@
 
 [Executioner]
   type = Transient
-
-  num_steps = 100
+  num_steps = 20
   end_time = 1
   solve_type = NEWTON
-  petsc_options_iname = '-pc_type -pc_hypre_type'
-  petsc_options_value = 'hypre boomeramg'
+  petsc_options_iname = '-ksp_type -pc_type -pc_factor_mat_solver_package'
+  petsc_options_value = 'preonly lu       superlu_dist'
   [TimeIntegrator]
     type = ImplicitEuler
   []
@@ -95,11 +95,59 @@
     file_value = u
     variable = u
     execute_on = timestep_end
-    outputs = csv
+    outputs = none
+  []
+[]
+
+[Postprocessors]
+  [p0]
+    type = PointValue
+    outputs = 'out'
+    point = '.5 .5 0'
+    variable = u
+  []
+  [p1]
+    type = PointValue
+    outputs = 'out'
+    point = '.5 -.5 0'
+    variable = u
+  []
+  [p2]
+    type = PointValue
+    outputs = 'out'
+    point = '-.5 -.5 0'
+    variable = u
+  []
+  [p3]
+    type = PointValue
+    outputs = 'out'
+    point = '-.5 .5 0'
+    variable = u
+  []
+  [p4]
+    type = PointValue
+    outputs = 'out'
+    point = '.7 -.7 0'
+    variable = u
+  []
+  [p5]
+    type = PointValue
+    outputs = 'out'
+    point = '.4 -.6 0'
+    variable = u
+  []
+  [p6]
+    type = PointValue
+    outputs = 'out'
+    point = '.6 -.4 0'
+    variable = u
   []
 []
 
 [Outputs]
-  exodus = true
+  exodus = false
   console = false
+  [out]
+    type = CSV
+  []
 []
