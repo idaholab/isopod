@@ -29,9 +29,6 @@ VectorNearestPointFunction::validParams()
       "Vector value containing z-coordinate of points, default is assumed to be all 0s.");
   params.addParam<ReporterName>("time",
                                 "Vector value containing time, default is assumed to be all 0s.");
-  params.addParam<Real>("time_shift_factor",
-                        1.0,
-                        "Fractional split in time step to get the correct parameter gradient");
 
   params.addRequiredParam<ReporterName>("value", "Reporter containing value data.");
   return params;
@@ -44,8 +41,7 @@ VectorNearestPointFunction::VectorNearestPointFunction(const InputParameters & p
     _coordy(isParamValid("coord_y") ? getReporterValue<std::vector<Real>>("coord_y") : _empty_vec),
     _coordz(isParamValid("coord_z") ? getReporterValue<std::vector<Real>>("coord_z") : _empty_vec),
     _coordt(isParamValid("time") ? getReporterValue<std::vector<Real>>("time") : _empty_vec),
-    _values(getReporterValue<std::vector<Real>>("value")),
-    _time_shift_factor(getParam<Real>("time_shift_factor"))
+    _values(getReporterValue<std::vector<Real>>("value"))
 {
 }
 

@@ -57,11 +57,10 @@ void
 ElementOptimizationSourceFunctionInnerProduct::execute()
 {
   const Real at =
-      MooseUtils::absoluteFuzzyEqual(_reverse_time_end, 0.0) ? _t : _reverse_time_end - _t + _dt;
+      MooseUtils::absoluteFuzzyEqual(_reverse_time_end, 0.0) ? _t : _reverse_time_end - _t;
   for (unsigned int qp = 0; qp < _qrule->n_points(); ++qp)
   {
     const std::vector<Real> pg = _function->parameterGradient(at, _q_point[qp]);
-    const std::vector<Real> pg_old = _function->parameterGradient(at - _dt, _q_point[qp]);
     _curr_time_ip->resize(std::max(pg.size(), _curr_time_ip->size()), 0.0);
     for (const auto & i : index_range(pg))
       (*_curr_time_ip)[i] += _JxW[qp] * _coord[qp] * _var[qp] * pg[i];

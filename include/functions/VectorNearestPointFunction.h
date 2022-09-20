@@ -47,8 +47,6 @@ protected:
   const std::vector<Real> & _coordt;
   /// values from reporter
   const std::vector<Real> & _values;
-  /// time-shift factor for gradient
-  const Real & _time_shift_factor;
 
   /// Number of values from coordinate vectors
   mutable std::size_t _nval;

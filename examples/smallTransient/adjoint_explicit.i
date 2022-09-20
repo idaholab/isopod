@@ -2,10 +2,10 @@
   [gmg]
     type = GeneratedMeshGenerator
     dim = 2
-    nx = 10
-    ny = 10
+    nx = 2
     xmin = -1
     xmax = 1
+    ny = 2
     ymin = -1
     ymax = 1
   []
@@ -57,7 +57,7 @@
     coord_y = measured_data/measurement_ycoord
     coord_z = measured_data/measurement_zcoord
     time = measured_data/measurement_time
-    reverse_time_end = 1.01
+    reverse_time_end = 1.0
   []
 []
 
@@ -84,21 +84,17 @@
     type = ElementOptimizationSourceFunctionInnerProduct
     variable = u
     function = source
-    reverse_time_end = 1.01
+    reverse_time_end = 1.0
   []
 []
 
 [Executioner]
   type = Transient
-
-  num_steps = 100
+  num_steps = 2
   end_time = 1
-
-  solve_type = NEWTON
-  petsc_options_iname = '-pc_type -pc_hypre_type'
-  petsc_options_value = 'hypre boomeramg'
+  solve_type = LINEAR
   [TimeIntegrator]
-    type = ImplicitEuler
+    type = ActuallyExplicitEuler
   []
 []
 
