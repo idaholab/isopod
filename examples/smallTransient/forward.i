@@ -2,10 +2,10 @@
   [gmg]
     type = GeneratedMeshGenerator
     dim = 2
-    nx = 10
-    ny = 10
+    nx = 2
     xmin = -1
     xmax = 1
+    ny = 2
     ymin = -1
     ymax = 1
   []
@@ -21,17 +21,8 @@
     type = CSVReader
     csv_file = source_params.csv
     header = true
-    outputs=none
   []
 []
-
-#[ICs]
-#  [initial]
-#    type = FunctionIC
-#    variable = u
-#    function = exact
-#  []
-#[]
 
 [Kernels]
   [dt]
@@ -74,11 +65,12 @@
 
 [Executioner]
   type = Transient
-  num_steps = 20
+
+  num_steps = 2
   end_time = 1
   solve_type = NEWTON
-  petsc_options_iname = '-ksp_type -pc_type -pc_factor_mat_solver_package'
-  petsc_options_value = 'preonly lu       superlu_dist'
+  petsc_options_iname = '-pc_type -pc_hypre_type'
+  petsc_options_value = 'hypre boomeramg'
   [TimeIntegrator]
     type = ImplicitEuler
   []
@@ -95,59 +87,11 @@
     file_value = u
     variable = u
     execute_on = timestep_end
-    outputs = none
-  []
-[]
-
-[Postprocessors]
-  [p0]
-    type = PointValue
-    outputs = 'out'
-    point = '.5 .5 0'
-    variable = u
-  []
-  [p1]
-    type = PointValue
-    outputs = 'out'
-    point = '.5 -.5 0'
-    variable = u
-  []
-  [p2]
-    type = PointValue
-    outputs = 'out'
-    point = '-.5 -.5 0'
-    variable = u
-  []
-  [p3]
-    type = PointValue
-    outputs = 'out'
-    point = '-.5 .5 0'
-    variable = u
-  []
-  [p4]
-    type = PointValue
-    outputs = 'out'
-    point = '.7 -.7 0'
-    variable = u
-  []
-  [p5]
-    type = PointValue
-    outputs = 'out'
-    point = '.4 -.6 0'
-    variable = u
-  []
-  [p6]
-    type = PointValue
-    outputs = 'out'
-    point = '.6 -.4 0'
-    variable = u
+    outputs = csv
   []
 []
 
 [Outputs]
-  exodus = false
+  exodus = true
   console = false
-  [out]
-    type = CSV
-  []
 []

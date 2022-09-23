@@ -21,7 +21,7 @@ ElementOptimizationSourceFunctionInnerProduct::validParams()
   params.addParam<Real>(
       "reverse_time_end",
       0.0,
-      "End time used for reversiing the time integration when evaluating function derivative.");
+      "End time used for reversing the time integration when evaluating function derivative.");
   return params;
 }
 
@@ -57,7 +57,7 @@ void
 ElementOptimizationSourceFunctionInnerProduct::execute()
 {
   const Real at =
-      MooseUtils::absoluteFuzzyEqual(_reverse_time_end, 0.0) ? _t : _reverse_time_end - _t + _dt;
+      MooseUtils::absoluteFuzzyEqual(_reverse_time_end, 0.0) ? _t : _reverse_time_end - _t;
   for (unsigned int qp = 0; qp < _qrule->n_points(); ++qp)
   {
     const std::vector<Real> pg = _function->parameterGradient(at, _q_point[qp]);
@@ -95,14 +95,15 @@ ElementOptimizationSourceFunctionInnerProduct::finalize()
       it.second.resize(nvar);
     _vec.assign(nvar, 0.0);
 
-    // Integrate in time using quadrature rule
+    // Compute the inner product by summing. No quadrature in time since the
+    // goal is to make it consistent with discretize and differentiate approach
+    // as opposed to differentiate then discretize
     std::sort(_time_ip.begin(),
               _time_ip.end(),
               [](const std::pair<Real, std::vector<Real>> & a,
                  const std::pair<Real, std::vector<Real>> & b) { return a.first < b.first; });
-    for (std::size_t ti = 1; ti < _time_ip.size(); ++ti)
+    for (std::size_t ti = 0; ti < _time_ip.size(); ++ti)
       for (const auto & i : make_range(nvar))
-        _vec[i] += (_time_ip[ti].second[i] + _time_ip[ti - 1].second[i]) / 2.0 *
-                   (_time_ip[ti].first - _time_ip[ti - 1].first);
+        _vec[i] += _time_ip[ti].second[i];
   }
 }

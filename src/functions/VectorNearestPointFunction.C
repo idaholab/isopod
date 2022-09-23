@@ -29,6 +29,7 @@ VectorNearestPointFunction::validParams()
       "Vector value containing z-coordinate of points, default is assumed to be all 0s.");
   params.addParam<ReporterName>("time",
                                 "Vector value containing time, default is assumed to be all 0s.");
+
   params.addRequiredParam<ReporterName>("value", "Reporter containing value data.");
   return params;
 }

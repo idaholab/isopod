@@ -16,6 +16,15 @@
   []
 []
 
+[VectorPostprocessors]
+  [src_values]
+    type = CSVReader
+    csv_file = source_params.csv
+    header = true
+    outputs=none
+  []
+[]
+
 [Kernels]
   [dt]
     type = TimeDerivative
@@ -24,6 +33,11 @@
   [diff]
     type = Diffusion
     variable = u
+  []
+  [src]
+    type = BodyForce
+    variable = u
+    function = source
   []
 []
 
@@ -36,41 +50,11 @@
   []
 []
 
-[Reporters]
-  [measured_data]
-    type = OptimizationData
-    measurement_file = mms_data.csv
-    file_xcoord = x
-    file_ycoord = y
-    file_zcoord = z
-    file_time = t
-    file_value = u
-  []
-[]
-
-[DiracKernels]
-  [misfit]
-    type = VectorPointSource
-    variable = u
-    value = measured_data/misfit_values
-    coord_x = measured_data/measurement_xcoord
-    coord_y = measured_data/measurement_ycoord
-    coord_z = measured_data/measurement_zcoord
-    time = measured_data/measurement_time
-    reverse_time_end = 1.05
-  []
-[]
-
-[VectorPostprocessors]
-  [src_values]
-    type = CSVReader
-    csv_file = source_params.csv
-    header = true
-    outputs = none
-  []
-[]
-
 [Functions]
+  [exact]
+    type = ParsedFunction
+    value = '2*exp(-2.0*(x - sin(2*pi*t))^2)*exp(-2.0*(y - cos(2*pi*t))^2)*cos((1/2)*x*pi)*cos((1/2)*y*pi)/pi'
+  []
   [source]
     type = VectorNearestPointFunction
     coord_x = src_values/coordx
@@ -80,21 +64,11 @@
   []
 []
 
-[VectorPostprocessors]
-  [adjoint]
-    type = ElementOptimizationSourceFunctionInnerProduct
-    variable = u
-    function = source
-    reverse_time_end = 1.05
-  []
-[]
-
 [Executioner]
   type = Transient
 
   num_steps = 20
   end_time = 1
-
   solve_type = NEWTON
   petsc_options_iname = '-ksp_type -pc_type -pc_factor_mat_solver_package'
   petsc_options_value = 'preonly lu       superlu_dist'
@@ -103,6 +77,22 @@
   []
 []
 
+[Reporters]
+  [measured_data]
+    type = OptimizationData
+    measurement_file = mms_data.csv
+    file_xcoord = x
+    file_ycoord = y
+    file_zcoord = z
+    file_time = t
+    file_value = u
+    variable = u
+    execute_on = timestep_end
+    outputs = none
+  []
+[]
+
 [Outputs]
+  exodus = false
   console = false
 []

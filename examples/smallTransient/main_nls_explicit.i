@@ -5,24 +5,23 @@
   type = ObjectiveGradientMinimize
 
   parameter_names = 'source'
-  num_values = '44'
-  outputs = none
+  num_values = '2'
 []
 
 [MultiApps]
   [forward]
     type = OptimizeFullSolveMultiApp
-    input_files = forward.i
+    input_files = forward_explicit.i
     execute_on = FORWARD
   []
   [adjoint]
     type = OptimizeFullSolveMultiApp
-    input_files = adjoint.i
+    input_files = adjoint_explicit.i
     execute_on = ADJOINT
   []
   [homogeneous_forward]
     type = OptimizeFullSolveMultiApp
-    input_files = homogeneous_forward.i
+    input_files = homogeneous_forward_explicit.i
     execute_on = HOMOGENEOUS_FORWARD
   []
 []
@@ -95,4 +94,8 @@
 []
 
 [Outputs]
+  [out]
+    execute_system_information_on=none
+    type = JSON
+  []
 []

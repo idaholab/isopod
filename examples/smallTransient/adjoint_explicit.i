@@ -2,10 +2,10 @@
   [gmg]
     type = GeneratedMeshGenerator
     dim = 2
-    nx = 10
-    ny = 10
+    nx = 2
     xmin = -1
     xmax = 1
+    ny = 2
     ymin = -1
     ymax = 1
   []
@@ -57,7 +57,7 @@
     coord_y = measured_data/measurement_ycoord
     coord_z = measured_data/measurement_zcoord
     time = measured_data/measurement_time
-    reverse_time_end = 1.05
+    reverse_time_end = 1.0
   []
 []
 
@@ -66,7 +66,6 @@
     type = CSVReader
     csv_file = source_params.csv
     header = true
-    outputs = none
   []
 []
 
@@ -85,21 +84,17 @@
     type = ElementOptimizationSourceFunctionInnerProduct
     variable = u
     function = source
-    reverse_time_end = 1.05
+    reverse_time_end = 1.0
   []
 []
 
 [Executioner]
   type = Transient
-
-  num_steps = 20
+  num_steps = 2
   end_time = 1
-
-  solve_type = NEWTON
-  petsc_options_iname = '-ksp_type -pc_type -pc_factor_mat_solver_package'
-  petsc_options_value = 'preonly lu       superlu_dist'
+  solve_type = LINEAR
   [TimeIntegrator]
-    type = ImplicitEuler
+    type = ActuallyExplicitEuler
   []
 []
 

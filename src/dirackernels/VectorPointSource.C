@@ -83,7 +83,7 @@ VectorPointSource::addPoints()
 
   _point_to_index.clear();
   const Real at =
-      MooseUtils::absoluteFuzzyEqual(_reverse_time_end, 0.0) ? _t : _reverse_time_end - _t + _dt;
+      MooseUtils::absoluteFuzzyEqual(_reverse_time_end, 0.0) ? _t : _reverse_time_end - _t;
   unsigned int id = 0;
   for (const auto & i : make_range(nval))
     if (_coordt.empty() || MooseUtils::absoluteFuzzyEqual(at, _coordt[i]))

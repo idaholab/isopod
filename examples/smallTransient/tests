@@ -1,0 +1,45 @@
+[Tests]
+  [transient]
+    design = 'ElementOptimizationSourceFunctionInnerProduct.md VectorPointSource.md'
+    issues = '#42'
+    requirement = 'The system shall be able to perform force-inversion optimization with time-dependent parameters and outputs with'
+    [gradient]
+      type = JSONDiff
+      input = main_bfgs.i
+      jsondiff = main_bfgs_out.json
+      rel_err = 1e-2
+      abs_zero = 1e-2
+      recover = false
+      max_threads = 1
+      detail = ' implicit Euler time integration and gradient based bfgs solve;'
+    []
+    [hessian]
+      type = JSONDiff
+      input = main_nls.i
+      jsondiff = main_nls_out.json
+      rel_err = 1e-4
+      recover = false
+      max_threads = 1
+      detail = ' implicit Euler time integration and Hessian based nls solve;'
+    []
+    [gradient_explicit_Euler]
+      type = JSONDiff
+      input = main_bfgs_explicit.i
+      jsondiff = main_bfgs_explicit_out.json
+      rel_err = 1e-2
+      abs_zero = 1e-2
+      recover = false
+      max_threads = 1
+      detail = ' explicit Euler time integration and gradient based bfgs solve;'
+    []
+    [hessian_explicit_Euler]
+      type = JSONDiff
+      input = main_nls_explicit.i
+      jsondiff = main_nls_explicit_out.json
+      rel_err = 1e-4
+      recover = false
+      max_threads = 1
+      detail = ' explicit Euler time integration and Hessian based nls solve;'
+    []
+  []
+[]

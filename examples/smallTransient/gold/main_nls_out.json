@@ -1,0 +1,89 @@
+{
+    "reporters": {
+        "OptimizationReporter": {
+            "type": "ObjectiveGradientMinimize",
+            "values": {
+                "adjoint": {
+                    "type": "std::vector<double>"
+                },
+                "measurement_time": {
+                    "type": "std::vector<double>"
+                },
+                "measurement_values": {
+                    "type": "std::vector<double>"
+                },
+                "measurement_xcoord": {
+                    "type": "std::vector<double>"
+                },
+                "measurement_ycoord": {
+                    "type": "std::vector<double>"
+                },
+                "measurement_zcoord": {
+                    "type": "std::vector<double>"
+                },
+                "misfit_values": {
+                    "type": "std::vector<double>"
+                },
+                "simulation_values": {
+                    "type": "std::vector<double>"
+                },
+                "source": {
+                    "type": "std::vector<double>"
+                }
+            }
+        }
+    },
+    "time_steps": [
+        {
+            "OptimizationReporter": {
+                "adjoint": [],
+                "measurement_time": [],
+                "measurement_values": [],
+                "measurement_xcoord": [],
+                "measurement_ycoord": [],
+                "measurement_zcoord": [],
+                "misfit_values": [],
+                "simulation_values": [],
+                "source": [
+                    0.0,
+                    0.0
+                ]
+            },
+            "time": 0.0,
+            "time_step": 0
+        },
+        {
+            "OptimizationReporter": {
+                "adjoint": [
+                    -1.1465437974034208e-17,
+                    1.561251128379126e-17
+                ],
+                "measurement_time": [
+                    0.5,
+                    1.0
+                ],
+                "measurement_values": [
+                    0.0,
+                    0.3
+                ],
+                "measurement_xcoord": [],
+                "measurement_ycoord": [],
+                "measurement_zcoord": [],
+                "misfit_values": [
+                    -5.464378949326941e-17,
+                    5.551115123125783e-17
+                ],
+                "simulation_values": [
+                    -5.464378949326941e-17,
+                    0.30000000000000004
+                ],
+                "source": [
+                    -1.942890293094024e-16,
+                    1.0666666666666669
+                ]
+            },
+            "time": 1.0,
+            "time_step": 1
+        }
+    ]
+}
