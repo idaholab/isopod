@@ -67,9 +67,9 @@ protected:
   /// Number of parameter vectors
   const unsigned int _nparam;
   /// Number of values for each parameter
-  const std::vector<dof_id_type> & _nvalues;
+  std::vector<dof_id_type> _nvalues;
   /// Total number of parameters
-  const dof_id_type _ndof;
+  dof_id_type _ndof;
 
   /// Parameter values declared as reporter data
   std::vector<std::vector<Real> *> _parameters;
@@ -84,6 +84,8 @@ protected:
    */
   Real computeObjective();
 
+  void readParametersFromInput();
+  void readParametersFromFile();
   /**
    * Function to set parameters.
    * This is the first function called in objective/gradient/hessian routine

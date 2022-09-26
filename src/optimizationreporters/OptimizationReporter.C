@@ -1,4 +1,7 @@
 #include "OptimizationReporter.h"
+#include "GriddedData.h"
+
+//registerMooseObject("isopodApp", OptimizationReporter);
 
 // this is a base class but is only called in a testing input file
 registerMooseObject("isopodTestApp", OptimizationReporter);
@@ -10,11 +13,14 @@ OptimizationReporter::validParams()
   params.addClassDescription("Base class for optimization reporter communication.");
   params.addRequiredParam<std::vector<ReporterValueName>>(
       "parameter_names", "List of parameter names, one for each group of parameters.");
-  params.addRequiredParam<std::vector<dof_id_type>>(
+  params.addParam<std::vector<dof_id_type>>(
       "num_values",
       "Number of parameter values associated with each parameter group in 'parameter_names'.");
   params.addParam<std::vector<Real>>("initial_condition",
                                      "Initial condition for each parameter values, default is 0.");
+  params.addParam<std::vector<FileName>>("parameter_file_names",
+                                         "file with parameters values and its spatio-temporal "
+                                         "distribution, e.g. (x, y, z, t, value).");
   params.addParam<std::vector<Real>>(
       "lower_bounds", std::vector<Real>(), "Lower bounds for each parameter value.");
   params.addParam<std::vector<Real>>(
@@ -27,12 +33,60 @@ OptimizationReporter::OptimizationReporter(const InputParameters & parameters)
   : OptimizationData(parameters),
     _parameter_names(getParam<std::vector<ReporterValueName>>("parameter_names")),
     _nparam(_parameter_names.size()),
-    _nvalues(getParam<std::vector<dof_id_type>>("num_values")),
-    _ndof(std::accumulate(_nvalues.begin(), _nvalues.end(), 0)),
     _lower_bounds(getParam<std::vector<Real>>("lower_bounds")),
-    _upper_bounds(getParam<std::vector<Real>>("upper_bounds"))
-
+    _upper_bounds(getParam<std::vector<Real>>(
+        "upper_bounds")) // vector since each parameter may have its own upper_bounds
 {
+  if (isParamValid("parameter_file_names")) // this could be more than one file (file for storage modulus
+                                       // and another one for loss modulus)
+    readParametersFromFile();
+  else // if the user input the initial parameters using initial_condition then take them from the
+       // input file.
+    readParametersFromInput();
+}
+void
+OptimizationReporter::readParametersFromFile()
+{
+    /*parse the file of the parameters, unit test it and see if this works*/
+  unsigned int dim;
+  std::vector<int> axes;
+  std::vector<std::vector<Real>> grid;
+  std::vector<Real> fcn;
+  std::vector<unsigned int> step; //are we going to use this anywhere here?
+  std::vector<FileName> file_names;
+  file_names.reserve(_nparam); //initialize the file_names vector, the number of files should be = _nparam
+  _parameters.reserve(_nparam);
+  _nvalues.reserve(_nparam);
+  file_names = getParam<std::vector<FileName>>("parameter_file_names"); // we may have multiple files, one for storage and another one for the loss modulus
+  unsigned int v = 0;
+  // loop over the available files, assignes the values and the girds to the corresponding parameter name.
+  for (size_t i = 0; i < _nparam; ++i)
+  {
+    // initialize
+    dim = 0;
+    axes.resize(0);
+    grid.resize(0);
+    fcn.resize(0);
+    //parse the file
+    GriddedData::parse(dim, axes, grid, fcn, step, file_names[i]);
+    _nvalues[i]=fcn.size();
+    //fill-in the data corresponding to each parameter
+      _parameters.push_back(
+          &declareValueByName<std::vector<Real>>(_parameter_names[i], REPORTER_MODE_REPLICATED));
+      _parameters[i]->assign(fcn.begin() + v,
+                             fcn.begin() + v + _nvalues[i]);
+      v += _nvalues[i];
+  }
+  _ndof = std::accumulate(_nvalues.begin(), _nvalues.end(), 0);
+  _misfit_values.resize(_measurement_values.size(), 0.0);
+}
+
+void
+OptimizationReporter::readParametersFromInput()
+{
+  _nvalues = getParam<std::vector<dof_id_type>>("num_values");
+  _ndof = std::accumulate(_nvalues.begin(), _nvalues.end(), 0);
+  /*parse the input file to take the parameters, unit test it and see if this works*/
   if (_parameter_names.size() != _nvalues.size())
     paramError("num_parameters",
                "There should be a number in 'num_parameters' for each name in 'parameter_names'.");
