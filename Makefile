@@ -43,6 +43,7 @@ SOLID_MECHANICS             := no
 STOCHASTIC_TOOLS            := yes
 TENSOR_MECHANICS            := yes
 XFEM                        := no
+OPTIMIZATION                := yes
 
 include $(MOOSE_DIR)/modules/modules.mk
 ###############################################################################
