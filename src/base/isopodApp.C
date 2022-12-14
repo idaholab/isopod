@@ -4,8 +4,6 @@
 #include "ModulesApp.h"
 #include "MooseSyntax.h"
 
-#include "IsopodAppTypes.h"
-
 InputParameters
 isopodApp::validParams()
 {
@@ -30,10 +28,7 @@ isopodApp::registerAll(Factory & f, ActionFactory & af, Syntax & s)
   Registry::registerObjectsTo(f, {"isopodApp"});
   Registry::registerActionsTo(af, {"isopodApp"});
 
-  auto & syntax = s;
-
-  // Form Function actions
-  registerSyntaxTask("AddOptimizationReporterAction", "OptimizationReporter", "add_reporter");
+  //auto & syntax = s;
 }
 
 void
