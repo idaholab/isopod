@@ -2,21 +2,22 @@
 []
 
 [Variables]
-  [temperature]
+  [adjoint_T]
   []
 []
 
 [Kernels]
   [heat_conduction]
-    type = ADHeatConduction
-    variable = temperature
+    type = MatDiffusion
+    variable = adjoint_T
+    diffusivity = thermal_conductivity
   []
 []
 
 [DiracKernels]
   [pt]
     type = ReporterPointSource
-    variable = temperature
+    variable = adjoint_T
     x_coord_name = misfit/measurement_xcoord
     y_coord_name = misfit/measurement_ycoord
     z_coord_name = misfit/measurement_zcoord
@@ -33,25 +34,25 @@
 [BCs]
   [left]
     type = NeumannBC
-    variable = temperature
+    variable = adjoint_T
     boundary = left
     value = 0
   []
   [right]
     type = NeumannBC
-    variable = temperature
+    variable = adjoint_T
     boundary = right
     value = 0
   []
   [bottom]
     type = DirichletBC
-    variable = temperature
+    variable = adjoint_T
     boundary = bottom
     value = 0
   []
   [top]
     type = DirichletBC
-    variable = temperature
+    variable = adjoint_T
     boundary = top
     value = 0
   []
@@ -74,23 +75,33 @@
   petsc_options_value = 'lu'
 []
 
-[Postprocessors]
-  [adjoint_pt_0]
-    type = SideIntegralVariablePostprocessor
-    variable = temperature
-    boundary = left
+[Functions]
+  [left_function]
+    type = ParsedOptimizationFunction
+    expression = 'a'
+    param_symbol_names = 'a'
+    param_vector_name = 'params_left/vals'
   []
-  [adjoint_pt_1]
-    type = SideIntegralVariablePostprocessor
-    variable = temperature
-    boundary = right
+  [right_function]
+    type = ParsedOptimizationFunction
+    expression = 'a'
+    param_symbol_names = 'a'
+    param_vector_name = 'params_right/vals'
   []
 []
 
 [VectorPostprocessors]
-  [adjoint_pt]
-    type = VectorOfPostprocessors
-    postprocessors = 'adjoint_pt_0 adjoint_pt_1'
+  [grad_bc_left]
+    type = SideOptimizationNeumannFunctionInnerProduct
+    variable = adjoint_T
+    function = left_function
+    boundary = left
+  []
+  [grad_bc_right]
+    type = SideOptimizationNeumannFunctionInnerProduct
+    variable = adjoint_T
+    function = right_function
+    boundary = right
   []
 []
 
