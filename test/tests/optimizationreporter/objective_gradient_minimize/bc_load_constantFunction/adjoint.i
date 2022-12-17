@@ -28,6 +28,16 @@
   [misfit]
     type=OptimizationData
   []
+  [param1]
+    type = ConstantReporter
+    real_vector_names = 'vals'
+    real_vector_values = '0' # Dummy
+  []
+  [param2]
+    type = ConstantReporter
+    real_vector_names = 'vals'
+    real_vector_values = '0' # Dummy
+  []
 []
 
 [BCs]
@@ -76,27 +86,31 @@
 
 [Functions]
   [left_function_deriv_a]
-    type = ParsedFunction
-    value = 1.0
+    type = ParsedOptimizationFunction
+    expression = 'a'
+    param_symbol_names = 'a'
+    param_vector_name = 'param1/vals'
   []
   [right_function_deriv_b]
-    type = ParsedFunction
-    value = 1.0
+    type = ParsedOptimizationFunction
+    expression = 'b'
+    param_symbol_names = 'b'
+    param_vector_name = 'param2/vals'
   []
 []
 
-[Postprocessors]
-  [adjoint_bc_0]
-    type = VariableFunctionSideIntegral
-    boundary = left
+[VectorPostprocessors]
+  [adjoint_bc_left]
+    type = SideOptimizationNeumannFunctionInnerProduct
+    variable = temperature
     function = left_function_deriv_a
-    variable = temperature
+    boundary = left
   []
-  [adjoint_bc_1]
-    type = VariableFunctionSideIntegral
-    boundary = right
-    function = right_function_deriv_b
+  [adjoint_bc_right]
+    type = SideOptimizationNeumannFunctionInnerProduct
     variable = temperature
+    function = right_function_deriv_b
+    boundary = right
   []
 []
 
@@ -106,12 +120,6 @@
     postprocessors = 'adjoint_bc_0 adjoint_bc_1'
    []
  []
-
-[Controls]
-  [adjointReceiver]
-    type = ControlsReceiver
-  []
-[]
 
 [Outputs]
   exodus = true

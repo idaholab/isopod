@@ -8,23 +8,24 @@
 
 [Kernels]
   [heat_conduction]
-    type = ADHeatConduction
+    type = MatDiffusion
     variable = temperature
+    diffusivity = thermal_conductivity
   []
 []
 
 [BCs]
   [left]
-    type = NeumannBC
+    type = FunctionNeumannBC
     variable = temperature
     boundary = left
-    value = 0
+    function = left_function
   []
   [right]
-    type = NeumannBC
+    type = FunctionNeumannBC
     variable = temperature
     boundary = right
-    value = 0
+    function = right_function
   []
   [bottom]
     type = DirichletBC
@@ -37,6 +38,21 @@
     variable = temperature
     boundary = top
     value = 100
+  []
+[]
+
+[Functions]
+  [left_function]
+    type = ParsedOptimizationFunction
+    expression = 'a'
+    param_symbol_names = 'a'
+    param_vector_name = 'params_left/vals'
+  []
+  [right_function]
+    type = ParsedOptimizationFunction
+    expression = 'a'
+    param_symbol_names = 'a'
+    param_vector_name = 'params_right/vals'
   []
 []
 
@@ -67,13 +83,18 @@
 
 [Reporters]
   [measure_data]
-    type=OptimizationData
+    type = OptimizationData
+    variable = temperature
   []
-[]
-
-[Controls]
-  [parameterReceiver]
-    type = ControlsReceiver
+  [params_left]
+    type = ConstantReporter
+    real_vector_names = 'vals'
+    real_vector_values = '0 0' # Dummy
+  []
+  [params_right]
+    type = ConstantReporter
+    real_vector_names = 'vals'
+    real_vector_values = '0' # Dummy
   []
 []
 

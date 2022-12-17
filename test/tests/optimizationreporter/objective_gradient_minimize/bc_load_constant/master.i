@@ -1,4 +1,4 @@
-[StochasticTools]
+[Optimization]
 []
 
 [Mesh]
@@ -34,13 +34,13 @@
 
 [MultiApps]
   [forward]
-    type = OptimizeFullSolveMultiApp
+    type = FullSolveMultiApp
     input_files = forward.i
     execute_on = "FORWARD"
     clone_master_mesh = true
   []
   [adjoint]
-    type = OptimizeFullSolveMultiApp
+    type = FullSolveMultiApp
     input_files = adjoint.i
     execute_on = "ADJOINT"
     clone_master_mesh = true
@@ -48,51 +48,59 @@
 []
 
 [Transfers]
-  #these are usually the same for all input files.
+    [toForward]
+      type = MultiAppReporterTransfer
+      to_multi_app = forward
+      from_reporters = 'OptimizationReporter/measurement_xcoord
+                        OptimizationReporter/measurement_ycoord
+                        OptimizationReporter/measurement_zcoord
+                        OptimizationReporter/measurement_time
+                        OptimizationReporter/measurement_values
+                        OptimizationReporter/bc_left
+                        OptimizationReporter/bc_right'
+      to_reporters = 'measure_data/measurement_xcoord
+                      measure_data/measurement_ycoord
+                      measure_data/measurement_zcoord
+                      measure_data/measurement_time
+                      measure_data/measurement_values
+                      params_left/vals
+                      params_right/vals'
+    []
     [fromForward]
       type = MultiAppReporterTransfer
       from_multi_app = forward
-      from_reporters = 'data_pt/temperature data_pt/temperature'
-      to_reporters = 'OptimizationReporter/simulation_values receiver/measured'
+      from_reporters = 'measure_data/simulation_values'
+      to_reporters = 'OptimizationReporter/simulation_values'
     []
     [toAdjoint]
       type = MultiAppReporterTransfer
       to_multi_app = adjoint
-      from_reporters = 'OptimizationReporter/measurement_xcoord OptimizationReporter/measurement_ycoord OptimizationReporter/measurement_zcoord OptimizationReporter/misfit_values'
-      to_reporters = 'misfit/measurement_xcoord misfit/measurement_ycoord misfit/measurement_zcoord misfit/misfit_values'
+      from_reporters = 'OptimizationReporter/measurement_xcoord
+                        OptimizationReporter/measurement_ycoord
+                        OptimizationReporter/measurement_zcoord
+                        OptimizationReporter/measurement_time
+                        OptimizationReporter/misfit_values
+                        OptimizationReporter/bc_left
+                        OptimizationReporter/bc_right'
+      to_reporters = 'misfit/measurement_xcoord
+                      misfit/measurement_ycoord
+                      misfit/measurement_zcoord
+                      misfit/measurement_time
+                      misfit/misfit_values
+                      params_left/vals
+                      params_right/vals'
     []
-    [toForward_measument]
+    [fromadjoint]
       type = MultiAppReporterTransfer
-      to_multi_app = forward
-      from_reporters = 'OptimizationReporter/measurement_xcoord OptimizationReporter/measurement_ycoord OptimizationReporter/measurement_zcoord'
-      to_reporters = 'measure_data/measurement_xcoord measure_data/measurement_ycoord measure_data/measurement_zcoord'
+      from_multi_app = adjoint
+      from_reporters = 'grad_bc_left/inner_product
+                        grad_bc_right/inner_product'
+      to_reporters = 'OptimizationReporter/grad_wrt_bc_left
+                      OptimizationReporter/grad_wrt_bc_right'
     []
-  #these are different,
-  # - to forward depends on teh parameter being changed
-  # - from adjoint depends on the gradient being computed from the adjoint
-  #NOTE:  the adjoint variable we are transferring is actually the gradient
-
-  [toForward]
-    type = OptimizationParameterTransfer
-    to_multi_app = forward
-    value_names = 'bc_left bc_right'
-    parameters = 'BCs/left/value BCs/right/value'
-    to_control = parameterReceiver
-  []
-  [fromAdjoint]
-    type = MultiAppReporterTransfer
-    from_multi_app = adjoint
-    from_reporters = 'adjoint_pt/adjoint_pt'
-    to_reporters = 'OptimizationReporter/adjoint'
-  []
 []
 
 [Reporters]
-  [receiver]
-    type = ConstantReporter
-    real_vector_names = measured
-    real_vector_values = '0'
-  []
   [optInfo]
     type = OptimizationInfo
     items = 'gnorm function_value'
