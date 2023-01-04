@@ -9,21 +9,23 @@
 []
 
 [Variables]
-  [temperature]
+  [adjointVar]
   []
 []
 
 [Kernels]
   [heat_conduction]
-    type = ADHeatConduction
-    variable = temperature
+    type = MatDiffusion
+    variable = adjointVar
+    diffusivity = thermal_conductivity
   []
 []
 
+#-----every adjoint problem should have these two
 [DiracKernels]
   [pt]
     type = ReporterPointSource
-    variable = temperature
+    variable = adjointVar
     x_coord_name = misfit/measurement_xcoord
     y_coord_name = misfit/measurement_ycoord
     z_coord_name = misfit/measurement_zcoord
@@ -36,29 +38,30 @@
     type=OptimizationData
   []
 []
+#---------------------------------------------------
 
 [BCs]
   [left]
     type = NeumannBC
-    variable = temperature
+    variable = adjointVar
     boundary = left
     value = 0
   []
   [right]
     type = DirichletBC
-    variable = temperature
+    variable = adjointVar
     boundary = right
     value = 0
   []
   [bottom]
     type = DirichletBC
-    variable = temperature
+    variable = adjointVar
     boundary = bottom
     value = 0
   []
   [top]
     type = DirichletBC
-    variable = temperature
+    variable = adjointVar
     boundary = top
     value = 0
   []
@@ -66,19 +69,15 @@
 
 [Materials]
   [steel]
-    type = ADGenericConstantMaterial
+    type = GenericConstantMaterial
     prop_names = thermal_conductivity
     prop_values = 5
   []
 []
 
-[Problem]#do we need this
-  type = FEProblem
-[]
-
 [Executioner]
   type = Steady
-  solve_type = PJFNK
+  solve_type = NEWTON
   nl_abs_tol = 1e-6
   nl_rel_tol = 1e-8
   petsc_options_iname = '-pc_type'
@@ -86,12 +85,12 @@
 []
 
 [VectorPostprocessors]
-  [data_pt]
+  [gradient]
     type = PointValueSampler
     points = '0.2 0.2 0
               0.2 0.8 0
               0.8 0.2 0'
-    variable = temperature
+    variable = adjointVar
     sort_by = id
   []
 []

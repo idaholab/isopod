@@ -14,8 +14,9 @@
 
 [Kernels]
   [heat_conduction]
-    type = ADHeatConduction
+    type = MatDiffusion
     variable = temperature
+    diffusivity = thermal_conductivity
   []
 []
 
@@ -59,7 +60,7 @@
 
 [Materials]
   [steel]
-    type = ADGenericConstantMaterial
+    type = GenericConstantMaterial
     prop_names = thermal_conductivity
     prop_values = 5
   []
@@ -67,7 +68,7 @@
 
 [Executioner]
   type = Steady
-  solve_type = PJFNK
+  solve_type = NEWTON
   nl_abs_tol = 1e-6
   nl_rel_tol = 1e-8
   petsc_options_iname = '-pc_type'
@@ -81,21 +82,16 @@
     value = '0.2 0.2 0.8; 0.2 0.8 0.2; 0 0 0; -2458 7257 26335'
     execute_on = LINEAR
   []
-  [data_pt]
-    type = VppPointValueSampler
-    variable = temperature
-    reporter_name = measure_data
-  []
 []
 
 [Reporters]
   [measure_data]
     type=OptimizationData
+    variable = temperature
   []
 []
 
 [Outputs]
   console = false
-  exodus = false
   file_base = 'forward'
 []
