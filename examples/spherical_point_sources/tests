@@ -1,0 +1,15 @@
+[Tests]
+  issues = '#61'
+  design = 'OptimizationReporter.md'
+  [grad]
+    requirement = "The system shall be able to scale point loads to match a specified temeprature field."
+    type = CSVDiff
+    rel_err = 1e-4
+    input = main.i
+    csvdiff = main_out_measured_0001.csv
+    method = opt
+    max_threads = 1
+    # steady solve
+    recover = false
+  []
+[]
