@@ -10,50 +10,55 @@
 []
 
 [Variables]
-  [temperature]
+  [adjointVar]
   []
 []
 
 [Kernels]
   [heat_conduction]
     type = ADHeatConduction
-    variable = temperature
+    variable = adjointVar
   []
 []
 
+[Reporters]
+  [misfit]
+    type = OptimizationData
+  []
+[]
 [DiracKernels]
-  [a]
+  [measurementPts]
     type = ReporterPointSource
-    variable = temperature
-    x_coord_name = point_source/x
-    y_coord_name = point_source/y
-    z_coord_name = point_source/z
-    value_name = point_source/value
+    variable = adjointVar
+    x_coord_name = misfit/measurement_xcoord
+    y_coord_name = misfit/measurement_ycoord
+    z_coord_name = misfit/measurement_zcoord
+    value_name = misfit/misfit_values
   []
 []
 
 [BCs]
   [left]
     type = DirichletBC
-    variable = temperature
+    variable = adjointVar
     boundary = left
     value = 0
   []
   [right]
     type = DirichletBC
-    variable = temperature
+    variable = adjointVar
     boundary = right
     value = 0
   []
   [bottom]
     type = DirichletBC
-    variable = temperature
+    variable = adjointVar
     boundary = bottom
     value = 0
   []
   [top]
     type = DirichletBC
-    variable = temperature
+    variable = adjointVar
     boundary = top
     value = 0
   []
@@ -77,28 +82,9 @@
 []
 
 [VectorPostprocessors]
-  [point_source]
-    type = ParConstantVectorPostprocessor
-    vector_names = 'x y z value'
-    value = '0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5
-             0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9 0.9
-             0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1 0.1;
-
-             0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
-             0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9
-             0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9;
-
-             0   0   0   0   0   0   0   0   0
-             0   0   0   0   0   0   0   0   0
-             0   0   0   0   0   0   0   0   0;
-
-             7.5 7.5 7.5 7.5 7.5 7.5 7.5 7.5 7.5
-             7.5 7.5 7.5 7.5 7.5 7.5 7.5 7.5 7.5
-             7.5 7.5 7.5 7.5 7.5 7.5 7.5 7.5 7.5'
-  []
-  [ar]
+  [gradient]
     type = PointValueSampler
-    variable = temperature
+    variable = adjointVar
     points = '0.3 0.8 0
               0.3 0.6 0
               0.3 0.4 0
@@ -113,6 +99,6 @@
 
 [Outputs]
   console = false
-  exodus = true
+  exodus = false
   file_base = 'adjoint'
 []

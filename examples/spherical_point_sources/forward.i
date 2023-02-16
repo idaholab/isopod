@@ -3,12 +3,6 @@
     type = FileMeshGenerator
     file = halfSphere.e
   []
-  [patch]
-    type = PatchSidesetGenerator
-    boundary = 2
-    n_patches = 10
-    input = fmg
-  []
 []
 
 [Variables]
@@ -66,17 +60,13 @@
   []
 []
 
-[Problem]#do we need this
-  type = FEProblem
-[]
-
 [Executioner]
   type = Steady
-  solve_type = PJFNK
+  solve_type = NEWTON
   nl_abs_tol = 1e-6
   nl_rel_tol = 1e-8
-  petsc_options_iname = '-pc_type -pc_hypre_type'
-  petsc_options_value = 'hypre boomeramg'
+  petsc_options_iname = '-pc_type'
+  petsc_options_value = 'lu'
 []
 
 [VectorPostprocessors]
@@ -89,23 +79,17 @@
              100 150  300  250  150'
     execute_on = LINEAR
   []
-  #-----every forward problem should have these two
-  [data_pt]
-    type = VppPointValueSampler
-    variable = temperature
-    reporter_name = measure_data
-  []
 []
-
 [Reporters]
   [measure_data]
     type=OptimizationData
+    variable = temperature
   []
 []
 
 [Outputs]
-  console = true #false
-  exodus = true
-  csv = true
+  console = false
+  exodus = false
+  csv = false
   file_base = 'forward'
 []

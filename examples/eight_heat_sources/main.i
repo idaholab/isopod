@@ -4,18 +4,16 @@
 [OptimizationReporter]
   type = OptimizationReporter
   parameter_names = 'parameter_results'
-  num_values = '3'
-  measurement_points = '0.0 0.3 0
-            0.0 0.5 0
-            0.0 1.0 0'
-  measurement_values = '100 200 300'
+  num_values = '8'
+  measurement_file = 'measurementData.csv'
+  file_value = 'temperature'
 []
 
 [Executioner]
   type = Optimize
   tao_solver = taolmvm
-  petsc_options_iname = '-tao_gatol -tao_ls_type'
-  petsc_options_value = '1e-4 unit'
+  petsc_options_iname = '-tao_gatol'
+  petsc_options_value = '1e-2'
   verbose = true
 []
 
@@ -33,7 +31,7 @@
 []
 
 [Transfers]
-  [toForward]
+  [toForward_measument]
     type = MultiAppReporterTransfer
     to_multi_app = forward
     from_reporters = 'OptimizationReporter/measurement_xcoord
@@ -55,8 +53,9 @@
     from_reporters = 'measure_data/simulation_values
                       measure_data/simulation_values'
     to_reporters = 'OptimizationReporter/simulation_values
-                    receiver/measured'
+                    measured/values'
   []
+  # ADJOINT transfers
   [toAdjoint]
     type = MultiAppReporterTransfer
     to_multi_app = adjoint
@@ -71,7 +70,7 @@
                     misfit/measurement_time
                     misfit/misfit_values'
   []
-  [fromadjoint]
+  [fromAdjoint]
     type = MultiAppReporterTransfer
     from_multi_app = adjoint
     from_reporters = 'gradient/adjointVar'
@@ -80,14 +79,13 @@
 []
 
 [Reporters]
-  [receiver]
+  [measured]
     type = ConstantReporter
-    real_vector_names = measured
-    real_vector_values = '0 0 0'
+    real_vector_names = values
+    real_vector_values = '0'
   []
 []
 
 [Outputs]
-  console = true
   csv=true
 []
