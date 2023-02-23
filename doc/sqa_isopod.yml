@@ -6,5 +6,5 @@ dependencies:
     - framework
     - heat_conduction
     - tensor_mechanics
-    - stochastic_tools
+    - optimization
 reports: !include doc/sqa_reports.yml

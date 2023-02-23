@@ -1,12 +1,10 @@
 [Mesh]
-  [gen]
-    type = GeneratedMeshGenerator
-    dim = 2
-    nx = 100
-    ny = 100
-    xmax = 1
-    ymax = 1
-  []
+  type = GeneratedMesh
+  dim = 2
+  nx = 10
+  ny = 20
+  xmax = 1
+  ymax = 2
 []
 
 [Variables]
@@ -16,25 +14,26 @@
 
 [Kernels]
   [heat_conduction]
-    type = ADHeatConduction
+    type = MatDiffusion
     variable = temperature
+    diffusivity = thermal_conductivity
   []
 []
 
 [DiracKernels]
-  [ar]
+  [pt]
     type = ReporterPointSource
     variable = temperature
-    x_coord_name = point_source/x
-    y_coord_name = point_source/y
-    z_coord_name = point_source/z
-    value_name = point_source/value
+    x_coord_name = 'point_source/x'
+    y_coord_name = 'point_source/y'
+    z_coord_name = 'point_source/z'
+    value_name = 'point_source/value'
   []
 []
 
 [BCs]
   [left]
-    type = DirichletBC
+    type = NeumannBC
     variable = temperature
     boundary = left
     value = 0
@@ -61,7 +60,7 @@
 
 [Materials]
   [steel]
-    type = ADGenericConstantMaterial
+    type = GenericConstantMaterial
     prop_names = thermal_conductivity
     prop_values = 5
   []
@@ -76,28 +75,23 @@
   petsc_options_value = 'lu'
 []
 
-[Reporters]
-  [measure_data]
-    type = OptimizationData
-    variable = temperature
-  []
-[]
-
-
 [VectorPostprocessors]
   [point_source]
     type = ConstantVectorPostprocessor
     vector_names = 'x y z value'
-    value = '0.3 0.3 0.3 0.3 0.7 0.7 0.7 0.7;
-             0.8 0.6 0.4 0.2 0.8 0.6 0.4 0.2;
-             0   0   0   0   0   0   0   0;
-             0   0   0   0   0   0   0   0'
+    value = '0.2 0.2 0.8; 0.2 0.8 0.2; 0 0 0; -2458 7257 26335'
     execute_on = LINEAR
+  []
+[]
+
+[Reporters]
+  [measure_data]
+    type=OptimizationData
+    variable = temperature
   []
 []
 
 [Outputs]
   console = false
-  exodus = false
   file_base = 'forward'
 []

@@ -6,7 +6,7 @@
 []
 
 [Variables]
-  [temperature]
+  [adjointVar]
   []
 []
 
@@ -20,7 +20,7 @@
 [Kernels]
   [heat_conduction]
     type = ADHeatConduction
-    variable = temperature
+    variable = adjointVar
     save_in = saved_t
   []
 []
@@ -29,7 +29,7 @@
 [DiracKernels]
   [pt]
     type = ReporterPointSource
-    variable = temperature
+    variable = adjointVar
     x_coord_name = misfit/measurement_xcoord
     y_coord_name = misfit/measurement_ycoord
     z_coord_name = misfit/measurement_zcoord
@@ -47,13 +47,13 @@
   [round]
     type = ConvectiveFluxFunction
     boundary = round
-    variable = temperature
+    variable = adjointVar
     coefficient = 0.05
     T_infinity = 0.0
   []
   [flat]
     type = NeumannBC
-    variable = temperature
+    variable = adjointVar
     boundary = flat
     value = 0
   []
@@ -69,17 +69,17 @@
 
 [Executioner]
   type = Steady
-  solve_type = PJFNK
+  solve_type = NEWTON
   nl_abs_tol = 1e-6
   nl_rel_tol = 1e-8
-  petsc_options_iname = '-pc_type -pc_hypre_type'
-  petsc_options_value = 'hypre boomeramg'
+  petsc_options_iname = '-pc_type'
+  petsc_options_value = 'lu'
 []
 
 [VectorPostprocessors]
   [data_pt]
     type = PointValueSampler
-    variable = temperature
+    variable = adjointVar
     points = '4 0 0
               2 2 2
               2 -2 2
@@ -90,7 +90,7 @@
 []
 
 [Outputs]
-  console = true
-  exodus = true
+  console = false
+  exodus = false
   file_base = 'adjoint'
 []
