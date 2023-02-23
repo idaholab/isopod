@@ -4,15 +4,11 @@
 #include "ModulesApp.h"
 #include "MooseSyntax.h"
 
-#include "IsopodAppTypes.h"
-
 InputParameters
 isopodApp::validParams()
 {
   InputParameters params = MooseApp::validParams();
-
   params.set<bool>("use_legacy_material_output") = false;
-
   return params;
 }
 
@@ -24,16 +20,13 @@ isopodApp::isopodApp(InputParameters parameters) : MooseApp(parameters)
 isopodApp::~isopodApp() {}
 
 void
-isopodApp::registerAll(Factory & f, ActionFactory & af, Syntax & s)
+isopodApp::registerAll(Factory & f, ActionFactory & af, Syntax & syntax)
 {
-  ModulesApp::registerAll(f, af, s);
+  ModulesApp::registerAll(f, af, syntax);
   Registry::registerObjectsTo(f, {"isopodApp"});
   Registry::registerActionsTo(af, {"isopodApp"});
 
-  auto & syntax = s;
-
-  // Form Function actions
-  registerSyntaxTask("AddOptimizationReporterAction", "OptimizationReporter", "add_reporter");
+  /* register custom execute flags, action syntax, etc. here */
 }
 
 void
