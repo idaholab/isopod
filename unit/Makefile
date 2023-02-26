@@ -36,11 +36,12 @@ PHASE_FIELD               := no
 RDG                       := no
 RICHARDS                  := no
 SOLID_MECHANICS           := no
-STOCHASTIC_TOOLS          := yes
+STOCHASTIC_TOOLS          := no
 TENSOR_MECHANICS          := no
 XFEM                      := no
 POROUS_FLOW               := no
 LEVEL_SET                 := no
+OPTIMIZATION              := yes
 include           $(MOOSE_DIR)/modules/modules.mk
 ###############################################################################
 
