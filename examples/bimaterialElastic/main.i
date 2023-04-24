@@ -5,10 +5,10 @@
   type = OptimizationReporter
   parameter_names = 'lambda mu'
   num_values = '3 3'
-  #initial_condition = '5 4 3 1 2 1'
-  initial_condition = '5 5 5 1 1 1'
-  lower_bounds = '.1 .1'
-  upper_bounds = '10 10'
+  #initial_condition = '5 4 3 ; 1 2 1'
+  initial_condition = '5 5 5 ; 1 1 1'
+  lower_bounds = '.1 ; .1'
+  upper_bounds = '10 ; 10'
   measurement_points = '-1.0 -1.0 0.0
                         -1.0  0.0 0.0
                         -1.0  1.0 0.0
