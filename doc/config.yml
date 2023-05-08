@@ -6,6 +6,11 @@ Content:
   - ${MOOSE_DIR}/modules/ray_tracing/doc/content
   - ${MOOSE_DIR}/modules/tensor_mechanics/doc/content
   - ${MOOSE_DIR}/modules/optimization/doc/content
+  - modules:
+      root_dir: ${MOOSE_DIR}/modules/doc/content
+      content:
+        - help/development/analyze_jacobian.md
+
 Renderer:
   type: MooseDocs.base.MaterializeRenderer
 
