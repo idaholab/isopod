@@ -50,3 +50,6 @@ Extensions:
   MooseDocs.extensions.bibtex:
       duplicates:
           - hales15homogenization
+
+  MooseDocs.extensions.algorithm:
+      active: True
