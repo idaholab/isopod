@@ -1,15 +1,22 @@
 Content:
-  - ${ROOT_DIR}/examples
-  - ${ROOT_DIR}/doc/content
-  - ${MOOSE_DIR}/framework/doc/content
-  - ${MOOSE_DIR}/modules/heat_conduction/doc/content
-  - ${MOOSE_DIR}/modules/ray_tracing/doc/content
-  - ${MOOSE_DIR}/modules/tensor_mechanics/doc/content
-  - ${MOOSE_DIR}/modules/optimization/doc/content
-  - modules:
-      root_dir: ${MOOSE_DIR}/modules/doc/content
-      content:
-        - help/development/analyze_jacobian.md
+  isopod_examples:
+    root_dir: ${ROOT_DIR}/examples
+  isopod:
+    root_dir: ${ROOT_DIR}/doc/content
+  framework:
+    root_dir: ${MOOSE_DIR}/framework/doc/content
+  heat_conduction:
+    root_dir: ${MOOSE_DIR}/modules/heat_conduction/doc/content
+  ray_tracing:
+    root_dir: ${MOOSE_DIR}/modules/ray_tracing/doc/content
+  tensor_mechanics:
+    root_dir: ${MOOSE_DIR}/modules/tensor_mechanics/doc/content
+  optimization:
+    root_dir: ${MOOSE_DIR}/modules/optimization/doc/content
+  modules:
+    root_dir: ${MOOSE_DIR}/modules/doc/content
+    content:
+      - help/development/analyze_jacobian.md
 
 Renderer:
   type: MooseDocs.base.MaterializeRenderer
