@@ -1,0 +1,15 @@
+[Tests]
+  issues = '#61'
+  [grad]
+    requirement = "The system shall be able to invert for elastic moduli using batch materials."
+    type = CSVDiff
+    abs_zero = 1E-3
+    rel_err = 5e-2
+    input = main.i
+    csvdiff = main_out_OptimizationReporter_0001.csv
+    max_threads = 1
+    method = opt
+    # steady solve
+    recover = false
+  []
+[]
