@@ -27,7 +27,7 @@
   type = Optimize
   tao_solver = taobqnls #taobncg #taoblmvm
   petsc_options_iname = '-tao_gatol -tao_ls_type -tao_max_it'
-  petsc_options_value = '5e-6 unit 500'
+  petsc_options_value = '1e-6 unit 500'
 
   #THESE OPTIONS ARE FOR TESTING THE ADJOINT GRADIENT
   #petsc_options_iname='-tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_fd_delta -tao_gatol'
@@ -110,13 +110,6 @@
     from_multi_app = adjoint
     from_reporters = 'grad_mu/inner_product'
     to_reporters = 'OptimizationReporter/grad_mu'
-  []
-[]
-
-[Reporters]
-  [optInfo]
-    type = OptimizationInfo
-    items = 'current_iterate function_value gnorm'
   []
 []
 
