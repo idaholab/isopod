@@ -10,7 +10,7 @@
 #pragma once
 
 #include "MooseUtils.h"
-#include "Function.h"
+#include "OptimizationFunction.h"
 #include "ReporterInterface.h"
 /**
  * Note: this is similar to MOOSE Framework PiecewiseMultiInterpolation
@@ -20,7 +20,8 @@
  * interpolation of the values provides function values. The grid from the GriddedDataReporter can
  * be 1D, 2D, 3D or 4D.
  */
-class PiecewiseMultiInterpolationFromReporter : public Function, public ReporterInterface
+class PiecewiseMultiInterpolationFromReporter : public OptimizationFunction,
+                                                public ReporterInterface
 {
 public:
   /**
@@ -37,11 +38,14 @@ public:
    */
   virtual Real value(Real t, const Point & pt) const override;
   virtual ADReal value(const ADReal & t, const ADPoint & p) const override;
+  virtual std::vector<Real> parameterGradient(Real t, const Point & p) const override;
 
 protected:
   typedef MooseUtils::SemidynamicVector<Real, 4> GridPoint;
   typedef MooseUtils::SemidynamicVector<ADReal, 4> ADGridPoint;
   typedef MooseUtils::SemidynamicVector<unsigned int, 4> GridIndex;
+
+  unsigned int getIndex(const GridIndex & ijk) const;
   Real evaluateFcn(const GridIndex & ijk) const;
 
   /// convert cartesian+time coordinates into grid coordinates

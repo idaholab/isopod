@@ -37,6 +37,8 @@ public:
   virtual RealGradient gradient(Real t, const Point & p) const override;
   virtual Real timeDerivative(Real t, const Point & p) const override;
 
+  virtual std::vector<Real> parameterGradient(Real t, const Point & p) const override;
+
 protected:
   using PiecewiseMultiInterpolationFromReporter::sample;
   virtual Real sample(const GridPoint & pt) const override;
@@ -44,4 +46,6 @@ protected:
 private:
   /// direction where to look for value if interpolation order is constant
   MultiMooseEnum _direction;
+
+  void getGridIndex(const GridPoint & pt, GridIndex & arg) const;
 };

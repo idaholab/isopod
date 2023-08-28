@@ -1,0 +1,12 @@
+# This is from source_params.csv
+AXIS X
+-1.0 -0.35 0.35 1.0
+AXIS Y
+-1.0 -0.5 0 0.5 1.0 1.5
+DATA
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0

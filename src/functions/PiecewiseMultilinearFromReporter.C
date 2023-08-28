@@ -70,41 +70,16 @@ PiecewiseMultilinearFromReporter::sampleInternal(const MooseADWrapper<GridPoint,
   for (unsigned int i = 0; i < (1u << _dim); ++i)
   {
     weight = 1;
-    for (unsigned int j = 0; j < _dim; ++j)
-      // shift i j-bits to the right and see if the result has a 0 as its right-most bit
-      if ((i >> j) % 2 == 0)
-      {
-        arg[j] = left[j];
-        if (left[j] != right[j])
-          weight *= std::abs(pt[j] - _grid[j][right[j]]);
-        else
-          // unusual "end condition" case. weight by 0.5 because we will encounter this twice
-          weight *= 0.5;
-      }
-      else
-      {
-        arg[j] = right[j];
-        if (left[j] != right[j])
-          weight *= std::abs(pt[j] - _grid[j][left[j]]);
-        else
-          // unusual "end condition" case. weight by 0.5 because we will encounter this twice
-          weight *= 0.5;
-      }
+    getWeight<is_ad>(i, pt, left, right, weight, arg);
     f += evaluateFcn(arg) * weight;
   }
 
   /*
    * finally divide by the volume of the hypercube
    */
-  weight = 1;
-  for (unsigned int dim = 0; dim < pt.size(); ++dim)
-    if (left[dim] != right[dim])
-      weight *= _grid[dim][right[dim]] - _grid[dim][left[dim]];
-    else
-      // unusual "end condition" case. weight by 1 to cancel the two 0.5 encountered previously
-      weight *= 1;
+  Real vol = getVolume(left, right);
 
-  return f / weight;
+  return f / vol;
 }
 
 RealGradient
@@ -132,4 +107,92 @@ PiecewiseMultilinearFromReporter::timeDerivative(Real t, const Point & p) const
 {
   return (sample(pointInGrid<false>(t + _epsilon, p)) - sample(pointInGrid<false>(t, p))) /
          _epsilon;
+}
+
+std::vector<Real>
+PiecewiseMultilinearFromReporter::parameterGradient(Real t, const Point & p) const
+{
+  std::vector<Real> pd(_values.size(), 0.0);
+  const GridPoint pt = pointInGrid<false>(t, p);
+  /*
+   * left contains the indices of the point to the 'left', 'down', etc, of pt
+   * right contains the indices of the point to the 'right', 'up', etc, of pt
+   * Hence, left and right define the vertices of the hypercube containing pt
+   */
+  GridIndex left(_dim);
+  GridIndex right(_dim);
+  for (unsigned int i = 0; i < _dim; ++i)
+    getNeighborIndices(_grid[i], MetaPhysicL::raw_value(pt[i]), left[i], right[i]);
+
+  /*
+   * The following just loops through all the vertices of the
+   * hypercube containing pt, evaluating the function at all
+   * those vertices, and weighting the contributions to the
+   * final result depending on the distance of pt from the vertex
+   */
+  MooseADWrapper<Real, false> weight;
+  GridIndex arg(_dim);
+  // number of points in hypercube = 2^_dim
+  for (unsigned int i = 0; i < (1u << _dim); ++i)
+  {
+    weight = 1;
+    getWeight<false>(i, pt, left, right, weight, arg);
+    pd[getIndex(arg)] += weight;
+  }
+
+  /*
+   * finally divide by the volume of the hypercube
+   */
+  for (auto && param : pd)
+    param = param / getVolume(left, right);
+
+  return pd;
+}
+
+Real
+PiecewiseMultilinearFromReporter::getVolume(const GridIndex & left, const GridIndex & right) const
+{
+  Real vol = 1;
+  for (unsigned int dim = 0; dim < _dim; ++dim)
+  {
+    if (left[dim] != right[dim])
+      vol *= _grid[dim][right[dim]] - _grid[dim][left[dim]];
+    else
+      // unusual "end condition" case. vol by 1 to cancel the two 0.5 encountered previously
+      vol *= 1; // Why the extra step to multiply by 1? It was in the code already
+  }
+  return vol;
+}
+
+template <bool is_ad>
+void
+PiecewiseMultilinearFromReporter::getWeight(unsigned int i,
+                                            const MooseADWrapper<GridPoint, is_ad> & pt,
+                                            const GridIndex & left,
+                                            const GridIndex & right,
+                                            MooseADWrapper<Real, is_ad> & weight,
+                                            GridIndex & arg) const
+{
+  for (unsigned int j = 0; j < _dim; ++j)
+  {
+    // shift i j-bits to the right and see if the result has a 0 as its right-most bit
+    if ((i >> j) % 2 == 0)
+    {
+      arg[j] = left[j];
+      if (left[j] != right[j])
+        weight *= std::abs(pt[j] - _grid[j][right[j]]);
+      else
+        // unusual "end condition" case. weight by 0.5 because we will encounter this twice
+        weight *= 0.5;
+    }
+    else
+    {
+      arg[j] = right[j];
+      if (left[j] != right[j])
+        weight *= std::abs(pt[j] - _grid[j][left[j]]);
+      else
+        // unusual "end condition" case. weight by 0.5 because we will encounter this twice
+        weight *= 0.5;
+    }
+  }
 }

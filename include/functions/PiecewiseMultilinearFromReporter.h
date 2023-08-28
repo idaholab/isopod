@@ -33,6 +33,8 @@ public:
   virtual RealGradient gradient(Real t, const Point & p) const override;
   virtual Real timeDerivative(Real t, const Point & p) const override;
 
+  virtual std::vector<Real> parameterGradient(Real t, const Point & p) const override;
+
 protected:
   virtual Real sample(const GridPoint & pt) const override;
   virtual ADReal sample(const ADGridPoint & pt) const override;
@@ -42,4 +44,13 @@ protected:
 private:
   template <bool is_ad>
   MooseADWrapper<Real, is_ad> sampleInternal(const MooseADWrapper<GridPoint, is_ad> pt) const;
+  Real getVolume(const GridIndex & left, const GridIndex & right) const;
+
+  template <bool is_ad>
+  void getWeight(unsigned int i,
+                 const MooseADWrapper<GridPoint, is_ad> & pt,
+                 const GridIndex & left,
+                 const GridIndex & right,
+                 MooseADWrapper<Real, is_ad> & weight,
+                 GridIndex & arg) const;
 };

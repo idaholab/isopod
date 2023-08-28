@@ -50,18 +50,8 @@ PiecewiseMulticonstantFromReporter::value(const ADReal & t, const ADPoint & p) c
 Real
 PiecewiseMulticonstantFromReporter::sample(const GridPoint & pt) const
 {
-  GridIndex left(_dim);
-  GridIndex right(_dim);
   GridIndex arg(_dim);
-  for (unsigned int i = 0; i < _dim; ++i)
-  {
-    getNeighborIndices(_grid[i], pt[i], left[i], right[i]);
-    if (_direction.get(i) == 0)
-      arg[i] = left[i];
-    else
-      arg[i] = right[i];
-  }
-
+  getGridIndex(pt, arg);
   // return the point
   return evaluateFcn(arg);
 }
@@ -76,4 +66,33 @@ Real
 PiecewiseMulticonstantFromReporter::timeDerivative(Real, const Point &) const
 {
   return 0.0;
+}
+
+std::vector<Real>
+PiecewiseMulticonstantFromReporter::parameterGradient(Real t, const Point & p) const
+{
+  std::vector<Real> pd(_values.size(), 0.0);
+  const GridPoint pt = pointInGrid<false>(t, p);
+  GridIndex arg(_dim);
+  getGridIndex(pt, arg);
+
+  unsigned int valuesIndex = getIndex(arg);
+  pd[valuesIndex] = 1;
+
+  return pd;
+}
+
+void
+PiecewiseMulticonstantFromReporter::getGridIndex(const GridPoint & pt, GridIndex & arg) const
+{
+  GridIndex left(_dim);
+  GridIndex right(_dim);
+  for (unsigned int i = 0; i < _dim; ++i)
+  {
+    getNeighborIndices(_grid[i], pt[i], left[i], right[i]);
+    if (_direction.get(i) == 0)
+      arg[i] = left[i];
+    else
+      arg[i] = right[i];
+  }
 }
