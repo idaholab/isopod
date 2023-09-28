@@ -1,0 +1,4 @@
+K,grad_K,measurement_time,measurement_values,measurement_xcoord,measurement_ycoord,measurement_zcoord,misfit_values,simulation_values
+0.99999926522674,-1.0205762152695e-11,0,0,0,0,0,0,0
+0,0,0,0.001666666667,1,0,0,1.2242896585846e-09,0.0016666678912897
+0,0,0,0.003333333333,2,0,0,2.4495793171653e-09,0.0033333357825793
