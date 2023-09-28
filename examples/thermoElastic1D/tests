@@ -1,16 +1,15 @@
 [Tests]
-  issues = '#61'
+  issues = '#65'
   design = 'OptimizationReporter.md'
   [opt]
-    requirement = "The system shall be able to invert for elastic moduli."
+    requirement = "The system shall be able to invert for thermal conductivity from displacement measurements."
     type = CSVDiff
-    abs_zero = 1E-3
-    rel_err = 5e-2
+    abs_zero = 1E-6
+    rel_err = 1e-6
     input = main.i
     csvdiff = main_out_OptimizationReporter_0001.csv
     max_threads = 1
     method = opt
-    # steady solve
     recover = false
   []
 []
