@@ -1,0 +1,15 @@
+[Tests]
+  issues = '#81'
+  design = 'OptimizationReporter.md'
+  [opt]
+    requirement = "The system shall be able to invert for heat flux from displacement measurements in single optimization iteration."
+    type = CSVDiff
+    abs_zero = 1E-6
+    rel_err = 1e-6
+    input = main.i
+    csvdiff = main_out_OptimizationReporter_0001.csv
+    max_threads = 1
+    method = opt
+    recover = false
+  []
+[]
