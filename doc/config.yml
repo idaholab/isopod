@@ -5,8 +5,8 @@ Content:
     root_dir: ${ROOT_DIR}/doc/content
   framework:
     root_dir: ${MOOSE_DIR}/framework/doc/content
-  heat_conduction:
-    root_dir: ${MOOSE_DIR}/modules/heat_conduction/doc/content
+  heat_transfer:
+    root_dir: ${MOOSE_DIR}/modules/heat_transfer/doc/content
   ray_tracing:
     root_dir: ${MOOSE_DIR}/modules/ray_tracing/doc/content
   tensor_mechanics:
@@ -50,7 +50,7 @@ Extensions:
           moose: https://github.com/idaholab/moose
       categories:
           framework: !include ${MOOSE_DIR}/framework/doc/sqa_framework.yml
-          heat_conduction: !include ${MOOSE_DIR}/modules/heat_conduction/doc/sqa_heat_conduction.yml
+          heat_transfer: !include ${MOOSE_DIR}/modules/heat_transfer/doc/sqa_heat_transfer.yml
           tensor_mechanics: !include ${MOOSE_DIR}/modules/tensor_mechanics/doc/sqa_tensor_mechanics.yml
           optimization: !include ${MOOSE_DIR}/modules/optimization/doc/sqa_optimization.yml
           isopod: !include ${ROOT_DIR}/doc/sqa_isopod.yml
