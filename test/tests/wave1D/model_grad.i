@@ -20,7 +20,7 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
   nl_abs_tol = 1e-8
 []
 [Outputs]
-  csv = fasle
+  csv = false
   console = false
   json = true
   #file_base = model_grad/${id}
