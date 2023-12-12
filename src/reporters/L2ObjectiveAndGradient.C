@@ -55,8 +55,8 @@ L2ObjectiveAndGradient::finalize()
   std::vector<Real> misfit(entries,0.0);
   for (std::size_t i = 0; i < entries; ++i)
   {
-    misfit[i] = _measurement[i]-_simulation[i];
-    _objective -= 0.5*misfit[i]*misfit[i];
+    misfit[i] = _simulation[i]-_measurement[i];
+    _objective += 0.5*misfit[i]*misfit[i];
   }
   for (std::size_t i = 0; i < entries; ++i)
   {
