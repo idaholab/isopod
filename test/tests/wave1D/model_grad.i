@@ -1,5 +1,5 @@
 id = 1
-frequencyHz = 1.0
+frequencyHz = 1.3
 omega = '${fparse 2*3.14159265359*frequencyHz}'
 
 [Problem]
@@ -10,17 +10,17 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
   type = SteadyAndAdjoint
   forward_system = nl0
   adjoint_system = adjoint
-  #petsc_options_iname = '-pc_type'
-  #petsc_options_value = 'lu'
-  petsc_options_iname = '-pc_type -tao_fd_test -tao_test_gradient -tao_fd_gradient'
-  petsc_options_value = 'lu true true false'
-  petsc_options = '-tao_test_gradient_view'
+  petsc_options_iname = '-pc_type'
+  petsc_options_value = 'lu'
+  #petsc_options_iname = '-pc_type -tao_fd_test -tao_test_gradient -tao_fd_gradient'
+  #petsc_options_value = 'lu true true false'
+  #petsc_options = '-tao_test_gradient_view'
   nl_forced_its = 1
   line_search = none
   nl_abs_tol = 1e-8
 []
 [Outputs]
-  csv = false
+  csv = true
   console = false
   json = true
   #file_base = model_grad/${id}
@@ -30,7 +30,7 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
   type = GeneratedMesh
   dim = 1
   nx = 200
-  xmax = 20
+  xmax = 2
 []
 
 [Variables]
@@ -55,7 +55,7 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
   [mass]
     type = Reaction
     variable = ur
-    rate = ${fparse -omega*omega}
+    rate = ${fparse -1.0*omega*omega}
   []
   [stiffV]
     type = MatDiffusion
@@ -65,24 +65,32 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
   [massV]
     type = Reaction
     variable = ui
-    rate = ${fparse -omega*omega}
+    rate = ${fparse -0*omega*omega} #######CAREFUL ZERO HERE
   []
 []
 
 [BCs]
   [leftU]
-    type = CoupledVarNeumannBC
+    type = DirichletBC
     variable = ur
     boundary = left
-    coef = 1.0
-    v = ui
+    value = 0.0
+#    type = CoupledVarNeumannBC
+#    variable = ur
+#    boundary = left
+#    coef = 2.0
+#    v = ui
   []
   [leftV]
-    type = CoupledVarNeumannBC
+    type = DirichletBC
     variable = ui
     boundary = left
-    coef = -1.0
-    v = ur
+    value = 0.0
+#    type = CoupledVarNeumannBC
+#    variable = ui
+#    boundary = left
+#    coef = -2.0
+#    v = ur
   []
   [right]
     type = NeumannBC
@@ -113,7 +121,8 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
     type = ConstantReporter
     real_vector_names = 'coordx G'
     # 'True value when used to generate synthetic data' 
-    real_vector_values = '5.0 15.0; 4.0 4.0'
+    # real_vector_values = '5.0 15.0; 4.0 4.0'
+    real_vector_values = '1.0; 4.0'
   []
 []
 
@@ -125,19 +134,19 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
-    weight_name  = measure_data/weight_ur
+   #weight_name  = measure_data/weight_ur
     value_name   = correlation/adjoint_rhs
   []
-  [misfit_ui]
-    type = ReporterPointSource
-    variable = uiadj
-    # drop_duplicate_points = false
-    x_coord_name = measure_data/measurement_xcoord
-    y_coord_name = measure_data/measurement_ycoord
-    z_coord_name = measure_data/measurement_zcoord
-    weight_name  = measure_data/weight_ui
-    value_name   = correlation/adjoint_rhs
-  []
+#  [misfit_ui]
+#    type = ReporterPointSource
+#    variable = uiadj
+#    # drop_duplicate_points = false
+#    x_coord_name = measure_data/measurement_xcoord
+#    y_coord_name = measure_data/measurement_ycoord
+#    z_coord_name = measure_data/measurement_zcoord
+#    weight_name  = measure_data/weight_ui
+#    value_name   = correlation/adjoint_rhs
+#  []
 []
 
 [VectorPostprocessors]
@@ -171,10 +180,12 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
 [Reporters]
   [measure_data]
     type = OptimizationData
-    variable = 'ur ui'
-    variable_weight_names = 'weight_ur weight_ui'
-    file_variable_weights = 'weight_ur weight_ui'
-    file_value = 'value'
+    variable = 'ur'
+    file_value = 'u_r'
+   #variable = 'ur ui'
+   #variable_weight_names = 'weight_ur weight_ui'
+   #file_variable_weights = 'weight_ur weight_ui'
+   #file_value = 'value'
     measurement_file = 'measurement/frequency${id}.csv'
   []
   [correlation]

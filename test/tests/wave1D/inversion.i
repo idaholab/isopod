@@ -3,20 +3,24 @@
 [OptimizationReporter]
   type = GeneralOptimization
   parameter_names = 'G'
-  num_values = 2
-  initial_condition = '2 3'
-  lower_bounds = '1 1'
-  upper_bounds = '5 5'
+  num_values = 1
+  initial_condition = '1.0'
+  lower_bounds = '1'
+  upper_bounds = '5'
+  #num_values = 2
+  #initial_condition = '4.01 4.01'
+  #lower_bounds = '1 1'
+  #upper_bounds = '5 5'
   objective_name = objective
 []
 [Executioner]
   type = Optimize
   tao_solver = taoblmvm
-  #petsc_options_iname = '-tao_gatol -tao_max_it -tao_ls_type'
-  #petsc_options_value = '1e-8 100 unit'
-  petsc_options_iname = '-tao_gatol -tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_ls_type'
-  petsc_options_value = '1e-8 1 true true false unit'
-  petsc_options = '-tao_test_gradient_view'
+  petsc_options_iname = '-tao_gatol -tao_max_it -tao_ls_type'
+  petsc_options_value = '1e-8 100 unit'
+  #petsc_options_iname = '-tao_gatol -tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_ls_type'
+  #petsc_options_value = '1e-8 1 true true false unit'
+  #petsc_options = '-tao_test_gradient_view'
   verbose = true
 []
 [Reporters]
