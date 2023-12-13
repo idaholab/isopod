@@ -23,8 +23,8 @@ omega       = '${fparse 2*3.14159265359*frequencyHz}'
 
 [Outputs]
   csv = false
-  console = true
-  json = true
+  console = false
+  json = false
 # file_base = model_grad/${id}
 []
 
