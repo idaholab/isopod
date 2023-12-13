@@ -1,11 +1,12 @@
-id = 1
-frequencyHz = 1.3
-omega = '${fparse 2*3.14159265359*frequencyHz}'
+id          = 1
+frequencyHz = 1.0
+omega       = '${fparse 2*3.14159265359*frequencyHz}'
 
 [Problem]
   nl_sys_names = 'nl0 adjoint'
   kernel_coverage_check = false
 []
+
 [Executioner]
   type = SteadyAndAdjoint
   forward_system = nl0
@@ -19,11 +20,12 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
   line_search = none
   nl_abs_tol = 1e-8
 []
+
 [Outputs]
-  csv = true
-  console = false
+  csv = false
+  console = true
   json = true
-  #file_base = model_grad/${id}
+# file_base = model_grad/${id}
 []
 
 [Mesh]
@@ -60,37 +62,29 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
   [stiffV]
     type = MatDiffusion
     variable = ui
-    diffusivity =G
+    diffusivity = G
   []
   [massV]
     type = Reaction
     variable = ui
-    rate = ${fparse -0*omega*omega} #######CAREFUL ZERO HERE
+    rate = ${fparse -1.0*omega*omega}
   []
 []
 
 [BCs]
   [leftU]
-    type = DirichletBC
-    variable = ur
+    type = CoupledVarNeumannBC
     boundary = left
-    value = 0.0
-#    type = CoupledVarNeumannBC
-#    variable = ur
-#    boundary = left
-#    coef = 2.0
-#    v = ui
+    variable = ur
+    coef = 2.0
+    v = ui
   []
   [leftV]
-    type = DirichletBC
-    variable = ui
+    type = CoupledVarNeumannBC
     boundary = left
-    value = 0.0
-#    type = CoupledVarNeumannBC
-#    variable = ui
-#    boundary = left
-#    coef = -2.0
-#    v = ur
+    variable = ui
+    coef = -2.0
+    v = ur
   []
   [right]
     type = NeumannBC
@@ -134,19 +128,19 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
-   #weight_name  = measure_data/weight_ur
+    weight_name  = measure_data/weight_ur
     value_name   = correlation/adjoint_rhs
   []
-#  [misfit_ui]
-#    type = ReporterPointSource
-#    variable = uiadj
-#    # drop_duplicate_points = false
-#    x_coord_name = measure_data/measurement_xcoord
-#    y_coord_name = measure_data/measurement_ycoord
-#    z_coord_name = measure_data/measurement_zcoord
-#    weight_name  = measure_data/weight_ui
-#    value_name   = correlation/adjoint_rhs
-#  []
+  [misfit_ui]
+    type = ReporterPointSource
+    variable = uiadj
+    # drop_duplicate_points = false
+    x_coord_name = measure_data/measurement_xcoord
+    y_coord_name = measure_data/measurement_ycoord
+    z_coord_name = measure_data/measurement_zcoord
+    weight_name  = measure_data/weight_ui
+    value_name   = correlation/adjoint_rhs
+  []
 []
 
 [VectorPostprocessors]
@@ -180,12 +174,10 @@ omega = '${fparse 2*3.14159265359*frequencyHz}'
 [Reporters]
   [measure_data]
     type = OptimizationData
-    variable = 'ur'
-    file_value = 'u_r'
-   #variable = 'ur ui'
-   #variable_weight_names = 'weight_ur weight_ui'
-   #file_variable_weights = 'weight_ur weight_ui'
-   #file_value = 'value'
+    variable = 'ur ui'
+    variable_weight_names = 'weight_ur weight_ui'
+    file_variable_weights = 'weight_ur weight_ui'
+    file_value = 'value'
     measurement_file = 'measurement/frequency${id}.csv'
   []
   [correlation]
