@@ -4,8 +4,8 @@
   type = GeneralOptimization
   parameter_names = 'G'
   num_values = 1
-  initial_condition = '6.0'  # Converges when initital value is in between 4 and 6, e.g. 3 and 7 diverge
-                             # This is for frequency of 1.0 as opposed to previous frequency of 0.1
+  initial_condition = '3.99' # Converges when initital value is in between 3.99 and 4.01, e.g. 3.95 and 4.05 diverge
+                             # This is for frequencies of 1,2,3,4 (toogether) as opposed to previous frequency of 1
   lower_bounds = '1'
   upper_bounds = '10'
   #num_values = 2
