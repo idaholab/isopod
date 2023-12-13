@@ -4,9 +4,9 @@
   type = GeneralOptimization
   parameter_names = 'G'
   num_values = 1
-  initial_condition = '1.0'
+  initial_condition = '5.5'  #Initial values of 0.1 to 5.5 seem to converge. 5.9 for example does not converge.
   lower_bounds = '1'
-  upper_bounds = '5'
+  upper_bounds = '10'
   #num_values = 2
   #initial_condition = '4.01 4.01'
   #lower_bounds = '1 1'
