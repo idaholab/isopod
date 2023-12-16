@@ -2,15 +2,13 @@
   [Er_dist]
     # type = PiecewiseMulticonstant
     # data_file = 'modulus/storage_modulus_dist.txt'
-    # direction = 'left left left' # check this, it is also become 
-                                 # available to define the centroid 
-                                 # of the elements only.
+    # direction = 'left left left' # check this, it is also become available to define the centroid of the elements only.
     type = ParsedFunction
-    value = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) <= 0.049,80,25)'
+    value = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,80,25)'
   []
   [Ei_dist]
     type = ParsedFunction
-    value = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) <= 0.049,${fparse 80*(omega/omega_bar)} ,${fparse 25*(omega/omega_bar)})'
+    value = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,${fparse 80*(omega/omega_bar)} ,${fparse 25*(omega/omega_bar)})'
   []
 []
 
