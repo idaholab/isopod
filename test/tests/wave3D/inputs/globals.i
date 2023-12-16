@@ -1,14 +1,16 @@
-id = 1
-freq = 600
-omega = '${fparse 2*3.14159265359*freq}'
+# the following are in the LMT units of mm, mg, ms
 
-rho = 1
+id    = 1
+freq  = 0.600 # kHz
+omega ='${fparse 2*3.14159265359*freq}'
 
-omega_bar = 150000 # Gcomplex = G*(1+i*omega/omega_bar)
-wave_ratio = ${fparse 1600/2}
+rho = 1 # mg/mm^3
+omega_bar = '${fparse 1000*omega}'
 
-Gbr = 16.0
+Gbr = 16.0 # kPa = mg/mm/ms^2
 Gbi = ${fparse Gbr * omega/omega_bar}
+
+wave_ratio = ${fparse 1600/sqrt(Gbr)}
 Lbr = ${fparse Gbr * wave_ratio^2}
 Lbi = ${fparse Gbi * wave_ratio^2}
 
