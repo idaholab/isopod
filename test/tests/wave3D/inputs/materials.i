@@ -1,14 +1,11 @@
 [Functions]
   [Er_dist]
-    # type = PiecewiseMulticonstant
-    # data_file = 'modulus/storage_modulus_dist.txt'
-    # direction = 'left left left' # check this, it is also become available to define the centroid of the elements only.
     type = ParsedFunction
-    value = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,80,25)'
+    expression = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,80,25)'
   []
   [Ei_dist]
     type = ParsedFunction
-    value = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,${fparse 80*(omega/omega_bar)} ,${fparse 25*(omega/omega_bar)})'
+    expression = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,${fparse 80*(omega/omega_bar)} ,${fparse 25*(omega/omega_bar)})'
   []
 []
 
@@ -22,6 +19,11 @@
     type = ADGenericFunctionMaterial
     prop_names = 'Ei'
     prop_values = Ei_dist
+  []
+  [minus_loss_modulus]
+    type = ADGenericFunctionMaterial
+    prop_names = '_Ei'
+    prop_values = Ei_dist  ########## This must be negated ##########
   []
   [poissons_ratio]
     type = ADGenericConstantMaterial
@@ -37,8 +39,8 @@
   []
   [Eri]
     type = ADComputeVariableIsotropicElasticityTensor
-    youngs_modulus = 'Ei'   # '${fparse -Ei}' ######### CAUTION: Make sure that ADStressDivergenceTensor       ##########
-                                     ######### doesnt automatically MAKE THE NEGATIVE NUMBER POSITIVE ##########
+    youngs_modulus = '_Ei' ######### CAUTION: Make sure that ADStressDivergenceTensor       ##########
+                           ######### doesnt automatically MAKE THE NEGATIVE NUMBER POSITIVE ##########
     poissons_ratio = 'nu'
     base_name = ri
   []
