@@ -1,11 +1,25 @@
+############################################################
+### Need to confirm that the signs used here are correct ###
+###     Should the negative one be ri or ir?             ###
+### Also, make sure that stress divergence tensor        ###
+###     does not automatically revert -E to +E           ###
+############################################################
+
 [Functions]
   [Er_dist]
     type = ParsedFunction
-    expression = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,80,25)'
+   #expression = 'if((x^2+y^2+z^2) < 5,80,25)'
+    expression = 'if((x^2+y^2+z^2) < 5,25,25)'
   []
   [Ei_dist]
     type = ParsedFunction
-    expression = 'if((((x-15)^2)+((y-15)^2)+((z-15)^2)) < 0.05,${fparse 80*(omega/omega_bar)} ,${fparse 25*(omega/omega_bar)})'
+   #expression = 'if((x^2+y^2+z^2) < 5,${fparse 80*(omega/omega_bar)},${fparse 25*(omega/omega_bar)})'
+    expression = 'if((x^2+y^2+z^2) < 5,${fparse 25*(omega/omega_bar)},${fparse 25*(omega/omega_bar)})'
+  []
+  [_Ei_dist]
+    type = ParsedFunction
+   #expression = 'if((x^2+y^2+z^2) < 5,${fparse -80*(omega/omega_bar)},${fparse -25*(omega/omega_bar)})'
+    expression = 'if((x^2+y^2+z^2) < 5,${fparse -25*(omega/omega_bar)},${fparse -25*(omega/omega_bar)})'
   []
 []
 
@@ -23,7 +37,7 @@
   [minus_loss_modulus]
     type = ADGenericFunctionMaterial
     prop_names = '_Ei'
-    prop_values = Ei_dist  ########## This must be negated ##########
+    prop_values = _Ei_dist
   []
   [poissons_ratio]
     type = ADGenericConstantMaterial

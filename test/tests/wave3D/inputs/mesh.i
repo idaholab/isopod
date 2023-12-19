@@ -2,15 +2,15 @@
   [ROI]
     type = GeneratedMeshGenerator
     dim = 3
-    xmin = 0
-    xmax = 30.0
-    ymin = 0
-    ymax = 30.0
-    zmin = 0
-    zmax = 30.0
-    nx = 8
-    ny = 8
-    nz = 8
+    xmin = -15
+    xmax =  15
+    ymin = -15
+    ymax =  15
+    zmin = -15
+    zmax =  15
+    nx = 30
+    ny = 30
+    nz = 30
   []
   [receivers_plane]
     type = BoundingBoxNodeSetGenerator

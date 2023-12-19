@@ -1,13 +1,17 @@
-# the following are in the LMT units of mm, mg, ms
+##########################################
+### THE STRUCTURE IS PRETTY MUCH FINAL ###
+##########################################
+### UNITS (LMTF) are mm, mg, ms, mN    ###
+##########################################
 
 id    = 1
-freq  = 0.600 # kHz
+freq  = 0.400 # kHz
 omega ='${fparse 2*3.14159265359*freq}'
 
 rho = 1 # mg/mm^3
 omega_bar = '${fparse 1000*omega}'
 
-Gbr = 16.0 # kPa = mg/mm/ms^2
+Gbr = 8.3333  # mg/mm/ms^2
 Gbi = ${fparse Gbr * omega/omega_bar}
 
 wave_ratio = ${fparse 1600/sqrt(Gbr)}

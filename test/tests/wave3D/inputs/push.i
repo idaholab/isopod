@@ -4,7 +4,8 @@
 [DiracKernels]
   [push]
     type = ConstantPointSource
-    point = '15 24 15'
+    # point = '15 24 15'
+    point = '0 0 0'
     variable = uzr
     value = 10
   []

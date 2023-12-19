@@ -1,3 +1,10 @@
+##########################################
+### Structure appears correct          ###
+### Examine the signs in materials.i   ###
+### Confirm hte order of component and variables ###
+### The order should be consistent with the materials signs ###
+##########################################
+
 [Kernels]
   [sigma_rr_x]
     type = ADStressDivergenceTensors
