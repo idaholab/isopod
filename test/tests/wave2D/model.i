@@ -5,6 +5,7 @@
 !include inputs/globals.i
 !include inputs/mesh.i
 !include inputs/variables.i
+!include inputs/modulus.i
 !include inputs/materials.i
 !include inputs/kernels.i
 !include inputs/push.i

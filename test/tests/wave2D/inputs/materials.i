@@ -5,24 +5,6 @@
 ###     does not automatically revert -E to +E           ###
 ############################################################
 
-[Functions]
-  [Er_dist]
-    type = ParsedFunction
-   expression = 'if((x^2+y^2) < 5^2, 80,25)'
-   #expression = '25'
-  []
-  [Ei_dist]
-    type = ParsedFunction
-   expression = 'if((x^2+y^2) < 5^2, ${fparse 80*(omega/omega_bar)},${fparse 25*(omega/omega_bar)})'
-   #expression = '${fparse 25*omega/omega_bar}'
-  []
-  [_Ei_dist]
-    type = ParsedFunction
-   expression = 'if((x^2+y^2) < 5^2, ${fparse -80*(omega/omega_bar)},${fparse -25*(omega/omega_bar)})'
-   #expression = '${fparse -25*omega/omega_bar}'
-  []
-[]
-
 [Materials]
   [storage_modulus]
     type = ADGenericFunctionMaterial
