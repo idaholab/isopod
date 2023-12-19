@@ -1,3 +1,7 @@
+### Consider using higher order elements?
+### Why limit to trilinear elements?
+
+
 [Variables]
   [uxr]
     order = FIRST
