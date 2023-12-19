@@ -1,7 +1,6 @@
 ### Consider using higher order elements?
 ### Why limit to trilinear elements?
 
-
 [Variables]
   [uxr]
     order = FIRST
@@ -11,10 +10,6 @@
     order = FIRST
     family = LAGRANGE
   []
-#  [uzr]
-#    order = FIRST
-#    family = LAGRANGE
-#  []
   [uxi]
     order = FIRST
     family = LAGRANGE
@@ -23,9 +18,5 @@
     order = FIRST
     family = LAGRANGE
   []
-#  [uzi]
-#    order = FIRST
-#    family = LAGRANGE
-#  []
 []
 
