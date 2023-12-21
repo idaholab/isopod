@@ -75,23 +75,23 @@
   []
 
   [inertia_xr]
-    type = Reaction
+    type = ADReaction
     rate = '${_rhow2}'
     variable = uxr
   []
   [inertia_yr]
-    type = Reaction
+    type = ADReaction
     rate = '${_rhow2}'
     variable = uyr
   []
 
   [inertia_xi]
-    type = Reaction
+    type = ADReaction
     rate = '${_rhow2}'
     variable = uxi
   []
   [inertia_yi]
-    type = Reaction
+    type = ADReaction
     rate = '${_rhow2}'
     variable = uyi
   []
