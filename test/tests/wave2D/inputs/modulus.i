@@ -9,7 +9,7 @@
 []
 
 [Functions]
-  [Gr_fun]
+  [Gr_func]
     type = NearestReporterCoordinatesFunction
     x_coord_name = parameters/coordx
     y_coord_name = parameters/coordy
@@ -21,7 +21,7 @@
     # expression = '25'
     expression = 3*Gr
     symbol_names = 'Gr'
-    symbol_values = 'Gr_fun'
+    symbol_values = 'Gr_func'
   []
   [Ei_dist]
     type = ParsedFunction

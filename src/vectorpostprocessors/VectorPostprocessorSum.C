@@ -25,6 +25,10 @@ VectorPostprocessorSum::validParams()
       "vector_name_a", "The name of the vector in the first vector post-processor");
   params.addRequiredParam<std::string>(
       "vector_name_b", "The name of the vector in the second vector post-processor");
+  params.addParam<Real>(
+      "coef_a", 1, "The coefficient to multiply the first vector");
+  params.addParam<Real>(
+      "coef_b", 1, "The coefficient to multiply the second vector");
   params.set<ExecFlagEnum>("execute_on") = EXEC_TIMESTEP_END;
 
   return params;
@@ -36,7 +40,9 @@ VectorPostprocessorSum::VectorPostprocessorSum(const InputParameters & parameter
     _values_a(getVectorPostprocessorValue("vectorpostprocessor_a",
                                           getParam<std::string>("vector_name_a"))),
     _values_b(getVectorPostprocessorValue("vectorpostprocessor_b",
-                                          getParam<std::string>("vector_name_b")))
+                                          getParam<std::string>("vector_name_b"))),
+    _coef_a(getParam<Real>("coef_a")),
+    _coef_b(getParam<Real>("coef_b"))
 {
 }
 
@@ -54,5 +60,5 @@ VectorPostprocessorSum::execute()
   _pp_vec.clear();
   _pp_vec.resize(_values_a.size(),0.0);
   for (unsigned int i = 0; i < _values_a.size(); ++i)
-    _pp_vec[i] = _values_a[i]+_values_b[i];
+    _pp_vec[i] = _coef_a * _values_a[i] + _coef_b * _values_b[i];
 }

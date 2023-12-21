@@ -43,4 +43,5 @@ protected:
 
   const VectorPostprocessorValue & _values_a;
   const VectorPostprocessorValue & _values_b;
+  Real _coef_a, _coef_b;
 };
