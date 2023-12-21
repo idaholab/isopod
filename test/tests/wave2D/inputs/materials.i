@@ -24,7 +24,7 @@
   [poissons_ratio]
     type = ADGenericConstantMaterial
     prop_names = 'nu'
-    prop_values = 0.499999
+    prop_values = ${nu}
   []
 
   [Err]

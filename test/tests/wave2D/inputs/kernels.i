@@ -8,7 +8,7 @@
 [Kernels]
   [sigma_rr_x]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxr uyr'
     component     =   0
     variable      =  uxr
@@ -16,7 +16,7 @@
   []
   [sigma_rr_y]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxr uyr'
     component     =       1
     variable      =      uyr
@@ -25,7 +25,7 @@
 
   [sigma_ri_x]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxr uyr'
     component     =   0
     variable      =  uxi
@@ -33,7 +33,7 @@
   []
   [sigma_ri_y]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxr uyr'
     component     =       1
     variable      =      uyi
@@ -42,7 +42,7 @@
 
   [sigma_ir_x]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxi uyi'
     component     =   0
     variable      =  uxr
@@ -50,7 +50,7 @@
   []
   [sigma_ir_y]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxi uyi'
     component     =       1
     variable      =      uyr
@@ -59,7 +59,7 @@
 
   [sigma_ii_x]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxi uyi'
     component     =   0
     variable      =  uxi
@@ -67,7 +67,7 @@
   []
   [sigma_ii_y]
     type = ADStressDivergenceTensors
-    volumetric_locking_correction = True
+    volumetric_locking_correction = False #True
     displacements = 'uxi uyi'
     component     =       1
     variable      =      uyi

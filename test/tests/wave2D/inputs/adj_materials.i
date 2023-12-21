@@ -1,62 +1,32 @@
 [Materials]
-  [eps_rr_adj]
-    type = ADComputeSmallStrain
+  [eps_r_adj]
+    type = ADComputePlaneSmallStrain
     displacements = 'uxr_adj uyr_adj'
-    base_name = 'rr_adj'
+    base_name = 'r_adj'
   []
-  [eps_ri_adj]
-    type = ADComputeSmallStrain
-    displacements = 'uxr_adj uyr_adj'
-    base_name = 'ri_adj'
-  []
-  [eps_ir_adj]
-    type = ADComputeSmallStrain
+  [eps_i_adj]
+    type = ADComputePlaneSmallStrain
     displacements = 'uxi_adj uyi_adj'
-    base_name = 'ir_adj'
+    base_name = 'i_adj'
   []
-  [eps_ii_adj]
-    type = ADComputeSmallStrain
-    displacements = 'uxi_adj uyi_adj'
-    base_name = 'ii_adj'
-  []
-  [rr_mechanical_strain_nonad]
+  [r_mechanical_strain_nonad]
     type = RankTwoTensorMaterialADConverter
      ad_props_in  = rr_mechanical_strain
-    reg_props_out = rr_mechanical_strain_nonad
+    reg_props_out =  r_mechanical_strain_nonad
   []
-  [rr_adj_mechanical_strain_nonad]
+  [r_adj_mechanical_strain_nonad]
     type = RankTwoTensorMaterialADConverter
-     ad_props_in  = rr_adj_mechanical_strain
-    reg_props_out = rr_adj_mechanical_strain_nonad
+     ad_props_in  =  r_adj_mechanical_strain
+    reg_props_out =  r_adj_mechanical_strain_nonad
   []
-  [ri_mechanical_strain_nonad]
-    type = RankTwoTensorMaterialADConverter
-     ad_props_in  = ri_mechanical_strain
-    reg_props_out = ri_mechanical_strain_nonad
-  []
-  [ri_adj_mechanical_strain_nonad]
-    type = RankTwoTensorMaterialADConverter
-     ad_props_in  = ri_adj_mechanical_strain
-    reg_props_out = ri_adj_mechanical_strain_nonad
-  []
-  [ir_mechanical_strain_nonad]
-    type = RankTwoTensorMaterialADConverter
-     ad_props_in  = ir_mechanical_strain
-    reg_props_out = ir_mechanical_strain_nonad
-  []
-  [ir_adj_mechanical_strain_nonad]
-    type = RankTwoTensorMaterialADConverter
-     ad_props_in  = ir_adj_mechanical_strain
-    reg_props_out = ir_adj_mechanical_strain_nonad
-  []
-  [ii_mechanical_strain_nonad]
+  [i_mechanical_strain_nonad]
     type = RankTwoTensorMaterialADConverter
      ad_props_in  = ii_mechanical_strain
-    reg_props_out = ii_mechanical_strain_nonad
+    reg_props_out =  i_mechanical_strain_nonad
   []
-  [ii_adj_mechanical_strain_nonad]
+  [i_adj_mechanical_strain_nonad]
     type = RankTwoTensorMaterialADConverter
-     ad_props_in  = ii_adj_mechanical_strain
-    reg_props_out = ii_adj_mechanical_strain_nonad
+     ad_props_in  =  i_adj_mechanical_strain
+    reg_props_out =  i_adj_mechanical_strain_nonad
   []
 []
