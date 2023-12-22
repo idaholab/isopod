@@ -3,73 +3,18 @@
   []
 []
 
+!include gradL.i
+!include gradG.i
+
 [VectorPostprocessors]
-  [gradGrr]
-    type = ElementOptimizationLameMuInnerProduct
-    forward_strain_name = 'r_mechanical_strain_nonad'
-    adjoint_strain_name = 'r_adj_mechanical_strain_nonad'
-    variable = dummy
-    function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
-    execution_order_group = -1
-  []
-  [gradGri]
-    type = ElementOptimizationLameMuInnerProduct
-    forward_strain_name = 'i_mechanical_strain_nonad'
-    adjoint_strain_name = 'r_adj_mechanical_strain_nonad'
-    variable = dummy
-    function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
-    execution_order_group = -1
-  []
-  [gradGir]
-    type = ElementOptimizationLameMuInnerProduct
-    forward_strain_name = 'r_mechanical_strain_nonad'
-    adjoint_strain_name = 'i_adj_mechanical_strain_nonad'
-    variable = dummy
-    function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
-    execution_order_group = -1
-  []
-  [gradGii]
-    type = ElementOptimizationLameMuInnerProduct
-    forward_strain_name = 'i_mechanical_strain_nonad'
-    adjoint_strain_name = 'i_adj_mechanical_strain_nonad'
-    variable = dummy
-    function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
-    execution_order_group = -1
-  []
-  [gradGr]
-    type = VectorPostprocessorSum
-    vectorpostprocessor_a = gradGrr
-    vectorpostprocessor_b = gradGii
-    vector_name_a = inner_product
-    vector_name_b = inner_product
-    coef_a = 1.0
-    coef_b = 1.0
-    execute_on = ADJOINT_TIMESTEP_END
-    execution_order_group = 0
-  []
-  [gradGi]
-    type = VectorPostprocessorSum
-    vectorpostprocessor_a = gradGri
-    vectorpostprocessor_b = gradGir
-    vector_name_a = inner_product
-    vector_name_b = inner_product
-    coef_a = -1.0
-    coef_b =  1.0
-    execute_on = ADJOINT_TIMESTEP_END
-    execution_order_group = 0
-  []
   [gradient]
     type = VectorPostprocessorSum
-    vectorpostprocessor_a = gradGr
-    vectorpostprocessor_b = gradGi
-    vector_name_a = gradGr
-    vector_name_b = gradGi
+    vectorpostprocessor_a = gradG
+    vectorpostprocessor_b = gradL
+    vector_name_a = gradG
+    vector_name_b = gradL
     coef_a = 1.0
-    coef_b = ${fparse omega/omega_bar}
+    coef_b = 4.0 #2nu/(1-2nu)
     execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = 1
   []

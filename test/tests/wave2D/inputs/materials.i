@@ -30,46 +30,46 @@
   [Err]
     type = ADComputeVariableIsotropicElasticityTensor
     youngs_modulus = 'Er'
-    poissons_ratio = 'nu'
+    poissons_ratio = '${nu}'#'nu'
     base_name = rr
   []
   [Eri]
     type = ADComputeVariableIsotropicElasticityTensor
     youngs_modulus = '_Ei' ######### CAUTION: Make sure that ADStressDivergenceTensor       ##########
                            ######### doesnt automatically MAKE THE NEGATIVE NUMBER POSITIVE ##########
-    poissons_ratio = 'nu'
+    poissons_ratio = '${nu}'#'nu'
     base_name = ri
   []
   [Eir]
     type = ADComputeVariableIsotropicElasticityTensor
     youngs_modulus = 'Ei'
-    poissons_ratio = 'nu'
+    poissons_ratio = '${nu}'#'nu'
     base_name = ir
   []
   [Eii]
     type = ADComputeVariableIsotropicElasticityTensor
     youngs_modulus = 'Er'
-    poissons_ratio = 'nu'
+    poissons_ratio = '${nu}'#'nu'
     base_name = ii
   []
 
   [eps_rr]
-    type = ADComputePlaneSmallStrain
+    type = ADComputeSmallStrain
     displacements = 'uxr uyr'
     base_name = rr
   []
   [eps_ri]
-    type = ADComputePlaneSmallStrain
+    type = ADComputeSmallStrain
     displacements = 'uxr uyr'
     base_name = ri
   []
   [eps_ir]
-    type = ADComputePlaneSmallStrain
+    type = ADComputeSmallStrain
     displacements = 'uxi uyi'
     base_name = ir
   []
   [eps_ii]
-    type = ADComputePlaneSmallStrain
+    type = ADComputeSmallStrain
     displacements = 'uxi uyi'
     base_name = ii
   []

@@ -9,9 +9,8 @@ frequencyKHz  = 1.400 # kHz
 omega ='${fparse 2*3.14159265359*frequencyKHz}'
 
 rho = 1 # mg/mm^3
-omega_bar = '${fparse 1e8*omega}'
-nu = 0.0                                   # TODO - change this to 0.4999999
-
+omega_bar = '${fparse 1e13*omega}'
+nu = 0.4                             # TODO - change this to 0.4999999
                                            # TODO - faciliate ABCs afterwards
 #Gbr = 8.3333  # mg/mm/ms^2
 #Gbi = ${fparse Gbr * omega/omega_bar}

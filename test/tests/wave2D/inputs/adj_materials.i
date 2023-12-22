@@ -1,11 +1,11 @@
 [Materials]
   [eps_r_adj]
-    type = ADComputePlaneSmallStrain
+    type = ADComputeSmallStrain
     displacements = 'uxr_adj uyr_adj'
     base_name = 'r_adj'
   []
   [eps_i_adj]
-    type = ADComputePlaneSmallStrain
+    type = ADComputeSmallStrain
     displacements = 'uxi_adj uyi_adj'
     base_name = 'i_adj'
   []

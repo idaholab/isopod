@@ -3,10 +3,10 @@
 [OptimizationReporter]
   type = GeneralOptimization
   parameter_names = 'Gr'
-  num_values = 2
-  initial_condition = '4.01 4.01'
-  lower_bounds = '1 1'
-  upper_bounds = '5 5'
+  num_values = 3
+  initial_condition = '2 3 4'
+  lower_bounds = '1 1 1'
+  upper_bounds = '5 5 5'
   objective_name = objective
 []
 [Executioner]
