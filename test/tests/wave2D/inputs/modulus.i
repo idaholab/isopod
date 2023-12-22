@@ -2,7 +2,7 @@
   [parameters]
     type = ConstantReporter
     real_vector_names = 'coordx coordy Gr'
-    real_vector_values = '-7 7; -7 7; 8 24'
+    real_vector_values = '-7 7 0; -7 7 0; 8 24 5'
   []
 []
 
@@ -17,7 +17,7 @@
     type = ParsedFunction
     # expression = 'if((x^2+y^2) < 5^2, 80,25)'
     # expression = '25'
-    expression = (1+2*${nu})*Gr
+    expression = 2*(1+${nu})*Gr
     symbol_names = 'Gr'
     symbol_values = 'Gr_func'
   []
