@@ -42,8 +42,8 @@ isopodTestApp::registerAll(Factory & f, ActionFactory & af, Syntax & s, bool use
 void
 isopodTestApp::registerApps()
 {
-  registerApp(isopodApp);
   registerApp(isopodTestApp);
+  isopodApp::registerApps();
 }
 
 /***************************************************************************************************

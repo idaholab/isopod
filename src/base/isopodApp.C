@@ -33,6 +33,7 @@ void
 isopodApp::registerApps()
 {
   registerApp(isopodApp);
+  ModulesApp::registerApps();
 }
 
 /***************************************************************************************************
