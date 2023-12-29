@@ -8,6 +8,7 @@
     ymax =  15
     nx = ${nelem}
     ny = ${nelem}
+    elem_type = QUAD9
   []
 []
 
