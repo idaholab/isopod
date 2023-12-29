@@ -14,7 +14,7 @@
     vector_name_a = gradG
     vector_name_b = gradL
     coef_a = 1.0
-    coef_b = -3.0 #2nu/(1-2nu)             #### TODO check the accuracy of this...
+    coef_b = ${dlambda_dmu} 
     execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = 1
   []

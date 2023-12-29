@@ -56,7 +56,7 @@
   [parameters]
     type = ConstantReporter
     real_vector_names = 'Gr'
-    real_vector_values = '4.0 5.0 6.0'
+    real_vector_values = '4.0 8.0 4.0'
   []
   [Results]
     type = StochasticReporter
