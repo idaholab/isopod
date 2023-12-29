@@ -16,7 +16,7 @@ locking       = False  # Locking true works fine as well
 #dlambda_dmu   = -3
 #locking       = True
 
-nelem         = 50
+nelem         = 20
 ve_factor     = 2e-10
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
