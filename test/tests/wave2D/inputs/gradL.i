@@ -64,7 +64,7 @@
     vector_name_a = gradLr
     vector_name_b = gradLi
     coef_a = 1.0
-    coef_b = ${fparse omega/omega_bar}
+    coef_b = ${ve_factor}
     execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = 1
   []

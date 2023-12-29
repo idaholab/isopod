@@ -13,12 +13,12 @@
 !include inputs/materials.i
 !include inputs/kernels.i
 !include inputs/push.i
-#[BCs]
-#  !include inputs/BCs/left.i
-#  !include inputs/BCs/right.i
-#  !include inputs/BCs/top.i
-#  !include inputs/BCs/bottom.i
-#[]
+[BCs]
+  !include inputs/BCs/left.i
+  !include inputs/BCs/right.i
+  !include inputs/BCs/top.i
+  !include inputs/BCs/bottom.i
+[]
 !include inputs/adj_variables.i
 !include inputs/adj_materials.i
 !include inputs/adj_kernels.i
@@ -39,8 +39,8 @@
 []
 
 [Outputs]
-#    file_base = 'outputs/${id}'
-    exodus = true
-    csv = true
-    console = false
+# file_base = 'outputs/${id}'
+  exodus = false
+  csv = false
+  console = false
 []

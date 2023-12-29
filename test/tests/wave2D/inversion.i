@@ -4,9 +4,10 @@
   type = GeneralOptimization
   parameter_names = 'Gr'
   num_values = 3
-  initial_condition = '2 3 4'
+  #initial_condition = '4 8 4'
+  initial_condition = '3.8 7.8 3.8'
   lower_bounds = '1 1 1'
-  upper_bounds = '5 5 5'
+  upper_bounds = '10 10 10'
   objective_name = objective
 []
 [Executioner]
