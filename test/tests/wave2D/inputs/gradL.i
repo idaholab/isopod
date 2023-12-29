@@ -1,38 +1,38 @@
 [VectorPostprocessors]
   [gradLrr]
     type = ElementOptimizationLameLambdaInnerProduct
-    forward_strain_name = 'r_mechanical_strain_nonad'
-    adjoint_strain_name = 'r_adj_mechanical_strain_nonad'
+    forward_strain_name = r_mechanical_strain_nonad
+    adjoint_strain_name = r_adj_mechanical_strain_nonad
     variable = dummy
     function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
+    execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = -1
   []
   [gradLri]
     type = ElementOptimizationLameLambdaInnerProduct
-    forward_strain_name = 'i_mechanical_strain_nonad'
-    adjoint_strain_name = 'r_adj_mechanical_strain_nonad'
+    forward_strain_name = i_mechanical_strain_nonad
+    adjoint_strain_name = r_adj_mechanical_strain_nonad
     variable = dummy
     function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
+    execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = -1
   []
   [gradLir]
     type = ElementOptimizationLameLambdaInnerProduct
-    forward_strain_name = 'r_mechanical_strain_nonad'
-    adjoint_strain_name = 'i_adj_mechanical_strain_nonad'
+    forward_strain_name = r_mechanical_strain_nonad
+    adjoint_strain_name = i_adj_mechanical_strain_nonad
     variable = dummy
     function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
+    execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = -1
   []
   [gradLii]
     type = ElementOptimizationLameLambdaInnerProduct
-    forward_strain_name = 'i_mechanical_strain_nonad'
-    adjoint_strain_name = 'i_adj_mechanical_strain_nonad'
+    forward_strain_name = i_mechanical_strain_nonad
+    adjoint_strain_name = i_adj_mechanical_strain_nonad
     variable = dummy
     function = Gr_func
-    execute_on = 'ADJOINT_TIMESTEP_END'
+    execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = -1
   []
   [gradLr]

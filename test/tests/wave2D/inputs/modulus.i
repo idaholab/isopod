@@ -15,21 +15,20 @@
   []
   [Er_dist]
     type = ParsedFunction
-    # expression = 'if((x^2+y^2) < 5^2, 80,25)'
-    expression = 2*(1+${nu})*Gr
-    symbol_names = 'Gr'
-    symbol_values = 'Gr_func'
+    expression    = 2*(1+${nu})*Gr
+    symbol_names  = Gr
+    symbol_values = Gr_func
   []
   [Ei_dist]
     type = ParsedFunction
-    expression = Er_dist*${ve_factor}
-    symbol_names = 'Er_dist'
-    symbol_values = 'Er_dist'
+    expression    = Er_dist*${ve_factor}
+    symbol_names  = Er_dist
+    symbol_values = Er_dist
   []
   [_Ei_dist]
     type = ParsedFunction
-    expression = -Ei_dist
-    symbol_names = 'Ei_dist'
-    symbol_values = 'Ei_dist'
+    expression    = -Ei_dist
+    symbol_names  =  Ei_dist
+    symbol_values =  Ei_dist
   []
 []

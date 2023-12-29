@@ -1,4 +1,8 @@
 # Non-SI units: mm, mg, ms, mN
+
+#######################
+### Check modulus.i ###
+#######################
  
 id            = 1
 frequencyKHz  = 0.400
@@ -6,8 +10,7 @@ rho           = 1
 
 nu            = 0.3
 dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
-locking       = False
-# Locking correction seem to work fine for compressible media
+locking       = False  # Locking true works fine as well
 # Something else seems to be imprecise for incompressibility
 #nu            = 0.49999 # INCOMPRESSIBLE
 #dlambda_dmu   = -3
@@ -18,12 +21,6 @@ ve_factor     = 2e-10
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
 _rhow2        = ${fparse -rho*omega*omega}
-
-######################################################
-### Check modulus.i and push.i for other constants ###
-######################################################
-
-
 
 Gbr = 4  # kPa = mg/mm/ms^2
 Gbi = ${fparse Gbr * ve_factor}

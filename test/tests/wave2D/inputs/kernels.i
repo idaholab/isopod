@@ -1,10 +1,3 @@
-##########################################
-### Structure appears correct          ###
-### Examine the signs in materials.i   ###
-### Confirm hte order of component and variables ###
-### The order should be consistent with the materials signs ###
-##########################################
-
 [Kernels]
   [sigma_rr_x]
     type = ADStressDivergenceTensors
@@ -76,23 +69,23 @@
 
   [inertia_xr]
     type = ADReaction
-    rate = '${_rhow2}'
+    rate = ${_rhow2}
     variable = uxr
   []
   [inertia_yr]
     type = ADReaction
-    rate = '${_rhow2}'
+    rate = ${_rhow2}
     variable = uyr
   []
 
   [inertia_xi]
     type = ADReaction
-    rate = '${_rhow2}'
+    rate = ${_rhow2}
     variable = uxi
   []
   [inertia_yi]
     type = ADReaction
-    rate = '${_rhow2}'
+    rate = ${_rhow2}
     variable = uyi
   []
 []
