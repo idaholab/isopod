@@ -3,13 +3,13 @@
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
     displacements = 'uxr_adj uyr_adj'
-    base_name = 'r_adj'
+    base_name = r_adj
   []
   [eps_i_adj]
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
     displacements = 'uxi_adj uyi_adj'
-    base_name = 'i_adj'
+    base_name = i_adj
   []
   [r_mechanical_strain_nonad]
     type = RankTwoTensorMaterialADConverter

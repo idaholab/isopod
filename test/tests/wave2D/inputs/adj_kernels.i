@@ -12,7 +12,6 @@
   []
   [misfit_uxi]
     type = ReporterPointSource
-    # commented below because of "private member" error
     # drop_duplicate_points = false
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
@@ -23,7 +22,6 @@
   []
   [misfit_uyr]
     type = ReporterPointSource
-    # commented below because of "private member" error
     # drop_duplicate_points = false
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
@@ -34,7 +32,6 @@
   []
   [misfit_uyi]
     type = ReporterPointSource
-    # commented below because of "private member" error
     # drop_duplicate_points = false
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
@@ -59,7 +56,7 @@
     #type = CorrelationObjectiveAndGradient
     measurement_vector = measure_data/measurement_values
     simulation_vector = measure_data/simulation_values
-    objective_name = 'objective'
-    adjoint_rhs_vector_name = 'adjoint_rhs'
+    objective_name = objective
+    adjoint_rhs_vector_name = adjoint_rhs
   []
 []
