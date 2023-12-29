@@ -3,13 +3,21 @@
 id            = 1
 frequencyKHz  = 0.400
 rho           = 1
-nu            = 0.0                      # TODO - change this to 0.4999999
+
+nu            = 0.3
+dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
 locking       = False
+# Locking correction seem to work fine for compressible media
+# Something else seems to be imprecise for incompressibility
+#nu            = 0.49999 # INCOMPRESSIBLE
+#dlambda_dmu   = -3
+#locking       = True
+
 nelem         = 50
 ve_factor     = 2e-10
+
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
 _rhow2        = ${fparse -rho*omega*omega}
-dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}  # should this be -3 for incompressible?
 
 ######################################################
 ### Check modulus.i and push.i for other constants ###
