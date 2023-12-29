@@ -52,8 +52,8 @@
     vectorpostprocessor_b = gradGir
     vector_name_a = inner_product
     vector_name_b = inner_product
-    coef_a = -1.0
-    coef_b =  1.0
+    coef_a =  1.0
+    coef_b = -1.0
     execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = 0
   []
