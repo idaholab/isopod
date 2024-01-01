@@ -5,7 +5,7 @@
 #######################
  
 id            = 1
-frequencyKHz  = 0.400
+frequencyKHz  = 0.100
 rho           = 1
 
 nu            = 0.3
