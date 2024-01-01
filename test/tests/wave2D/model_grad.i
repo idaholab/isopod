@@ -28,11 +28,11 @@
   type = SteadyAndAdjoint
   forward_system = nl0
   adjoint_system = adjoint
-  #petsc_options_iname='-pc_type'
-  #petsc_options_value='lu'
-  petsc_options_iname = '-pc_type -tao_fd_test -tao_test_gradient -tao_fd_gradient'
-  petsc_options_value = 'lu true true false'
-  petsc_options = '-tao_test_gradient_view'
+  petsc_options_iname='-pc_type'
+  petsc_options_value='lu'
+  #petsc_options_iname = '-pc_type -tao_fd_test -tao_test_gradient -tao_fd_gradient'
+  #petsc_options_value = 'lu true true false'
+  #petsc_options = '-tao_test_gradient_view'
   nl_forced_its = 1
   line_search = none
   nl_abs_tol = 1e-8
@@ -41,6 +41,6 @@
 [Outputs]
 # file_base = 'outputs/${id}'
   exodus = false
-  csv = false
+  csv = true
   console = false
 []
