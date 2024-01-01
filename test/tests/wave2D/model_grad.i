@@ -41,6 +41,6 @@
 [Outputs]
 # file_base = 'outputs/${id}'
   exodus = false
-  csv = true
+  csv = false
   console = false
 []

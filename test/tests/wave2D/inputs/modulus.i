@@ -2,7 +2,7 @@
   [parameters]
     type = ConstantReporter
     real_vector_names = 'coordx coordy Gr'
-    real_vector_values = '-7 7 0; -7 7 0; 4 4 8'
+    real_vector_values = '-7 7 0; -7 7 0; 4 4 ${fparse Gr}'
   []
 []
 
