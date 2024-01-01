@@ -6,8 +6,10 @@
  
 id            = 1
 frequencyKHz  = 0.100
-rho           = 1
 
+Gr            = 8.0
+
+rho           = 1
 nu            = 0.3
 dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
 locking       = False  # Locking true works fine as well
