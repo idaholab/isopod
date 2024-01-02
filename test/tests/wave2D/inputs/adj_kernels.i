@@ -1,8 +1,6 @@
 [DiracKernels]
   [misfit_uxr]
     type = ReporterPointSource
-    # commented below because of "private member" error
-    # drop_duplicate_points = false
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
@@ -12,7 +10,6 @@
   []
   [misfit_uxi]
     type = ReporterPointSource
-    # drop_duplicate_points = false
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
@@ -22,7 +19,6 @@
   []
   [misfit_uyr]
     type = ReporterPointSource
-    # drop_duplicate_points = false
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
@@ -32,7 +28,6 @@
   []
   [misfit_uyi]
     type = ReporterPointSource
-    # drop_duplicate_points = false
     x_coord_name = measure_data/measurement_xcoord
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
