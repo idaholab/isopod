@@ -52,8 +52,8 @@
     measurement_file = 'measurement/frequency${id}.csv'
   []
   [correlation]
-    type = L2ObjectiveAndGradient
-    #type = CorrelationObjectiveAndGradient
+    #type = L2ObjectiveAndGradient
+    type = CorrelationObjectiveAndGradient
     measurement_vector = measure_data/measurement_values
     simulation_vector = measure_data/simulation_values
     objective_name = objective

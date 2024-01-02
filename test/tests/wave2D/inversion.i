@@ -4,7 +4,7 @@
   type = GeneralOptimization
   parameter_names = 'Gr'
   num_values = 3
-  initial_condition = '4 4 7.99' #'4 4 8'
+  initial_condition = '4 4 12' #'4 4 8'
   lower_bounds = '1 1 1'
   upper_bounds = '10 10 10'
   objective_name = objective
