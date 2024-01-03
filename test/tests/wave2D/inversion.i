@@ -1,22 +1,28 @@
 [Optimization]
 []
 [OptimizationReporter]
-  type = GeneralOptimization
-  parameter_names = 'Gr'
-  num_values = 3
-  initial_condition = '4 4 12' #'4 4 8'
-  lower_bounds = '1 1 1'
-  upper_bounds = '10 10 10'
+  type = GeneralParameterMeshOptimization
+  parameter_names = Gr
+  parameter_meshes =GrMesh.e
+  constant_group_initial_condition = 4.1
+  constant_group_lower_bounds = 1
+  constant_group_upper_bounds = 8
+  # initial_condition_mesh_variable = Gr
+#  type = GeneralOptimization
+#  num_values = 3
+#  initial_condition = '4 4 12' #'4 4 8'
+#  lower_bounds = '1 1 1'
+#  upper_bounds = '10 10 10'
   objective_name = objective
 []
 [Executioner]
   type = Optimize
-  tao_solver = taolmvm
+  tao_solver = taobqnls
   petsc_options_iname = '-tao_gatol -tao_max_it -tao_ls_type'
-  petsc_options_value = '1e-8 100 unit'
-  #petsc_options_iname = '-tao_gatol -tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_ls_type'
-  #petsc_options_value = '1e-8 1 true true false unit'
-  #petsc_options = '-tao_test_gradient_view'
+  petsc_options_value = '1e-6 100 unit'
+#  petsc_options_iname = '-tao_gatol -tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_ls_type'
+#  petsc_options_value = '1e-8 1 true true false unit'
+#  petsc_options = '-tao_test_gradient_view'
   verbose = true
 []
 [Reporters]

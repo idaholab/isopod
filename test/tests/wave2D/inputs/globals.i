@@ -7,7 +7,7 @@
 id            = 1
 frequencyKHz  = 0.100
 
-Gr            = 8.0
+Gr            = 4.0
 
 rho           = 1
 nu            = 0.3
