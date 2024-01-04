@@ -5,7 +5,7 @@
   type = GeneralParameterMeshOptimization
   parameter_names  = Gr
   parameter_meshes = inputs/GrMesh.e
-  constant_group_initial_condition = 4.1
+  initial_condition_mesh_variable = Gr
   constant_group_lower_bounds = 1
   constant_group_upper_bounds = 8
   objective_name = objective
@@ -14,7 +14,7 @@
   type = Optimize
   tao_solver = taobqnls
   petsc_options_iname = '-tao_gatol -tao_max_it -tao_ls_type'
-  petsc_options_value = '1e-6 2 unit'
+  petsc_options_value = '1e-6 ${maxiter} unit'
 #  petsc_options_iname = '-tao_gatol -tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_ls_type'
 #  petsc_options_value = '1e-8 1 true true false unit'
 #  petsc_options = '-tao_test_gradient_view'

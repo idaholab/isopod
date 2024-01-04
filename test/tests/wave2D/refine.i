@@ -1,4 +1,5 @@
-#grid_size = 3
+# fine_grid = 6
+# coarse_grid = 3
 [Mesh]
   [ROI]
     type = GeneratedMeshGenerator
@@ -7,30 +8,35 @@
     xmax =  15
     ymin = -15
     ymax =  15
-    nx = ${grid_size}
-    ny = ${grid_size}
+    nx = ${fine_grid}
+    ny = ${fine_grid}
   []
-  parallel_type = REPLICATED
 []
+
 [Problem]
   solve = false
 []
 
 [AuxVariables]
   [Gr]
-    order = FIRST
     family = LAGRANGE
+    order  = FIRST
+  []
+[]
+
+[UserObjects]
+  [Gr]
+    type = SolutionUserObject
+    mesh = inversion/GrMesh${coarse_grid}.e
+    system_variables = Gr
   []
 []
 
 [AuxKernels]
-  [Gr_kernel]
-    type = ParsedAux
+  [Gr]
+    type = SolutionAux
     variable = Gr
-    use_xyzt = true
-    # expression = 4 # Used for synthetic data
-    expression = 3 #+4*(1-(x/15)^2)*(1-(y/15)^2)
-    execute_on = TIMESTEP_BEGIN
+    solution = Gr
   []
 []
 
@@ -39,7 +45,7 @@
 []
 
 [Outputs]
-  file_base = GrMesh${grid_size}
+  file_base = inputs/GrMesh${fine_grid}
   exodus = true
   execute_on = TIMESTEP_END
 []

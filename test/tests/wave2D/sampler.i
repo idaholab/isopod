@@ -21,7 +21,7 @@
 []
 [Outputs]
   csv = false
-  json = true
+  json = false
   console = false
   file_base = sampler/
 []

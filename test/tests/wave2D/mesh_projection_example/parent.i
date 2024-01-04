@@ -1,4 +1,3 @@
-#grid_size = 3
 [Mesh]
   [ROI]
     type = GeneratedMeshGenerator
@@ -7,8 +6,8 @@
     xmax =  15
     ymin = -15
     ymax =  15
-    nx = ${grid_size}
-    ny = ${grid_size}
+    nx = 2
+    ny = 2
   []
   parallel_type = REPLICATED
 []
@@ -17,7 +16,7 @@
 []
 
 [AuxVariables]
-  [Gr]
+  [Gr_parent]
     order = FIRST
     family = LAGRANGE
   []
@@ -26,10 +25,9 @@
 [AuxKernels]
   [Gr_kernel]
     type = ParsedAux
-    variable = Gr
+    variable = Gr_parent
     use_xyzt = true
-    # expression = 4 # Used for synthetic data
-    expression = 3 #+4*(1-(x/15)^2)*(1-(y/15)^2)
+    expression = 4+4*(1-(x/15)^2)*(1-(y/15)^2)
     execute_on = TIMESTEP_BEGIN
   []
 []
@@ -39,7 +37,24 @@
 []
 
 [Outputs]
-  file_base = GrMesh${grid_size}
+  file_base = parent
   exodus = true
   execute_on = TIMESTEP_END
+[]
+
+[MultiApps]
+  [child]
+    type = FullSolveMultiApp
+    execute_on = TIMESTEP_END
+    input_files = child.i
+  []
+[]
+
+[Transfers]
+  [refine]
+    type = MultiAppProjectionTransfer
+    to_multi_app = child
+    variable = Gr
+    source_variable = Gr_parent
+  []
 []

@@ -1,4 +1,3 @@
-#grid_size = 3
 [Mesh]
   [ROI]
     type = GeneratedMeshGenerator
@@ -7,8 +6,8 @@
     xmax =  15
     ymin = -15
     ymax =  15
-    nx = ${grid_size}
-    ny = ${grid_size}
+    nx = 3
+    ny = 3
   []
   parallel_type = REPLICATED
 []
@@ -23,23 +22,12 @@
   []
 []
 
-[AuxKernels]
-  [Gr_kernel]
-    type = ParsedAux
-    variable = Gr
-    use_xyzt = true
-    # expression = 4 # Used for synthetic data
-    expression = 3 #+4*(1-(x/15)^2)*(1-(y/15)^2)
-    execute_on = TIMESTEP_BEGIN
-  []
-[]
-
 [Executioner]
   type = Steady
 []
 
 [Outputs]
-  file_base = GrMesh${grid_size}
+  file_base = child
   exodus = true
   execute_on = TIMESTEP_END
 []
