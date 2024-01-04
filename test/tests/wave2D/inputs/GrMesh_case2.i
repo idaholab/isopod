@@ -28,8 +28,8 @@
     type = ParsedAux
     variable = Gr
     use_xyzt = true
-    # expression = 4 # Used for synthetic data
-    expression = 3 #+4*(1-(x/15)^2)*(1-(y/15)^2)
+   #expression = 4+4*(1-(x/15)^2)*(1-(y/15)^2) # true value
+    expression = 4 # initial estimate
     execute_on = TIMESTEP_BEGIN
   []
 []

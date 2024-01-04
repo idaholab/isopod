@@ -1,3 +1,13 @@
+# To generate synthetic data
+#[OptimizationReporter]
+#  type = GeneralParameterMeshOptimization
+#  parameter_names  = Gr
+#  parameter_meshes = inputs/GrMesh.e
+#  initial_condition_mesh_variable = Gr
+#  objective_name = objective
+#[]
+
+# For inversion
 [Reporters]
   [parameters]
     type = ConstantReporter
@@ -10,7 +20,8 @@
   [Gr_func]
     type = ParameterMeshFunction
     exodus_mesh = inputs/GrMesh.e
-    parameter_name = parameters/Gr
+    parameter_name = parameters/Gr # for inversion
+   #parameter_name = OptimizationReporter/Gr # for synthetic data
   []
   [Er_dist]
     type = ParsedFunction
