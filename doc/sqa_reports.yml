@@ -10,7 +10,7 @@ Documents:
     software_requirements_specification: sqa/isopod_srs.md
     software_design_description: sqa/isopod_sdd.md
     software_test_plan: sqa/isopod_stp.md
-    requirements_traceablity_matrix: sqa/isopod_rtm.md
+    requirements_traceability_matrix: sqa/isopod_rtm.md
     verification_validation_report: sqa/isopod_vvr.md
     failure_analysis_report: sqa/isopod_vvr.md
     log_safety_software_determination: WARNING
