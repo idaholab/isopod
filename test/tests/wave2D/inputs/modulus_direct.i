@@ -1,18 +1,18 @@
-# For inversion
-[Reporters]
-  [parameters]
-    type = ConstantReporter
-    real_vector_names = 'Gr'
-    real_vector_values = '4.0' # dummy
-  []
+# To generate synthetic data
+[OptimizationReporter]
+  type = GeneralParameterMeshOptimization
+  parameter_names  = Gr
+  parameter_meshes = inputs/GrMesh.e
+  initial_condition_mesh_variable = Gr
+  objective_name = objective
 []
 
 [Functions]
   [Gr_func]
     type = ParameterMeshFunction
     exodus_mesh = inputs/GrMesh.e
-    parameter_name = parameters/Gr # for inversion
-   #parameter_name = OptimizationReporter/Gr # for synthetic data
+   #parameter_name = parameters/Gr # for inversion
+    parameter_name = OptimizationReporter/Gr # for synthetic data
   []
   [Er_dist]
     type = ParsedFunction

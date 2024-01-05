@@ -7,8 +7,6 @@
 id            = 1
 frequencyKHz  = 0.100
 
-Gr            = 4.0
-
 rho           = 1
 nu            = 0.3
 dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
