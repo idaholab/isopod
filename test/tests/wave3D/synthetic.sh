@@ -7,7 +7,7 @@ cd inputs
 ../../../../isopod-opt -i GrMesh.i grid_size=3
 cd ..
 
-cp inputs/GrMesh12.e inputs/GrMesh.e
+cp inputs/GrMesh3.e inputs/GrMesh.e
 mpirun -np 16 ../../../isopod-opt -i model_grad_direct.i id=1 frequencyKHz=0.100
 #../../../isopod-opt -i model_grad_direct.i id=2 frequencyKHz=0.200
 #../../../isopod-opt -i model_grad_direct.i id=3 frequencyKHz=0.300

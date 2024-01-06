@@ -31,8 +31,8 @@
     type = ParsedAux
     variable = Gr
     use_xyzt = true
-   #expression = 1+1*(1-(x/15)^2)*(1-(y/15)^2)*(1-(z/15)^2) # true value
-    expression = 1 # initial estimate
+    expression = 1+1*(1-(x/15)^2)*(1-(y/15)^2)*(1-(z/15)^2) # true value
+   #expression = 1 # initial estimate
     execute_on = TIMESTEP_BEGIN
   []
 []
