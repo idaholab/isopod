@@ -43,25 +43,25 @@
   [eps_rr]
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
-    displacements = 'uxr uyr'
+    displacements = 'uxr uyr uzr'
     base_name = rr
   []
   [eps_ri]
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
-    displacements = 'uxr uyr'
+    displacements = 'uxr uyr uzr'
     base_name = ri
   []
   [eps_ir]
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
-    displacements = 'uxi uyi'
+    displacements = 'uxi uyi uzi'
     base_name = ir
   []
   [eps_ii]
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
-    displacements = 'uxi uyi'
+    displacements = 'uxi uyi uzi'
     base_name = ii
   []
 

@@ -60,3 +60,32 @@
     coef = ${_Znii}
   []
 
+# Tangential BC in z direction
+  [uzrr_bottom]
+    type = ADCoupledVarNeumannBC
+    boundary = bottom
+    variable = uzr
+    v =        uzr
+    coef = ${_Zsrr}
+  []
+  [uzri_bottom]
+    type = ADCoupledVarNeumannBC
+    boundary = bottom
+    variable = uzr
+    v =        uzi
+    coef = ${_Zsri}
+  []
+  [uzir_bottom]
+    type = ADCoupledVarNeumannBC
+    boundary = bottom
+    variable = uzi
+    v =        uzr
+    coef = ${_Zsir}
+  []
+  [uzii_bottom]
+    type = ADCoupledVarNeumannBC
+    boundary = bottom
+    variable = uzi
+    v =        uzi
+    coef = ${_Zsii}
+  []

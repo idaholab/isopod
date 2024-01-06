@@ -1,91 +1,91 @@
-## BCs on the left boundary
+## BCs on the back boundary
 
-# Normal BC in x direction
-  [uxrr_left]
+# Tangential BC in x direction
+  [uxrr_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uxr
     v =        uxr
-    coef = ${_Znrr}
+    coef = ${_Zsrr}
   []
-  [uxri_left]
+  [uxri_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uxr
     v =        uxi
-    coef = ${_Znri}
+    coef = ${_Zsri}
   []
-  [uxir_left]
+  [uxir_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uxi
     v =        uxr
-    coef = ${_Znir}
+    coef = ${_Zsir}
   []
-  [uxii_left]
+  [uxii_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uxi
     v =        uxi
-    coef = ${_Znii}
+    coef = ${_Zsii}
   []
 
 # Tangential BC in y direction
-  [uyrr_left]
+  [uyrr_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uyr
     v =        uyr
     coef = ${_Zsrr}
   []
-  [uyri_left]
+  [uyri_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uyr
     v =        uyi
     coef = ${_Zsri}
   []
-  [uyir_left]
+  [uyir_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uyi
     v =        uyr
     coef = ${_Zsir}
   []
-  [uyii_left]
+  [uyii_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uyi
     v =        uyi
     coef = ${_Zsii}
   []
 
-# Tangential BC in z direction
-  [uzrr_left]
+# Normal BC in z direction
+  [uzrr_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uzr
     v =        uzr
-    coef = ${_Zsrr}
+    coef = ${_Znrr}
   []
-  [uzri_left]
+  [uzri_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uzr
     v =        uzi
-    coef = ${_Zsri}
+    coef = ${_Znri}
   []
-  [uzir_left]
+  [uzir_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uzi
     v =        uzr
-    coef = ${_Zsir}
+    coef = ${_Znir}
   []
-  [uzii_left]
+  [uzii_back]
     type = ADCoupledVarNeumannBC
-    boundary = left
+    boundary = back
     variable = uzi
     v =        uzi
-    coef = ${_Zsii}
+    coef = ${_Znii}
   []
