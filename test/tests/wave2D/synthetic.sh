@@ -1,6 +1,8 @@
 # Case 2 - bell shaped modulus
 
 cp inputs/GrTrue_case2.i inputs/GrMesh.i
+rm -r measurement
+cp -r measurement_case2 measurement
 cd inputs
 ../../../../isopod-opt -i GrMesh.i grid_size=12
 cd ..
@@ -15,3 +17,4 @@ mv outputs/2_measure_data_0001.csv measurement_case2/frequency2.csv
 mv outputs/3_measure_data_0001.csv measurement_case2/frequency3.csv
 mv outputs/4_measure_data_0001.csv measurement_case2/frequency4.csv
 rm -r outputs
+rm -r measurement

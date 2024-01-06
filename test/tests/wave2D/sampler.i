@@ -6,7 +6,7 @@
     samples_file = 'measurement/frequencies.csv'
     column_names = 'id frequencyKHz'
     execute_on = 'PRE_MULTIAPP_SETUP'
-    min_procs_per_row = 2
+    nrows = 4
   []
 []
 [MultiApps]
@@ -16,7 +16,6 @@
     sampler = frequencies
     ignore_solve_not_converge = true
     mode = normal
-    min_procs_per_app = 2
   []
 []
 [Outputs]
