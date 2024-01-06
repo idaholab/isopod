@@ -18,6 +18,8 @@
   !include inputs/BCs/right.i
   !include inputs/BCs/top.i
   !include inputs/BCs/bottom.i
+  !include inputs/BCs/front.i
+  !include inputs/BCs/back.i
 []
 !include inputs/adj_variables.i
 !include inputs/adj_materials.i
@@ -40,7 +42,8 @@
 
 [Outputs]
  file_base = 'outputs/${id}'
-  exodus = false
+  exodus = true
   csv = true
-  console = false
+  console = true
+  execute_on = TIMESTEP_END
 []

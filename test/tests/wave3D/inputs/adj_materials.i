@@ -2,13 +2,13 @@
   [eps_r_adj]
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
-    displacements = 'uxr_adj uyr_adj'
+    displacements = 'uxr_adj uyr_adj uzr_adj'
     base_name = r_adj
   []
   [eps_i_adj]
     type = ADComputeSmallStrain
     volumetric_locking_correction = ${locking}
-    displacements = 'uxi_adj uyi_adj'
+    displacements = 'uxi_adj uyi_adj uzi_adj'
     base_name = i_adj
   []
   [r_mechanical_strain_nonad]

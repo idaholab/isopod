@@ -16,13 +16,13 @@ locking       = False  # Locking true works fine as well
 #dlambda_dmu   = -3
 #locking       = True
 
-nelem         = 20
+nelem         = 8
 ve_factor     = 2e-10
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
 _rhow2        = ${fparse -rho*omega*omega}
 
-Gbr = 4  # kPa = mg/mm/ms^2
+Gbr = 1  # kPa = mg/mm/ms^2
 Gbi = ${fparse Gbr * ve_factor}
 
 wave_ratio = ${fparse 1600/sqrt(Gbr)}
