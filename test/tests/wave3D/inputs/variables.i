@@ -1,30 +1,18 @@
-### Consider using higher order elements?
-### Why limit to trilinear elements?
-
-
 [Variables]
   [uxr]
-    order = FIRST
+    order = SECOND
     family = LAGRANGE
   []
   [uyr]
-    order = FIRST
-    family = LAGRANGE
-  []
-  [uzr]
-    order = FIRST
+    order = SECOND
     family = LAGRANGE
   []
   [uxi]
-    order = FIRST
+    order = SECOND
     family = LAGRANGE
   []
   [uyi]
-    order = FIRST
-    family = LAGRANGE
-  []
-  [uzi]
-    order = FIRST
+    order = SECOND
     family = LAGRANGE
   []
 []
