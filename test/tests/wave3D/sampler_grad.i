@@ -11,7 +11,7 @@
 [MultiApps]
   [model_grad]
     type = SamplerFullSolveMultiApp
-    input_files = model_grad.i
+    input_files = model_check_grad.i
     sampler = frequencies
     ignore_solve_not_converge = true
     mode = normal
