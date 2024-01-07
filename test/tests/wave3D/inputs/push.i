@@ -4,7 +4,7 @@
 [DiracKernels]
   [push]
     type = ConstantPointSource
-    point = '0 0 0'
+    point = ${ARF_location}
     variable = uzr
     value = 100
   []
