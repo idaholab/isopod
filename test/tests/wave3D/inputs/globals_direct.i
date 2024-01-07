@@ -14,7 +14,6 @@ SWE_npoints  = 41
 
 rho           = 1
 nu            = 0.3
-dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
 locking       = False  # Locking true works fine as well
 # Something else seems to be imprecise for incompressibility
 #nu            = 0.49999 # INCOMPRESSIBLE
