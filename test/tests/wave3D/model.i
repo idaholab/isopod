@@ -33,6 +33,6 @@
   file_base = 'model/push${push_id}freq${freq_id}'
   exodus = true
   csv = true
-  console = true
+  console = false
   execute_on = TIMESTEP_END
 []
