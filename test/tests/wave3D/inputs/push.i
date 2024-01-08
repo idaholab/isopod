@@ -1,21 +1,13 @@
-# The push needs to be modified
-# must be frequency dependent
-
-[DiracKernels]
+#ARFx = ((x-ARFxcenter)/ARFxw/6)
+#ARFy = ((y-ARFycenter)/ARFyw/6)
+#ARFz = ((z-ARFzcenter)/ARFzw/6)
+[Kernels]
   [push]
-    type = ConstantPointSource
-    point = ${ARF_location}
+    type = BodyForce
     variable = uzr
-    value = 100
+    value = 10
+#    function = exp(-${ARFx}^2-${ARFy}^2-${ARFz}^2)
+    function = exp(-((x-${ARFxcenter})/${ARFxw}/6)^2-((y-${ARFycenter})/${ARFyw}/6)^2-((z-${ARFzcenter})/${ARFzw}/6)^2)
   []
 []
-
-#[Kernels]
-#  [push]
-#    type = BodyForce
-#    variable = uyr
-#    value = 10
-#    function = exp(-5*((x-3)^2+(y-3)^2))
-#  []
-#[]
 
