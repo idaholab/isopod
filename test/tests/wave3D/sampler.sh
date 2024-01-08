@@ -1,12 +1,11 @@
-cp inputs/GrTrue_case2.i inputs/GrMesh.i
-cd inputs
-../../../../isopod-opt -i GrMesh.i grid_size=12
-cd ..
-
-cp inputs/GrMesh12.e inputs/GrMesh.e
 rm -r measurement
-cp -r measurement_case2 measurement
+cp -r synthetic measurement
 
-../../../isopod-opt -i sampler_direct.i
+cp inputs/GrGaussian.i inputs/GrMesh.i
+../../../isopod-opt -i inputs/GrMesh.i grid_size=12
+mv GrMesh12.e inputs/GrMesh.e
+
+../../../isopod-opt -i model_sampler.i
+
 rm inputs/GrMesh.i
 rm -r measurement
