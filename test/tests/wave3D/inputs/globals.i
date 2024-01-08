@@ -7,8 +7,15 @@
 id            = 1
 frequencyKHz  = 0.100
 
-ARF_force    = exp(-5*(10*(x+11)^2+5*(y-0)^2+2*(z-0)^2))
-# ARF_location = '-12 0 0'
+# The push needs to be modified
+# must be frequency dependent
+ARFxcenter = -11
+ARFycenter = -11
+ARFzcenter = -11
+ARFxw = 1
+ARFyw = 3
+ARFzw = 5
+
 SWE_xleft    = '-10 0 0'
 SWE_xright   = ' 10 0 0'
 SWE_npoints  = 401
