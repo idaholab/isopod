@@ -7,14 +7,15 @@
 id            = 1
 frequencyKHz  = 0.100
 
-ARF_location = '-12 0 0'
+ARF_force    = exp(-5*(10*(x+11)^2+5*(y-0)^2+2*(z-0)^2))
+# ARF_location = '-12 0 0'
 SWE_xleft    = '-10 0 0'
 SWE_xright   = ' 10 0 0'
-SWE_npoints  = 41
+SWE_npoints  = 401
 
 rho           = 1
-nu            = 0.3
-locking       = False  # Locking true works fine as well
+nu            = 0.499
+locking       = true  # Locking true works fine as well
 # Something else seems to be imprecise for incompressibility
 #nu            = 0.49999 # INCOMPRESSIBLE
 #dlambda_dmu   = -3
@@ -26,7 +27,7 @@ ve_factor     = 2e-10
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
 _rhow2        = ${fparse -rho*omega*omega}
 
-Gbr = 1  # kPa = mg/mm/ms^2
+Gbr = 8  # kPa = mg/mm/ms^2
 Gbi = ${fparse Gbr * ve_factor}
 
 wave_ratio = ${fparse 1600/sqrt(Gbr)}
