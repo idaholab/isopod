@@ -1,17 +1,14 @@
-#PBS -N forwardModel
-#!PBS -l nnodes=4
-#!PBS -l select=7
-#PBS -l select=10:ncpus=48:mpiprocs=48
-#!:mem=128gb
-#!PBS -l place=scatter:excl
-#PBS -l walltime=0:30:00
-#PBS -j oe
-#PBS -P ne_ldrd
-cp /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/inputs/GrTrue_case2.i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/inputs/GrMesh.i
-#! rm -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/measurement
-cp -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/measurement_case2 /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/measurement
-/home/guddmurt/sawtooth/projects/isopod/isopod-opt -i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/inputs/GrMesh.i grid_size=12
+# 400 Hz may be the max. Maybe even 300
+rm -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement
+cp -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/synthetic /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement
 
-cp /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/inputs/GrMesh12.e /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/inputs/GrMesh.e
-mpirun -np 30 /home/guddmurt/sawtooth/projects/isopod/isopod-opt -i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/model_grad_direct.i id=1 frequencyKHz=0.100
-rm -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave2D/measurement
+cp /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrGaussian.i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh.i
+/home/guddmurt/sawtooth/projects/isopod/isopod-opt -i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh.i grid_size=12
+
+mv /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/GrMesh12.e /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh.e
+mpirun -np 1 /home/guddmurt/sawtooth/projects/isopod/isopod-opt -i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/model.i frequencyKHz=0.300
+tail -n +2 /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/model/push1freq1_measure_data_0001.csv > /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/synthetic/junk
+cat /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/synthetic/header /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/synthetic/junk > /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/synthetic/push1freq1.csv
+rm /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/synthetic/junk
+rm /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh.i
+rm -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement

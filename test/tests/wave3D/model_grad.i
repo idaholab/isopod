@@ -21,6 +21,7 @@
   !include inputs/BCs/front.i
   !include inputs/BCs/back.i
 []
+!include inputs/measurements.i
 !include inputs/adj_variables.i
 !include inputs/adj_materials.i
 !include inputs/adj_kernels.i
