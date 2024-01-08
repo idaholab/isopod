@@ -55,21 +55,3 @@
   []
 []
 
-[Reporters]
-  [measure_data]
-    type = OptimizationData
-    variable              = '       uxr        uxi        uyr        uyi        uzr        uzi'
-    variable_weight_names = 'weight_uxr weight_uxi weight_uyr weight_uyi weight_uzr weight_uzi'
-    file_variable_weights = 'weight_uxr weight_uxi weight_uyr weight_uyi weight_uzr weight_uzi'
-    file_value            = 'value'
-    measurement_file = 'measurement/frequency${id}.csv'
-  []
-  [correlation]
-    #type = L2ObjectiveAndGradient
-    type = CorrelationObjectiveAndGradient
-    measurement_vector = measure_data/measurement_values
-    simulation_vector = measure_data/simulation_values
-    objective_name = objective
-    adjoint_rhs_vector_name = adjoint_rhs
-  []
-[]

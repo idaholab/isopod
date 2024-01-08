@@ -4,14 +4,15 @@
 ### Check modulus.i ###
 #######################
  
-id            = 1
+push_id       = 1
+freq_id       = 1
 frequencyKHz  = 0.100
 
 # The push needs to be modified
 # must be frequency dependent
-ARFxcenter = -11
-ARFycenter = -11
-ARFzcenter = -11
+ARFx = -11
+ARFy =  0
+ARFz =  0
 ARFxw = 1
 ARFyw = 3
 ARFzw = 5
@@ -22,14 +23,13 @@ SWE_npoints  = 401
 
 rho           = 1
 nu            = 0.499
-dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
 locking       = true  # Locking true works fine as well
 # Something else seems to be imprecise for incompressibility
 #nu            = 0.49999 # INCOMPRESSIBLE
 #dlambda_dmu   = -3
 #locking       = True
 
-nelem         = 20
+nelem         = 4
 ve_factor     = 2e-10
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
