@@ -6,7 +6,7 @@
   nl_sys_names = 'nl0 adjoint'
   kernel_coverage_check = false
 []
-!include inputs/globals_grad.i
+!include inputs/globals_inv.i
 !include inputs/mesh.i
 !include inputs/variables.i
 !include inputs/modulus.i
@@ -31,8 +31,6 @@
   type = SteadyAndAdjoint
   forward_system = nl0
   adjoint_system = adjoint
-  #petsc_options_iname='-pc_type'
-  #petsc_options_value='lu'
   petsc_options_iname = '-pc_type -tao_fd_test -tao_test_gradient -tao_fd_gradient'
   petsc_options_value = 'lu true true false'
   petsc_options = '-tao_test_gradient_view'
@@ -42,7 +40,7 @@
 []
 
 [Outputs]
-# file_base = 'outputs/${id}'
+  file_base = 'model_grad/push${push_id}freq${freq_id}'
   exodus = false
   csv = true
   console = false

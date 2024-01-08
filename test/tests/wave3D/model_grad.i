@@ -6,7 +6,7 @@
   nl_sys_names = 'nl0 adjoint'
   kernel_coverage_check = false
 []
-!include inputs/globals.i
+!include inputs/globals_inv.i
 !include inputs/mesh.i
 !include inputs/variables.i
 !include inputs/modulus.i

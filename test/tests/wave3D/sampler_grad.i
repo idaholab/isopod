@@ -1,10 +1,10 @@
 [StochasticTools]
 []
 [Samplers]
-  [frequencies]
+  [measurements]
     type = CSVSampler
-    samples_file = 'measurement/frequencies.csv'
-    column_names = 'id frequencyKHz'
+    samples_file = 'measurement/measurements.csv'
+    column_names = 'push_id freq_id ARFx ARFy ARFz frequencyKHz'
     execute_on = 'PRE_MULTIAPP_SETUP'
   []
 []
@@ -12,7 +12,7 @@
   [model_grad]
     type = SamplerFullSolveMultiApp
     input_files = model_check_grad.i
-    sampler = frequencies
+    sampler = measurements
     ignore_solve_not_converge = true
     mode = normal
   []
@@ -28,8 +28,8 @@
   [cmdLine]
     type = MultiAppSamplerControl
     multi_app = model_grad
-    sampler = frequencies
-    param_names = 'id frequencyKHz'
+    sampler = measurements
+    param_names = 'push_id freq_id ARFx ARFy ARFz frequencyKHz'
   []
 []
 
@@ -44,7 +44,7 @@
   [ObjectivesGradients]
     type = SamplerReporterTransfer
     from_multi_app = model_grad
-    sampler = frequencies
+    sampler = measurements
     stochastic_reporter = Results
     from_reporter = 'correlation/objective gradient/gradient'
   []
