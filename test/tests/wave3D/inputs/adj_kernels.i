@@ -5,8 +5,8 @@
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
     value_name   = correlation/adjoint_rhs
-    weight_name  = measure_data/weight_uxr
-    variable     =                     uxr_adj
+    weight_name  = measure_data/wxr
+    variable     =              uxr_adj
   []
   [misfit_uxi]
     type = ReporterPointSource
@@ -14,8 +14,8 @@
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
     value_name   = correlation/adjoint_rhs
-    weight_name  = measure_data/weight_uxi
-    variable     =                     uxi_adj
+    weight_name  = measure_data/wxi
+    variable     =              uxi_adj
   []
   [misfit_uyr]
     type = ReporterPointSource
@@ -23,8 +23,8 @@
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
     value_name   = correlation/adjoint_rhs
-    weight_name  = measure_data/weight_uyr
-    variable     =                     uyr_adj
+    weight_name  = measure_data/wyr
+    variable     =              uyr_adj
   []
   [misfit_uyi]
     type = ReporterPointSource
@@ -32,8 +32,8 @@
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
     value_name   = correlation/adjoint_rhs
-    weight_name  = measure_data/weight_uyi
-    variable     =                     uyi_adj
+    weight_name  = measure_data/wyi
+    variable     =              uyi_adj
   []
   [misfit_uzr]
     type = ReporterPointSource
@@ -41,8 +41,8 @@
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
     value_name   = correlation/adjoint_rhs
-    weight_name  = measure_data/weight_uzr
-    variable     =                     uzr_adj
+    weight_name  = measure_data/wzr
+    variable     =              uzr_adj
   []
   [misfit_uzi]
     type = ReporterPointSource
@@ -50,8 +50,8 @@
     y_coord_name = measure_data/measurement_ycoord
     z_coord_name = measure_data/measurement_zcoord
     value_name   = correlation/adjoint_rhs
-    weight_name  = measure_data/weight_uzi
-    variable     =                     uzi_adj
+    weight_name  = measure_data/wzi
+    variable     =              uzi_adj
   []
 []
 

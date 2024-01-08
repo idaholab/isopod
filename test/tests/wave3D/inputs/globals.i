@@ -23,13 +23,13 @@ SWE_npoints  = 401
 
 rho           = 1
 nu            = 0.499
-locking       = true  # Locking true works fine as well
+locking       = false  # Locking true works fine as well
 # Something else seems to be imprecise for incompressibility
 #nu            = 0.49999 # INCOMPRESSIBLE
 #dlambda_dmu   = -3
 #locking       = True
 
-nelem         = 4
+nelem         = 1
 ve_factor     = 2e-10
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}

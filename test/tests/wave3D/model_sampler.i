@@ -20,7 +20,7 @@
 [Outputs]
   csv = true
   json = false
-  console = false
+  console = true
   file_base = sampler/
 []
 
