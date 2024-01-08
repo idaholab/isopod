@@ -29,7 +29,7 @@
 []
 
 [Outputs]
- file_base = 'outputs/${id}'
+ file_base = 'swe/${id}'
   exodus = true
   csv = true
   console = true

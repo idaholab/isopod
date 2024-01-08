@@ -1,18 +1,11 @@
-cp inputs/GrTrue_case2.i inputs/GrMesh.i
-rm -r measurement
-cp -r measurement_case2 measurement
-cd inputs
-../../../../isopod-opt -i GrMesh.i grid_size=12
-cd ..
+# 400 Hz may be the max. Maybe even 300
+rm -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement
+cp -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement_case2 /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement
 
-cp inputs/GrMesh12.e inputs/GrMesh.e
-mpirun -np 16 ../../../isopod-opt -i model_grad_direct.i id=1 frequencyKHz=0.100
-#../../../isopod-opt -i model_grad_direct.i id=2 frequencyKHz=0.200
-#../../../isopod-opt -i model_grad_direct.i id=3 frequencyKHz=0.300
-#../../../isopod-opt -i model_grad_direct.i id=4 frequencyKHz=0.400
-mv outputs/1_measure_data_0001.csv measurement_case2/frequency1.csv
-#mv outputs/2_measure_data_0001.csv measurement_case2/frequency2.csv
-#mv outputs/3_measure_data_0001.csv measurement_case2/frequency3.csv
-#mv outputs/4_measure_data_0001.csv measurement_case2/frequency4.csv
-#rm -r outputs
-rm -r measurement
+cp /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrTrue_case2.i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh.i
+/home/guddmurt/sawtooth/projects/isopod/isopod-opt -i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh.i grid_size=12
+
+cp /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh12.e /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/inputs/GrMesh.e
+mpirun -np 16 /home/guddmurt/sawtooth/projects/isopod/isopod-opt -i /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/model_grad_direct.i id=1 frequencyKHz=0.300
+mv /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/outputs/1_measure_data_0001.csv /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement_case2/frequency1.csv
+rm -r /home/guddmurt/sawtooth/projects/isopod/test/tests/wave3D/measurement
