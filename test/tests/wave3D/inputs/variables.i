@@ -1,26 +1,26 @@
 [Variables]
   [uxr]
-    order = SECOND
+    order = FIRST
     family = LAGRANGE
   []
   [uyr]
-    order = SECOND
+    order = FIRST
     family = LAGRANGE
   []
   [uzr]
-    order = SECOND
+    order = FIRST
     family = LAGRANGE
   []
   [uxi]
-    order = SECOND
+    order = FIRST
     family = LAGRANGE
   []
   [uyi]
-    order = SECOND
+    order = FIRST
     family = LAGRANGE
   []
   [uzi]
-    order = SECOND
+    order = FIRST
     family = LAGRANGE
   []
 []
