@@ -19,7 +19,7 @@
 []
 [Outputs]
   csv = false
-  json = false
+  json = true
   console = false
   file_base = sampler/
 []
@@ -65,6 +65,7 @@
     type = VectorOfVectorRowSum
     name = gradient
     reporter_vector_of_vectors = "Results/ObjectivesGradients:gradient:gradient"
+    execution_order_group = 1
   []
   [objective]
     type = VectorSum
