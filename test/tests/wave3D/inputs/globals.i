@@ -29,7 +29,8 @@ locking       = false  # Locking true works fine as well
 #dlambda_dmu   = -3
 #locking       = True
 
-nelem         = 1
+nelem         = 2 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
+                  # may require even finer meshes for finer parametrization
 ve_factor     = 2e-10
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
