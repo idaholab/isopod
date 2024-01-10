@@ -6,7 +6,8 @@
   nl_sys_names = 'nl0 adjoint'
   kernel_coverage_check = false
 []
-!include inputs/globals_inv.i
+!include inputs/globals.i
+dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
 !include inputs/mesh.i
 !include inputs/variables.i
 !include inputs/modulus.i
@@ -40,7 +41,7 @@
 []
 
 [Outputs]
-  file_base = 'model_grad/push${push_id}freq${freq_id}'
+#  file_base = 'model_grad/push${push_id}freq${freq_id}'
   exodus = false
   csv = true
   console = false
