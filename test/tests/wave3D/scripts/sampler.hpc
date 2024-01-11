@@ -1,0 +1,23 @@
+# 400 Hz may be the max. Maybe even 300
+
+#PBS -N Sampler3D
+#PBS -l select=8:ncpus=48:mpiprocs=48
+#PBS -l place=scatter:excl
+#PBS -l walltime=0:05:00
+#PBS -j oe
+#PBS -P ne_ldrd
+cd $PBS_O_WORKDIR
+
+rm -r measurement
+cp -r synthetic measurement
+
+cp inputs/GrGaussian.i inputs/GrMesh.i
+../../../isopod-opt -i inputs/GrMesh.i grid_size=12
+mv GrMesh12.e inputs/GrMesh.e
+
+mpirun ../../../isopod-opt -i model_sampler.i
+mv sampler/_model?_measure_data_0001.csv synthetic
+rm inputs/GrMesh.i
+rm -r measurement
+
+# NOTES: Make mesh size 20 in inputs/globals.i and "selecti" = no. of rows in synthetic/measurements

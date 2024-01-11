@@ -15,22 +15,3 @@
   []
 []
 
-[VectorPostprocessors]
-  [SWEreal]
-    type = LineValueSampler
-    start_point = ${SWE_xleft}
-    end_point   = ${SWE_xright}
-    num_points  = ${SWE_npoints}
-    sort_by = x
-    variable = uzr
-  []
-  [SWEimag]
-    type = LineValueSampler
-    start_point = ${SWE_xleft}
-    end_point   = ${SWE_xright}
-    num_points  = ${SWE_npoints}
-    sort_by = x
-    variable = uzi
-  []
-[]
-
