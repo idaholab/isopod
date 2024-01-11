@@ -17,10 +17,6 @@ ARFxw = 1
 ARFyw = 3
 ARFzw = 5
 
-SWE_xleft    = '-10 0 0'
-SWE_xright   = ' 10 0 0'
-SWE_npoints  = 401
-
 rho           = 1
 nu            = 0.499
 locking       = false  # Locking true works fine as well

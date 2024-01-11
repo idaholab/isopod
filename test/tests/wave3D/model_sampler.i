@@ -9,7 +9,7 @@
   []
 []
 [MultiApps]
-  [model_grad]
+  [model]
     type = SamplerFullSolveMultiApp
     input_files = model.i
     sampler = measurements
@@ -27,7 +27,7 @@
 [Controls]
   [cmdLine]
     type = MultiAppSamplerControl
-    multi_app = model_grad
+    multi_app = model
     sampler = measurements
     param_names = 'push_id freq_id ARFx ARFy ARFz frequencyKHz'
   []
