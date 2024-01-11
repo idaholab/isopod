@@ -11,7 +11,7 @@
     nx = ${nelem}
     ny = ${nelem}
     nz = ${nelem}
-    elem_type = HEX8
+    elem_type = ${elemtype3D}
   []
 []
 

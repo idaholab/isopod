@@ -1,26 +1,26 @@
 [Variables]
   [uxr]
-    order = FIRST
+    order = ${elemorder3D}
     family = LAGRANGE
   []
   [uyr]
-    order = FIRST
+    order = ${elemorder3D}
     family = LAGRANGE
   []
   [uzr]
-    order = FIRST
+    order = ${elemorder3D}
     family = LAGRANGE
   []
   [uxi]
-    order = FIRST
+    order = ${elemorder3D}
     family = LAGRANGE
   []
   [uyi]
-    order = FIRST
+    order = ${elemorder3D}
     family = LAGRANGE
   []
   [uzi]
-    order = FIRST
+    order = ${elemorder3D}
     family = LAGRANGE
   []
 []
