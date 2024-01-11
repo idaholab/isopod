@@ -1,12 +1,12 @@
 # Non-SI units: mm, mg, ms, mN
 
-#######################
-### Check modulus.i ###
-#######################
- 
 push_id       = 1
 freq_id       = 1
 frequencyKHz  = 0.100
+
+
+elemtype3D = HEX27
+elemorder3D = SECOND
 
 # The push needs to be modified
 # must be frequency dependent
