@@ -25,7 +25,7 @@ locking       = false  # Locking true works fine as well
 #dlambda_dmu   = -3
 #locking       = True
 
-nelem         = 2 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
+nelem         = 20 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
                   # may require even finer meshes for finer parametrization
 ve_factor     = 2e-10
 

@@ -3,13 +3,16 @@
 [Mesh]
   [ROI]
     type = GeneratedMeshGenerator
-    dim = 2
+    dim = 3
     xmin = -15
     xmax =  15
     ymin = -15
     ymax =  15
+    zmin = -15
+    zmax =  15
     nx = ${fine_grid}
     ny = ${fine_grid}
+    nz = ${fine_grid}
   []
 []
 
