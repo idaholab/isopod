@@ -16,8 +16,34 @@ cp inputs/GrGaussian.i inputs/GrMesh.i
 mv GrMesh12.e inputs/GrMesh.e
 
 mpirun ../../../isopod-opt -i model_sampler.i
-mv sampler/_model?_measure_data_0001.csv synthetic
+
+tail -n +2 sampler/_model0_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq1.csv
+tail -n +2 sampler/_model1_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq2.csv
+tail -n +2 sampler/_model2_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq3.csv
+tail -n +2 sampler/_model3_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq4.csv
+tail -n +2 sampler/_model4_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq5.csv
+tail -n +2 sampler/_model5_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq6.csv
+tail -n +2 sampler/_model6_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq7.csv
+tail -n +2 sampler/_model7_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq8.csv
+
+mv sampler/_model0.e synthetic/push1freq1.e
+mv sampler/_model1.e synthetic/push1freq2.e
+mv sampler/_model2.e synthetic/push1freq3.e
+mv sampler/_model3.e synthetic/push1freq4.e
+mv sampler/_model4.e synthetic/push1freq5.e
+mv sampler/_model5.e synthetic/push1freq6.e
+mv sampler/_model6.e synthetic/push1freq7.e
+mv sampler/_model7.e synthetic/push1freq8.e
+
 rm inputs/GrMesh.i
 rm -r measurement
 
-# NOTES: Make mesh size 20 in inputs/globals.i and "selecti" = no. of rows in synthetic/measurements
+# NOTES: Make mesh size 20 in inputs/globals.i and "selection" = no. of rows in synthetic/measurements

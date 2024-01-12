@@ -18,8 +18,10 @@ ARFyw = 3
 ARFzw = 5
 
 rho           = 1
-nu            = 0.499
+nu            = 0.3
 locking       = false  # Locking true works fine as well
+quad_order    = fifth # This is not the number of Gauss points by the order of function to be integrated
+
 # Something else seems to be imprecise for incompressibility
 #nu            = 0.49999 # INCOMPRESSIBLE
 #dlambda_dmu   = -3
