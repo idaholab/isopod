@@ -38,9 +38,9 @@
   nl_forced_its = 1
   line_search = none
   nl_abs_tol = 1e-8
-  [Quadrature]
-    order = ${quad_order}
-  []
+#  [Quadrature]
+#    order = ${quad_order}
+#  []
 []
 
 [Outputs]

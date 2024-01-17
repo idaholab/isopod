@@ -8,6 +8,7 @@
 []
 !include inputs/globals.i
 dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
+#dlambda_dmu   = -3
 !include inputs/mesh.i
 !include inputs/variables.i
 !include inputs/modulus.i
@@ -40,9 +41,9 @@ dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
   nl_forced_its = 1
   line_search = none
   nl_abs_tol = 1e-8
-  [Quadrature]
-    order = ${quad_order}
-  []
+#  [Quadrature]
+#    order = ${quad_order}
+#  []
 []
 
 [Outputs]
