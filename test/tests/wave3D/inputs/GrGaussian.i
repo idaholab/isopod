@@ -3,12 +3,12 @@
   [ROI]
     type = GeneratedMeshGenerator
     dim = 3
-    xmin = -15
-    xmax =  15
-    ymin = -15
-    ymax =  15
-    zmin = -15
-    zmax =  15
+    xmin = -10
+    xmax =  10
+    ymin = -10
+    ymax =  10
+    zmin = -10
+    zmax =  10
     nx = ${grid_size}
     ny = ${grid_size}
     nz = ${grid_size}
@@ -31,7 +31,7 @@
     type = ParsedAux
     variable = Gr
     use_xyzt = true
-    expression = 8+19*(1-(x/15)^2)*(1-(y/15)^2)*(1-(z/15)^2)
+    expression = 1+1*(1-(x/10)^2)*(1-(y/10)^2)*(1-(z/10)^2)
     execute_on = TIMESTEP_BEGIN
   []
 []

@@ -1,43 +1,40 @@
 # Non-SI units: mm, mg, ms, mN
 
-push_id       = 1
-freq_id       = 1
-frequencyKHz  = 0.100
+push_id         = 1
+freq_id         = 4
+frequencyKHz    = 0.400
+relaxation_time = 0.3
 
 
-elemtype3D = HEX27
-elemorder3D = SECOND
+elemtype3D = HEX8
+elemorder3D = FIRST
 
 # The push needs to be modified
 # must be frequency dependent
-ARFx = -11
+ARFx =  -6
 ARFy =  0
 ARFz =  0
-ARFxw = 1
-ARFyw = 3
-ARFzw = 5
+ARFxw = 0.5
+ARFyw = 0.5
+ARFzw = 0.5
 
 rho           = 1
-nu            = 0.3
-locking       = false  # Locking true works fine as well
-quad_order    = fifth # This is not the number of Gauss points by the order of function to be integrated
+nu            = 0.499
+locking       = true  # Locking true works fine as well
+# quad_order    = fifth # This is not the number of Gauss points by the order of function to be integrated
 
-# Something else seems to be imprecise for incompressibility
-#nu            = 0.49999 # INCOMPRESSIBLE
-#dlambda_dmu   = -3
-#locking       = True
 
-nelem         = 20 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
-                  # may require even finer meshes for finer parametrization
-ve_factor     = 2e-10
+nelem         = 40 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
+                   # may require even finer meshes for finer parametrization
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
 _rhow2        = ${fparse -rho*omega*omega}
+ve_factor     = ${fparse relaxation_time * omega}
 
-Gbr = 8  # kPa = mg/mm/ms^2
-Gbi = ${fparse Gbr * ve_factor}
+Gbr = 1  # kPa = mg/mm/ms^2
+Gbi = ${fparse Gbr*ve_factor}
 
-wave_ratio = ${fparse 1600/sqrt(Gbr)}
+wave_ratio = ${fparse sqrt((2-2*nu)/(1-2*nu))}
 Lbr = ${fparse Gbr * wave_ratio^2}
 Lbi = ${fparse Gbi * wave_ratio^2}
 

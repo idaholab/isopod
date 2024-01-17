@@ -2,12 +2,12 @@
   [ROI]
     type = GeneratedMeshGenerator
     dim = 3
-    xmin = -15
-    xmax =  15
-    ymin = -15
-    ymax =  15
-    zmin = -15
-    zmax =  15
+    xmin = -10
+    xmax =  10
+    ymin = -10
+    ymax =  10
+    zmin = -10
+    zmax =  10
     nx = ${nelem}
     ny = ${nelem}
     nz = ${nelem}

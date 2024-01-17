@@ -62,14 +62,18 @@
     parallel_type = ROOT
   []
   [gradient]
-    type = VectorOfVectorRowSum
+    type = ParsedVectorVectorRealReductionReporter
     name = gradient
-    reporter_vector_of_vectors = "Results/ObjectivesGradients:gradient:gradient"
+    reporter_name = "Results/ObjectivesGradients:gradient:gradient"
     execution_order_group = 1
+    initial_value = 0
+    expression = 'reduction_value+indexed_value'
   []
   [objective]
-    type = VectorSum
+    type = ParsedVectorRealReductionReporter
     name = objective
-    vector = "Results/ObjectivesGradients:correlation:objective"
+    reporter_name = "Results/ObjectivesGradients:correlation:objective"
+    initial_value = 0
+    expression = 'reduction_value+indexed_value'
   []
 []
