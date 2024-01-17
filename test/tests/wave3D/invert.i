@@ -6,8 +6,8 @@
   parameter_names  = Gr
   parameter_meshes = inputs/GrMesh.e
   initial_condition_mesh_variable = Gr
-  constant_group_lower_bounds = 1 # Be careful that these bounds are consistent with initial estimates
-  constant_group_upper_bounds = 30 # Be careful that these bounds are consistent with initial estimates
+  constant_group_lower_bounds = 0.1 # Be careful that these bounds are consistent with initial estimates
+  constant_group_upper_bounds = 3.0 # Be careful that these bounds are consistent with initial estimates
   objective_name = objective
 []
 [Executioner]
