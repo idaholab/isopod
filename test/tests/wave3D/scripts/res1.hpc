@@ -1,24 +1,22 @@
-#PBS -N SingleRes3D
-#PBS -l select=8:ncpus=48:mpiprocs=48
+#PBS -N MultiRes3D
+#PBS -l select=9:ncpus=48:mpiprocs=48
 #PBS -l place=scatter:excl
-#PBS -l walltime=0:20:00
+#PBS -l walltime=1:00:00
 #PBS -j oe
 #PBS -P ne_ldrd
 cd $PBS_O_WORKDIR
 
 rm -r measurement
 cp -r synthetic measurement
-cp inputs/GrGaussian.i inputs/GrMesh.i
+cp inputs/GrHomog.i inputs/GrMesh.i
 
 ../../../isopod-opt -i inputs/GrMesh.i grid_size=3
 
 cp GrMesh3.e inputs/GrMesh.e
-cp measurement/measurements1_2.csv measurement/measurements.csv
-mpirun ../../../isopod-opt -i invert.i maxiter=2
+cp measurement/acquisitionsRes1.csv measurement/acquisitions.csv
+mpirun ../../../isopod-opt -i invert.i maxiter=10
 mv inversion/GrMesh.e inversion/GrMesh3.e
 mv inversion/GrMesh_OptimizationInfo_0001.csv inversion/Convergence3.csv
 mv inversion/GrMesh_OptimizationReporter_0001.csv inversion/GrValues3.csv
 
 ../../../isopod-opt -i refine.i coarse_grid=3 fine_grid=6
-cp inputs/GrMesh6.e inputs/GrMesh.e
-
