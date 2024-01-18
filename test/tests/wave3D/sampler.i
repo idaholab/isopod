@@ -3,7 +3,7 @@
 [Samplers]
   [measurements]
     type = CSVSampler
-    samples_file = 'measurement/measurements.csv'
+    samples_file = 'measurement/acquisitions.csv'
     column_names = 'push_id freq_id ARFx ARFy ARFz frequencyKHz'
     execute_on = 'PRE_MULTIAPP_SETUP'
   []
