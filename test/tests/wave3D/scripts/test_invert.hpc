@@ -14,7 +14,6 @@ cp inputs/GrGaussian.i inputs/GrMesh.i
 ../../../isopod-opt -i inputs/GrMesh.i grid_size=12
 cp GrMesh12.e inputs/GrMesh.e
 
-cp measurement/measurements1_2.csv measurement/measurements.csv
 mpirun ../../../isopod-opt -i invert.i maxiter=2
 
 rm inputs/GrMesh.i

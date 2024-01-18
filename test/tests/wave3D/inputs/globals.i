@@ -9,8 +9,7 @@ relaxation_time = 0.3
 elemtype3D = HEX8
 elemorder3D = FIRST
 
-# The push needs to be modified
-# must be frequency dependent
+# TODO - push is frequency dependent, so maybe we should have weights based on freq
 ARFx =  -6
 ARFy =  0
 ARFz =  0
@@ -19,12 +18,13 @@ ARFyw = 0.5
 ARFzw = 0.5
 
 rho           = 1
+
 nu            = 0.499
-locking       = true  # Locking true works fine as well
+locking       = true
 # quad_order    = fifth # This is not the number of Gauss points by the order of function to be integrated
 
 
-nelem         = 40 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
+nelem         = 4 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
                    # may require even finer meshes for finer parametrization
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
