@@ -1,10 +1,12 @@
 !config navigation breadcrumbs=False scrollspy=False
 
+!media media/isopodDALLE.png style=display:block;margin-left:auto;margin-right:auto;width:30%;
+
 # Isopod class=center style=font-weight:600;font-size:350%;
 
 ### Inverse Optimization Code class=center style=font-weight:200;font-size:200%
 
-Isopod is an application for solving inverse optimization problems using MOOSE using the MOOSE optimization module.  
+Isopod is an application for solving inverse optimization problems using MOOSE using the MOOSE optimization module.
 Isopod uses the optimization executioner in the MOOSE optimization modeul to perform PDE constrained optimization using the PETSC TAO optimization solver.
 Isopod uses the MOOSE Optimization module to solve force and and material inversion
 problems.  Isopod mainly contains experimental capabilities that have not been
