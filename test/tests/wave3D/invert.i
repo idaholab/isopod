@@ -3,9 +3,9 @@
 
 [OptimizationReporter]
   type = GeneralParameterMeshOptimization
-  parameter_names  = Gr
+  parameter_names  = logGr
   parameter_meshes = inputs/GrMesh.e
-  initial_condition_mesh_variable = Gr
+  initial_condition_mesh_variable = logGr
   constant_group_lower_bounds = 0.1 # Be careful that these bounds are consistent with initial estimates
   constant_group_upper_bounds = 3.0 # Be careful that these bounds are consistent with initial estimates
   objective_name = objective
@@ -35,8 +35,8 @@
   [SetParameters]
     type = MultiAppReporterTransfer
     to_multi_app = model_grad_sampler
-    from_reporters = 'OptimizationReporter/Gr'
-    to_reporters = 'parameters/Gr'
+    from_reporters = 'OptimizationReporter/logGr'
+    to_reporters = 'parameters/logGr'
   []
   [GetObjectiveGradient]
     type = MultiAppReporterTransfer
@@ -44,7 +44,7 @@
     from_reporters = 'objective/objective
                       gradient/gradient'
     to_reporters = 'OptimizationReporter/objective
-                    OptimizationReporter/grad_Gr'
+                    OptimizationReporter/grad_logGr'
   []
 []
 
@@ -55,7 +55,7 @@
   []
 []
 [AuxVariables]
-  [Gr]
+  [logGr]
     family = LAGRANGE
     order  = FIRST
   []
@@ -63,18 +63,18 @@
 [AuxKernels]
   [GrOut]
     type = FunctionAux
-    variable = Gr
-    function = GrFunc
+    variable = logGr
+    function = logGrFunc
     execute_on = TIMESTEP_END
   []
 []
 [Functions]
-  [GrFunc]
+  [logGrFunc]
     type = ParameterMeshFunction
     family = LAGRANGE
     order  = FIRST
     exodus_mesh = inputs/GrMesh.e
-    parameter_name = OptimizationReporter/Gr
+    parameter_name = OptimizationReporter/logGr
     execute_on = TIMESTEP_END
   []
 []

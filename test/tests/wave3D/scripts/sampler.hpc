@@ -8,7 +8,7 @@ cd $PBS_O_WORKDIR
 
 rm -r measurement
 cp -r synthetic measurement
-
+rm inputs/GrMesh.i
 cp inputs/GrGaussian.i inputs/GrMesh.i
 ../../../isopod-opt -i inputs/GrMesh.i grid_size=12
 mv GrMesh12.e inputs/GrMesh.e

@@ -12,7 +12,7 @@ rm inputs/GrMesh.i
 cp inputs/GrGaussian.i inputs/GrMesh.i
 
 ../../../isopod-opt -i inputs/GrMesh.i grid_size=12
-cp GrMesh12.e inputs/GrMesh.e
+mv GrMesh12.e inputs/GrMesh.e
 
 mpirun ../../../isopod-opt -i invert.i maxiter=2
 

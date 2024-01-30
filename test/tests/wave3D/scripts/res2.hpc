@@ -9,7 +9,7 @@ cd $PBS_O_WORKDIR
 cp inputs/GrMesh6.e inputs/GrMesh.e
 
 cp measurement/acquisitionsRes2.csv measurement/acquisitions.csv
-mpirun ../../../isopod-opt -i invert.i maxiter=10
+mpirun ../../../isopod-opt -i invert.i maxiter=10 >& Res2.out
 mv inversion/GrMesh.e inversion/GrMesh6.e
 mv inversion/GrMesh_OptimizationInfo_0001.csv inversion/Convergence6.csv
 mv inversion/GrMesh_OptimizationReporter_0001.csv inversion/GrValues6.csv

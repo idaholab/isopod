@@ -2,8 +2,18 @@
 [Reporters]
   [parameters]
     type = ConstantReporter
-    real_vector_names = 'Gr'
+    real_vector_names = 'logGr'
     real_vector_values = '4.0' # dummy
+    execution_order_group = -101
+  []
+  [Gr]
+    type = ParsedVectorReporter
+    name = Gr
+    reporter_names = 'parameters/logGr'
+    reporter_symbols = 'logGr'
+    expression = 'exp(logGr)'
+    execution_order_group = -100
+    execute_on = TIMESTEP_BEGIN
   []
 []
 
@@ -11,7 +21,7 @@
   [Gr_func]
     type = ParameterMeshFunction
     exodus_mesh = inputs/GrMesh.e
-    parameter_name = parameters/Gr # for inversion
+    parameter_name = Gr/Gr # for inversion
    #parameter_name = OptimizationReporter/Gr # for synthetic data
   []
   [Er_dist]

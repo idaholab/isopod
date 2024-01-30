@@ -7,7 +7,7 @@
 !include gradG.i
 
 [VectorPostprocessors]
-  [gradient]
+  [gradientG]
     type = VectorPostprocessorSum
     vectorpostprocessor_a = gradG
     vectorpostprocessor_b = gradL
@@ -17,5 +17,16 @@
     coef_b = ${dlambda_dmu} 
     execute_on = ADJOINT_TIMESTEP_END
     execution_order_group = 1
+  []
+[]
+[Reporters]
+  [gradient]
+    type = ParsedVectorReporter
+    name = gradient
+    reporter_names = 'gradientG/gradientG Gr/Gr'
+    reporter_symbols = 'gradientG Gr'
+    expression = 'Gr*gradientG'
+    execution_order_group = 2
+    execute_on = ADJOINT_TIMESTEP_END
   []
 []

@@ -14,7 +14,7 @@ cp inputs/GrHomog.i inputs/GrMesh.i
 
 cp GrMesh3.e inputs/GrMesh.e
 cp measurement/acquisitionsRes1.csv measurement/acquisitions.csv
-mpirun ../../../isopod-opt -i invert.i maxiter=10
+mpirun ../../../isopod-opt -i invert.i maxiter=10 >& Res1.out
 mv inversion/GrMesh.e inversion/GrMesh3.e
 mv inversion/GrMesh_OptimizationInfo_0001.csv inversion/Convergence3.csv
 mv inversion/GrMesh_OptimizationReporter_0001.csv inversion/GrValues3.csv
