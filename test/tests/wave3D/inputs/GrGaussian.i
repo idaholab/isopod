@@ -24,6 +24,10 @@
     order = FIRST
     family = LAGRANGE
   []
+  [logGr]
+    order = FIRST
+    family = LAGRANGE
+  []
 []
 
 [AuxKernels]
@@ -32,6 +36,13 @@
     variable = Gr
     use_xyzt = true
     expression = 1+1*(1-(x/10)^2)*(1-(y/10)^2)*(1-(z/10)^2)
+    execute_on = TIMESTEP_BEGIN
+  []
+  [logGr_kernel]
+    type = ParsedAux
+    variable = logGr
+    use_xyzt = true
+    expression = log(1+1*(1-(x/10)^2)*(1-(y/10)^2)*(1-(z/10)^2))
     execute_on = TIMESTEP_BEGIN
   []
 []

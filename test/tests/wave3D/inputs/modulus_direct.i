@@ -1,18 +1,28 @@
 # To generate synthetic data
 [OptimizationReporter]
   type = GeneralParameterMeshOptimization
-  parameter_names  = Gr
+  parameter_names  = logGr
   parameter_meshes = inputs/GrMesh.e
-  initial_condition_mesh_variable = Gr
+  initial_condition_mesh_variable = logGr
   objective_name = objective
 []
-
+[Reporters]
+  [GrReporter]
+    type = ParsedVectorReporter
+    name = Gr
+    reporter_names = 'OptimizationReporter/logGr'
+    reporter_symbols = 'logGr'
+    expression = 'exp(logGr)'
+    execution_order_group = -100
+    execute_on = TIMESTEP_BEGIN
+  []
+[]
 [Functions]
   [Gr_func]
     type = ParameterMeshFunction
     exodus_mesh = inputs/GrMesh.e
    #parameter_name = parameters/Gr # for inversion
-    parameter_name = OptimizationReporter/Gr # for synthetic data
+    parameter_name = GrReporter/Gr # for synthetic data
   []
   [Er_dist]
     type = ParsedFunction

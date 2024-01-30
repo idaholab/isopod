@@ -37,8 +37,8 @@
   [setPrameters]
     type = MultiAppReporterTransfer
     to_multi_app = model_grad
-    from_reporters = 'parameters/Gr'
-    to_reporters = 'parameters/Gr'
+    from_reporters = 'parameters/logGr'
+    to_reporters = 'parameters/logGr'
     execute_on = 'TIMESTEP_BEGIN'
   []
   [ObjectivesGradients]
@@ -53,7 +53,7 @@
 [Reporters]
   [parameters]
     type = ConstantReporter
-    real_vector_names = 'Gr'
+    real_vector_names = 'logGr'
     real_vector_values = '4.0 8.0 4.0'
   []
   [Results]
