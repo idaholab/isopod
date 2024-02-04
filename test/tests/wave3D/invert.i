@@ -6,13 +6,13 @@
   parameter_names  = logGr
   parameter_meshes = inputs/GrMesh.e
   initial_condition_mesh_variable = logGr
-  constant_group_lower_bounds = 0.1 # Be careful that these bounds are consistent with initial estimates
-  constant_group_upper_bounds = 3.0 # Be careful that these bounds are consistent with initial estimates
+  constant_group_lower_bounds = -2
+  constant_group_upper_bounds = 2
   objective_name = objective
 []
 [Executioner]
   type = Optimize
-  tao_solver = taobqnls
+  tao_solver = taoblmvm
   petsc_options_iname = '-tao_gatol -tao_max_it -tao_ls_type'
   petsc_options_value = '1e-6 ${maxiter} unit'
   verbose = true

@@ -21,25 +21,25 @@
 []
 
 [AuxVariables]
-  [Gr]
+  [logGr]
     family = LAGRANGE
     order  = FIRST
   []
 []
 
 [UserObjects]
-  [Gr]
+  [logGr]
     type = SolutionUserObject
     mesh = inversion/GrMesh${coarse_grid}.e
-    system_variables = Gr
+    system_variables = logGr
   []
 []
 
 [AuxKernels]
-  [Gr]
+  [logGr]
     type = SolutionAux
-    variable = Gr
-    solution = Gr
+    variable = logGr
+    solution = logGr
   []
 []
 

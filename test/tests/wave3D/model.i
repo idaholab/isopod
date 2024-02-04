@@ -24,12 +24,7 @@
   solve_type = NEWTON
   petsc_options_iname = '-pc_type'
   petsc_options_value = 'lu'
-  nl_forced_its = 1
-  line_search = none
   nl_abs_tol = 1e-8
-#  [Quadrature]
-#    order = ${quad_order}
-#  []
 []
 
 [Outputs]
