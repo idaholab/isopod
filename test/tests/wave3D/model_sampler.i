@@ -13,7 +13,7 @@
     type = SamplerFullSolveMultiApp
     input_files = model.i
     sampler = measurements
-    ignore_solve_not_converge = true
+    ignore_solve_not_converge = false
     mode = normal
   []
 []
