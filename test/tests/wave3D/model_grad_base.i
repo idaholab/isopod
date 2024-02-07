@@ -33,9 +33,12 @@ dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
   type = SteadyAndAdjoint
   forward_system = nl0
   adjoint_system = adjoint
-  petsc_options_iname = ${petsc_name} #'-pc_type -tao_fd_test -tao_test_gradient -tao_fd_gradient'
-  petsc_options_value = ${petsc_value} #'lu true true false'
-  petsc_options = ${petsc_options} #'-tao_test_gradient_view'
+  petsc_options_iname = '-pc_type'
+  petsc_options_value = 'lu'
+#### CAUTION - the following approach does not work - it transfers petsc options only to forward and not adjoint
+#  petsc_options_iname = ${petsc_name} #'-pc_type -tao_fd_test -tao_test_gradient -tao_fd_gradient'
+#  petsc_options_value = ${petsc_value} #'lu true true false'
+#  petsc_options = ${petsc_options} #'-tao_test_gradient_view'
   nl_forced_its = 1
   line_search = none
   nl_abs_tol = 1e-8
@@ -43,6 +46,6 @@ dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
 
 [Outputs]
   exodus = false
-  csv = true
-  console = false
+  csv = false
+  console = true
 []

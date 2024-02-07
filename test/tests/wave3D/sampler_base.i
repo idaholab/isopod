@@ -16,7 +16,7 @@
     input_files = ${model_grad_file}
     sampler = measurements
     ignore_solve_not_converge = false
-    mode = normal #batch-reset # *** CAUTION *** "normal" does not work well after the hack
+    mode = batch-reset # *** CAUTION *** "normal" does not work well after the hack
 #    max_procs_per_app = 96
 #    min_procs_per_app = 96
   []
@@ -38,21 +38,21 @@
 []
 
 [Transfers]
-  [setPrametersOld]
-    type = MultiAppReporterTransfer
-    to_multi_app = model_grad
-    from_reporters = 'parameters/logGr'
-    to_reporters = 'parameters/logGr'
-    execute_on = 'TIMESTEP_BEGIN'
-  []
-#  [setParameters]
-#    type = SamplerReporterTransfer
+#  [setPrametersOld]
+#    type = MultiAppReporterTransfer
 #    to_multi_app = model_grad
-#    source_reporter = 'parameters/logGr'
-#    to_reporter = 'parameters/logGr'
-#    sampler = measurements
-#    stochastic_reporter = Results
+#    from_reporters = 'parameters/logGr'
+#    to_reporters = 'parameters/logGr'
+#    execute_on = 'TIMESTEP_BEGIN'
 #  []
+  [setParameters]
+    type = SamplerReporterTransfer
+    to_multi_app = model_grad
+    source_reporter = 'parameters/logGr'
+    to_reporter = 'parameters/logGr'
+    sampler = measurements
+    stochastic_reporter = Results
+  []
   [ObjectivesGradients]
     type = SamplerReporterTransfer
     from_multi_app = model_grad
