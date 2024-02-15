@@ -24,8 +24,10 @@ locking       = true
 # quad_order    = fifth # This is not the number of Gauss points by the order of function to be integrated
 
 
-nelem         = 40 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
-                   # may require even finer meshes for finer parametrization
+nelemx         = 40 # CAUTION: requires more than 1 element for grad check for coarsest parametrization
+                    # may require even finer meshes for finer parametrization
+nelemy         = 60
+nelemz         = 40
 
 omega         = ${fparse 2*3.14159265359*frequencyKHz}
 _rhow2        = ${fparse -rho*omega*omega}
