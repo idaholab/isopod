@@ -5,8 +5,8 @@
     dim = 3
     xmin = -10
     xmax =  10
-    ymin = -10
-    ymax =  10
+    ymin = -15
+    ymax =  15
     zmin = -10
     zmax =  10
     nx = ${grid_size}
