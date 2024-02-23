@@ -14,7 +14,7 @@
     input_files = model.i
     sampler = measurements
     ignore_solve_not_converge = false
-    mode = normal
+    mode = batch-reset #changed from normal after the hack
   []
 []
 [Outputs]
