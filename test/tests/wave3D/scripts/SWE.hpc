@@ -1,0 +1,32 @@
+#PBS -N Sampler3D
+#PBS -l select=12:ncpus=48:mpiprocs=48
+#PBS -l place=scatter:excl
+#PBS -l walltime=0:15:00
+#PBS -j oe
+#PBS -P ne_ldrd
+cd $PBS_O_WORKDIR
+
+rm -r SWEmeas
+cp -r SWE SWEmeas
+rm inputs/GrMesh.i
+cp inputs/GrGaussian.i inputs/GrMesh.i
+../../../isopod-opt -i inputs/GrMesh.i grid_size=12
+mv GrMesh12.e inputs/GrMesh.e
+
+mpirun ../../../isopod-opt -i model_samplerSWE.i > SamplerSWE.out
+
+tail -n +2 sampler/_model0_measure_data_0001.csv > SWE/junk
+cat SWE/header SWE/junk > SWE/SWE1freq977.csv
+tail -n +2 sampler/_model1_measure_data_0001.csv > SWE/junk
+cat SWE/header SWE/junk > SWE/SWE2freq977.csv
+tail -n +2 sampler/_model2_measure_data_0001.csv > SWE/junk
+cat SWE/header SWE/junk > SWE/SWE3freq977.csv
+tail -n +2 sampler/_model3_measure_data_0001.csv > SWE/junk
+cat SWE/header SWE/junk > SWE/SWE1freq1994.csv
+tail -n +2 sampler/_model4_measure_data_0001.csv > SWE/junk
+cat SWE/header SWE/junk > SWE/SWE2freq1994.csv
+tail -n +2 sampler/_model5_measure_data_0001.csv > SWE/junk
+cat SWE/header SWE/junk > SWE/SWE3freq1994.csv
+
+rm inputs/GrMesh.i
+rm -r SWEmeas
