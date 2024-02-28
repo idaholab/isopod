@@ -47,5 +47,5 @@ dlambda_dmu   = ${fparse 2*nu/(1-2*nu)}
 [Outputs]
   exodus = false
   csv = false
-  console = false
+  console = true
 []
