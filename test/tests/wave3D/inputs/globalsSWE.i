@@ -2,7 +2,7 @@
 
 push_id         = 1
 frequencyDeciHz = 1000
-relaxation_time = 0.3
+relaxation_time = 1.0
 
 
 elemtype3D = HEX8
