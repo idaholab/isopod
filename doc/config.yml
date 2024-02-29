@@ -9,8 +9,8 @@ Content:
     root_dir: ${MOOSE_DIR}/modules/heat_transfer/doc/content
   ray_tracing:
     root_dir: ${MOOSE_DIR}/modules/ray_tracing/doc/content
-  tensor_mechanics:
-    root_dir: ${MOOSE_DIR}/modules/tensor_mechanics/doc/content
+  solid_mechanics:
+    root_dir: ${MOOSE_DIR}/modules/solid_mechanics/doc/content
   optimization:
     root_dir: ${MOOSE_DIR}/modules/optimization/doc/content
   modules:
@@ -51,7 +51,7 @@ Extensions:
       categories:
           framework: !include ${MOOSE_DIR}/framework/doc/sqa_framework.yml
           heat_transfer: !include ${MOOSE_DIR}/modules/heat_transfer/doc/sqa_heat_transfer.yml
-          tensor_mechanics: !include ${MOOSE_DIR}/modules/tensor_mechanics/doc/sqa_tensor_mechanics.yml
+          solid_mechanics: !include ${MOOSE_DIR}/modules/solid_mechanics/doc/sqa_solid_mechanics.yml
           optimization: !include ${MOOSE_DIR}/modules/optimization/doc/sqa_optimization.yml
           isopod: !include ${ROOT_DIR}/doc/sqa_isopod.yml
   MooseDocs.extensions.bibtex:
