@@ -4,9 +4,9 @@
     type = GeneratedMeshGenerator
     dim = 2
     xmin = -15
-    xmax =  15
+    xmax = 15
     ymin = -15
-    ymax =  15
+    ymax = 15
     nx = ${grid_size}
     ny = ${grid_size}
   []
@@ -28,9 +28,17 @@
     type = ParsedAux
     variable = Gr
     use_xyzt = true
-   #expression = 4 # true value
+    #expression = 4 # true value
     expression = 3 # initial value
     execute_on = TIMESTEP_BEGIN
+  []
+[]
+
+[VectorPostprocessors]
+  [param_vec]
+    type = NodalValueSampler
+    sort_by = id
+    variable = Gr
   []
 []
 
@@ -41,5 +49,6 @@
 [Outputs]
   file_base = GrMesh${grid_size}
   exodus = true
+  csv = true
   execute_on = TIMESTEP_END
 []

@@ -2,8 +2,8 @@
 []
 
 [OptimizationReporter]
-  type = GeneralParameterMeshOptimization
-  parameter_names  = Gr
+  type = ParameterMeshOptimization
+  parameter_names = Gr
   parameter_meshes = inputs/GrMesh.e
   initial_condition_mesh_variable = Gr
   constant_group_lower_bounds = 1
@@ -15,9 +15,9 @@
   tao_solver = taobqnls
   petsc_options_iname = '-tao_gatol -tao_max_it -tao_ls_type'
   petsc_options_value = '1e-6 ${maxiter} unit'
-#  petsc_options_iname = '-tao_gatol -tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_ls_type'
-#  petsc_options_value = '1e-8 1 true true false unit'
-#  petsc_options = '-tao_test_gradient_view'
+  #  petsc_options_iname = '-tao_gatol -tao_max_it -tao_fd_test -tao_test_gradient -tao_fd_gradient -tao_ls_type'
+  #  petsc_options_value = '1e-8 1 true true false unit'
+  #  petsc_options = '-tao_test_gradient_view'
   verbose = true
 []
 [Reporters]
@@ -60,7 +60,7 @@
 [AuxVariables]
   [Gr]
     family = LAGRANGE
-    order  = FIRST
+    order = FIRST
   []
 []
 [AuxKernels]
@@ -75,7 +75,7 @@
   [GrFunc]
     type = ParameterMeshFunction
     family = LAGRANGE
-    order  = FIRST
+    order = FIRST
     exodus_mesh = inputs/GrMesh.e
     parameter_name = OptimizationReporter/Gr
     execute_on = TIMESTEP_END

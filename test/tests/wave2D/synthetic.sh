@@ -1,13 +1,16 @@
+#!/bin/bash
 # Case 2 - bell shaped modulus
-
-cp inputs/GrTrue_case2.i inputs/GrMesh.i
-rm -r measurement
-cp -r measurement_case2 measurement
 cd inputs
+cp GrTrue_case2.i GrMesh.i
 ../../../../isopod-opt -i GrMesh.i grid_size=12
-cd ..
+mv GrMesh12.e GrMesh.e
+mv GrMesh12_param_vec_0001.csv GrMesh.csv
+cd ../
 
-cp inputs/GrMesh12.e inputs/GrMesh.e
+rm -r inputs/measurement
+cp -r measurement_case2 inputs/measurement
+
+
 ../../../isopod-opt -i model_grad_direct.i id=1 frequencyKHz=0.100
 ../../../isopod-opt -i model_grad_direct.i id=2 frequencyKHz=0.200
 ../../../isopod-opt -i model_grad_direct.i id=3 frequencyKHz=0.300
@@ -17,4 +20,4 @@ mv outputs/2_measure_data_0001.csv measurement_case2/frequency2.csv
 mv outputs/3_measure_data_0001.csv measurement_case2/frequency3.csv
 mv outputs/4_measure_data_0001.csv measurement_case2/frequency4.csv
 rm -r outputs
-rm -r measurement
+rm -r inputs/measurement

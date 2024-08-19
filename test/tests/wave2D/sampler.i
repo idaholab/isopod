@@ -62,14 +62,28 @@
     execute_on = 'INITIAL TIMESTEP_END' # do we need INITIAL
     parallel_type = ROOT
   []
-  [gradient]
-    type = VectorOfVectorRowSum
-    name = gradient
-    reporter_vector_of_vectors = "Results/ObjectivesGradients:gradient:gradient"
-  []
+  # [gradient]
+  #   type = VectorOfVectorRowSum
+  #   name = gradient
+  #   reporter_vector_of_vectors = "Results/ObjectivesGradients:gradient:gradient"
+  # []
+  # [objective]
+  #   type = VectorSum
+  #   name = objective
+  #   vector = "Results/ObjectivesGradients:correlation:objective"
+  # []
   [objective]
-    type = VectorSum
+    type = ParsedVectorRealReductionReporter
     name = objective
-    vector = "Results/ObjectivesGradients:correlation:objective"
+    reporter_name = "Results/ObjectivesGradients:correlation:objective"
+    initial_value = 0
+    expression = 'reduction_value+indexed_value'
+  []
+  [gradient]
+    type = ParsedVectorVectorRealReductionReporter
+    name = gradient
+    reporter_name = "Results/ObjectivesGradients:gradient:gradient"
+    initial_value = 0
+    expression = 'reduction_value+indexed_value'
   []
 []

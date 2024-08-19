@@ -1,10 +1,13 @@
 ##########################################
 ### THE STRUCTURE IS PRETTY MUCH FINAL ###
 ##########################################
-
+[Debug]
+ show_reporters = true
+[]
 [Problem]
   nl_sys_names = 'nl0 adjoint'
   kernel_coverage_check = false
+  skip_nl_system_check = true
 []
 !include inputs/globals.i
 !include inputs/mesh.i

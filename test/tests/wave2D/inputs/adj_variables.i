@@ -1,22 +1,26 @@
 [Variables]
   [uxr_adj]
-    order  = SECOND
+    order = SECOND
     family = LAGRANGE
-    nl_sys = adjoint
+    initial_condition = 0
+    solver_sys = adjoint
   []
   [uyr_adj]
-    order  = SECOND
+    order = SECOND
     family = LAGRANGE
-    nl_sys = adjoint
+    initial_condition = 0
+    solver_sys = adjoint
   []
   [uxi_adj]
-    order  = SECOND
+    order = SECOND
     family = LAGRANGE
-    nl_sys = adjoint
+    initial_condition = 0
+    solver_sys = adjoint
   []
   [uyi_adj]
-    order  = SECOND
+    order = SECOND
     family = LAGRANGE
-    nl_sys = adjoint
+    initial_condition = 0
+    solver_sys = adjoint
   []
 []
