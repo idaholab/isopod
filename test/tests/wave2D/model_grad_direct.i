@@ -1,9 +1,9 @@
 ##########################################
 ### THE STRUCTURE IS PRETTY MUCH FINAL ###
 ##########################################
-[Debug]
- show_reporters = true
-[]
+# [Debug]
+#  show_reporters = true
+# []
 [Problem]
   nl_sys_names = 'nl0 adjoint'
   kernel_coverage_check = false
@@ -42,7 +42,7 @@
 []
 
 [Outputs]
- file_base = 'outputs/${id}'
+  file_base = 'outputs/${id}'
   exodus = false
   csv = true
   console = false

@@ -3,8 +3,6 @@ rm -r measurement
 cp -r measurement_case2 measurement
 cp inputs/GrMesh_case2.i inputs/GrMesh.i
 
-mamba activate moose
-
 cd inputs
 ../../../../isopod-opt -i GrMesh.i grid_size=3
 cd ..
