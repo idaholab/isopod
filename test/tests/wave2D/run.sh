@@ -8,8 +8,10 @@ cd inputs
 cd ..
 
 cp inputs/GrMesh3.e inputs/GrMesh.e
-cp measurement/frequencies1_1.csv measurement/frequencies.csv
-../../../isopod-opt -i invert.i maxiter=20
+#cp measurement/frequencies1_1.csv measurement/frequencies.csv
+cp measurement/freq_cliArg_1_1.txt measurement/freq_cliArg.txt
+cp measurement/freq_positions_1_1.txt measurement/freq_positions.txt
+mpirun -np 4 ../../../isopod-opt -i invert.i maxiter=20
 rm measurement/frequencies.csv
 mv inversion/GrMesh.e inversion/GrMesh3.e
 mv inversion/GrMesh_OptimizationInfo_0001.csv inversion/Convergence3.csv
@@ -18,8 +20,10 @@ mv inversion/GrMesh_OptimizationReporter_0001.csv inversion/GrValues3.csv
 ../../../isopod-opt -i refine.i coarse_grid=3 fine_grid=6
 
 cp inputs/GrMesh6.e inputs/GrMesh.e
-cp measurement/frequencies1_2.csv measurement/frequencies.csv
-../../../isopod-opt -i invert.i maxiter=20
+# cp measurement/frequencies1_2.csv measurement/frequencies.csv
+cp measurement/freq_cliArg_1_2.txt measurement/freq_cliArg.txt
+cp measurement/freq_positions_1_2.txt measurement/freq_positions.txt
+mpirun -np 4 ../../../isopod-opt -i invert.i maxiter=20
 rm measurement/frequencies.csv
 mv inversion/GrMesh.e inversion/GrMesh6.e
 mv inversion/GrMesh_OptimizationInfo_0001.csv inversion/Convergence6.csv
@@ -28,8 +32,10 @@ mv inversion/GrMesh_OptimizationReporter_0001.csv inversion/GrValues6.csv
 ../../../isopod-opt -i refine.i coarse_grid=6 fine_grid=12
 
 cp inputs/GrMesh12.e inputs/GrMesh.e
-cp measurement/frequencies1_3.csv measurement/frequencies.csv
-../../../isopod-opt -i invert.i maxiter=20
+# cp measurement/frequencies1_3.csv measurement/frequencies.csv
+cp measurement/freq_cliArg_1_3.txt measurement/freq_cliArg.txt
+cp measurement/freq_positions_1_3.txt measurement/freq_positions.txt
+mpirun -np 4 ../../../isopod-opt -i invert.i maxiter=20
 rm measurement/frequencies.csv
 mv inversion/GrMesh.e inversion/GrMesh12.e
 mv inversion/GrMesh_OptimizationInfo_0001.csv inversion/Convergence12.csv

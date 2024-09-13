@@ -28,7 +28,9 @@
     type = ParsedAux
     variable = Gr
     use_xyzt = true
-    expression = 4+4*(1-(x/15)^2)*(1-(y/15)^2) # true value
+    expression = 4+4*exp(-((x-0)/15)^2-((y-0)/15)^2)
+    # expression = 7+4*exp(-((x-6)/15)^2-((y-6)/10)^2) #-2*exp(-((x+2)/5)^2-((y+2)/5)^2)
+    # expression = 4+4*(1-(x/15)^2)*(1-(y/15)^2) # true value
     #expression = 4 # initial estimate
     execute_on = TIMESTEP_BEGIN
   []

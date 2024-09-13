@@ -1,36 +1,25 @@
-[StochasticTools]
+[Problem]
+  kernel_coverage_check = false
+  solve = false
 []
-[Samplers]
-  [frequencies]
-    type = CSVSampler
-    samples_file = 'measurement/frequencies.csv'
-    column_names = 'id frequencyKHz'
-    execute_on = 'PRE_MULTIAPP_SETUP'
-    # nrows = 4
+[Executioner]
+  type = Steady
+[]
+[Mesh]
+  [generate]
+    type = GeneratedMeshGenerator
+    dim = 1
   []
-[]
-[MultiApps]
-  [model_grad]
-    type = SamplerFullSolveMultiApp
-    input_files = model_grad.i
-    sampler = frequencies
-    ignore_solve_not_converge = true
-    mode = normal
-  []
-[]
-[Outputs]
-  csv = false
-  json = false
-  console = false
-  file_base = sampler/
 []
 
-[Controls]
-  [cmdLine]
-    type = MultiAppSamplerControl
-    multi_app = model_grad
-    sampler = frequencies
-    param_names = 'id frequencyKHz'
+[MultiApps]
+  [model_grad]
+    type = FullSolveMultiApp
+    input_files = model_grad.i
+    min_procs_per_app = 1
+    #positions is used to create the number of subapps
+    positions_file = 'measurement/freq_positions.txt'
+    cli_args_files = 'measurement/freq_cliArg.txt'
   []
 []
 
@@ -43,47 +32,47 @@
     execute_on = 'TIMESTEP_BEGIN'
   []
   [ObjectivesGradients]
-    type = SamplerReporterTransfer
+    type = MultiAppReporterTransfer
     from_multi_app = model_grad
-    sampler = frequencies
-    stochastic_reporter = Results
-    from_reporter = 'correlation/objective gradient/gradient'
+    from_reporters = 'gradient/gradient correlation/objective'
+    to_reporters = 'from_sub_rep/rec_vec_vec from_sub_rep/rec_vec'
+    distribute_reporter_vector = true
   []
 []
 
 [Reporters]
+  [from_sub_rep]
+    type = ConstantReporter
+    real_vector_vector_names = 'rec_vec_vec'
+    real_vector_vector_values = '0'
+    real_vector_names = 'rec_vec'
+    real_vector_values = "0."
+    outputs = out
+  []
   [parameters]
     type = ConstantReporter
     real_vector_names = 'Gr'
     real_vector_values = '4.0 8.0 4.0'
   []
-  [Results]
-    type = StochasticReporter
-    execute_on = 'INITIAL TIMESTEP_END' # do we need INITIAL
-    parallel_type = ROOT
-  []
-  # [gradient]
-  #   type = VectorOfVectorRowSum
-  #   name = gradient
-  #   reporter_vector_of_vectors = "Results/ObjectivesGradients:gradient:gradient"
-  # []
-  # [objective]
-  #   type = VectorSum
-  #   name = objective
-  #   vector = "Results/ObjectivesGradients:correlation:objective"
-  # []
   [objective]
     type = ParsedVectorRealReductionReporter
     name = objective
-    reporter_name = "Results/ObjectivesGradients:correlation:objective"
+    reporter_name = from_sub_rep/rec_vec
     initial_value = 0
     expression = 'reduction_value+indexed_value'
   []
   [gradient]
     type = ParsedVectorVectorRealReductionReporter
     name = gradient
-    reporter_name = "Results/ObjectivesGradients:gradient:gradient"
+    reporter_name = "from_sub_rep/rec_vec_vec"
     initial_value = 0
     expression = 'reduction_value+indexed_value'
   []
+[]
+
+[Outputs]
+  csv = false
+  json = false
+  console = false
+  file_base = sampler/
 []

@@ -3,6 +3,7 @@
 cd inputs
 cp GrTrue_case2.i GrMesh.i
 ../../../../isopod-opt -i GrMesh.i grid_size=12
+cp GrMesh12.e GrMesh_synthetic.e
 mv GrMesh12.e GrMesh.e
 mv GrMesh12_param_vec_0001.csv GrMesh.csv
 cd ../

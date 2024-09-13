@@ -47,7 +47,7 @@
     file_xcoord = measurement_xcoord
     file_ycoord = measurement_ycoord
     file_zcoord = measurement_zcoord
-    measurement_file = 'measurement/frequency${id}.csv'
+    measurement_file = '../measurement/frequency${id}.csv'
   []
   [correlation]
     #type = L2ObjectiveAndGradient
