@@ -30,7 +30,7 @@
 [MultiApps]
   [model_grad_sampler]
     type = FullSolveMultiApp
-    input_files = 'sampler.i'
+    input_files = 'samplerReg.i'
     execute_on = FORWARD
   []
 []

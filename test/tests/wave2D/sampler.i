@@ -6,7 +6,7 @@
     samples_file = 'measurement/frequencies.csv'
     column_names = 'id frequencyKHz'
     execute_on = 'PRE_MULTIAPP_SETUP'
-    nrows = 4
+#    nrows = 4
   []
 []
 [MultiApps]

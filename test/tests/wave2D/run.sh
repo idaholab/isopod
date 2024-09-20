@@ -1,6 +1,9 @@
 # Case 2. Make sure that inputs/GrMesh_case2.i has initial conditions set
 rm -r measurement
 cp -r measurement_case2 measurement
+module load matlab
+matlab -nodisplay -nosplash -nodesktop -r "AddNoise($1);exit;"
+
 cp inputs/GrMesh_case2.i inputs/GrMesh.i
 
 mamba activate moose
