@@ -74,7 +74,7 @@
     type = FunctionAux
     variable = Gr
     function = GrFunc
-    execute_on = FORWARD
+    execute_on = FORWARD # need this to get rid of parameter size error with moose update
   []
 []
 [Functions]
