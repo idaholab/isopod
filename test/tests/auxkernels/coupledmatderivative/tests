@@ -1,0 +1,8 @@
+[Tests]
+    [coupled_mat]
+      requirement = "This tests that an auxkernel can compute the derivative of a material with respect to a variable."
+      type = 'Exodiff'
+      input = 'adcoupled_mat.i'
+      exodiff = 'adcoupled_mat_out.e'
+    []
+ []
