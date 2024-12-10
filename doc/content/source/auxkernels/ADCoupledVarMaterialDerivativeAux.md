@@ -8,8 +8,8 @@ The `AuxKernel` calculates the derivative of a material property with respect to
 
 !listing test/tests/auxkernels/coupledmatderivative/adcoupled_mat.i
 
-!syntax parameters /Auxkernels/ADCoupledVarMaterialDerivativeAux
+!syntax parameters /AuxKernels/ADCoupledVarMaterialDerivativeAux
 
-!syntax inputs /Auxkernels/ADCoupledVarMaterialDerivativeAux
+!syntax inputs /AuxKernels/ADCoupledVarMaterialDerivativeAux
 
-!syntax children /Auxkernels/ADCoupledVarMaterialDerivativeAux
+!syntax children /AuxKernels/ADCoupledVarMaterialDerivativeAux
