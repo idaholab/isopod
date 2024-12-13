@@ -11,8 +11,8 @@
   parameter_meshes = inputs/GrMesh.e
   initial_condition_mesh_variable = Gr
   # constant_group_initial_condition = 4
-  constant_group_lower_bounds = 1
-  constant_group_upper_bounds = 8
+  lower_bounds = 1
+  upper_bounds = 8
   objective_name = objective
 []
 [Executioner]
