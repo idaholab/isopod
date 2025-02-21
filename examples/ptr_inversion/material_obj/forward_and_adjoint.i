@@ -40,7 +40,7 @@
     variable = T_real
     diffusivity = k
   []
-  [02596*]
+  [heat_source_real]
     type = MatCoupledForce
     variable = T_real
     v = T_imag
@@ -235,7 +235,6 @@
   adjoint_system = adjoint
   nl_rel_tol = 1e-12
   nl_abs_tol = 1e-10
-  automatic_scaling = true
   petsc_options_iname = '-pc_type'
   petsc_options_value = 'lu'
   verbose = true

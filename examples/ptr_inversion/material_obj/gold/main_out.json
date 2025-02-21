@@ -1,0 +1,98 @@
+{
+    "reporters": {
+        "OptimizationReporter": {
+            "type": "GeneralOptimization",
+            "values": {
+                "grad_parameter_results": {
+                    "type": "std::vector<double>"
+                },
+                "objective_value": {
+                    "type": "double"
+                },
+                "parameter_results": {
+                    "type": "std::vector<double>"
+                }
+            }
+        }
+    },
+    "time_steps": [
+        {
+            "OptimizationReporter": {
+                "grad_parameter_results": [
+                    0.0009212558656717649
+                ],
+                "objective_value": 0.0003202726197962562,
+                "parameter_results": [
+                    1.5
+                ]
+            },
+            "time": 0.0,
+            "time_step": 0
+        },
+        {
+            "OptimizationReporter": {
+                "grad_parameter_results": [
+                    0.0008715891717245674
+                ],
+                "objective_value": 0.0002374989745762439,
+                "parameter_results": [
+                    1.4078744134328236
+                ]
+            },
+            "time": 0.0,
+            "time_step": 1
+        },
+        {
+            "OptimizationReporter": {
+                "grad_parameter_results": [
+                    6.030626462793022e-05
+                ],
+                "objective_value": 1.8555349468044244e-06,
+                "parameter_results": [
+                    1.003701831621306
+                ]
+            },
+            "time": 0.0,
+            "time_step": 2
+        },
+        {
+            "OptimizationReporter": {
+                "grad_parameter_results": [
+                    -7.387887143143381e-06
+                ],
+                "objective_value": 1.4522774786984044e-06,
+                "parameter_results": [
+                    0.9886798593469809
+                ]
+            },
+            "time": 0.0,
+            "time_step": 3
+        },
+        {
+            "OptimizationReporter": {
+                "grad_parameter_results": [
+                    2.2693607903358783e-07
+                ],
+                "objective_value": 1.446415269986191e-06,
+                "parameter_results": [
+                    0.9903193013508552
+                ]
+            },
+            "time": 0.0,
+            "time_step": 4
+        },
+        {
+            "OptimizationReporter": {
+                "grad_parameter_results": [
+                    2.2693607903358783e-07
+                ],
+                "objective_value": 1.446415269986191e-06,
+                "parameter_results": [
+                    0.9903193013508552
+                ]
+            },
+            "time": 5.0,
+            "time_step": 5
+        }
+    ]
+}
