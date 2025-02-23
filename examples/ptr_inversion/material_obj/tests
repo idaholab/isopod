@@ -1,0 +1,15 @@
+[Tests]
+  issues = '#97'
+  design = 'ADCoupledVarMaterialDerivativeAux.md'
+  [grad]
+    requirement = "The system shall be able to compute an compute gradient information automatically using AD materials."
+    type = JSONDiff
+    rel_err = 1.0e-4
+    abs_zero = 1.0e-4
+    input = main.i
+    jsondiff = main_out.json
+    max_threads = 1
+    # steady solve
+    recover = false
+  []
+[]
