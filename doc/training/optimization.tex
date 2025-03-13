@@ -1,0 +1,434 @@
+\documentclass[10pt,aspectratio=169]{beamer}
+
+\setbeamertemplate{frametitle}{%
+  \begin{beamercolorbox}[wd=\paperwidth, leftskip=1.2cm, sep=0pt, ht=1.0cm, dp=0.0cm]{frametitle}
+    \vspace{-0.25cm}% adjust as needed
+    \usebeamerfont{frametitle}\insertframetitle%
+  \end{beamercolorbox}%
+}
+
+\usebackgroundtemplate{\includegraphics[height=\paperheight]{inl_pdf_template.pdf}}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamersize{text margin left=1em, text margin right=1em}
+
+%------------- Beamer INL Above
+\usepackage{amsmath, amssymb, graphicx}
+
+
+\title{PDE-Constrained Optimization in MOOSE}
+\author{CMDT}
+\institute{Idaho National Lab}
+\date{}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Outline Slide
+\begin{frame}{Outline}
+	\vspace{0.5cm}
+    \tableofcontents
+\end{frame}
+
+%-------------------------------------------------
+\section{Introduction}
+
+\begin{frame}{Overview of PDE-Based Optimization in MOOSE}
+    \centering
+\includegraphics[width=0.8\textwidth]{fig_optCycle.png}
+\end{frame}
+
+%-------------------------------------------------
+\section{PDE-Constrained Optimization Concepts}
+
+\begin{frame}{General Formulation}
+    \begin{itemize}
+        \item PDE constraint: 
+        \[
+          \mathcal{R}(\mathbf{u}, \mathbf{p}) = 0
+        \]
+        \item Objective function: 
+        \[
+          f(\mathbf{u}, \mathbf{p})
+        \]
+        \item Overall problem:
+        \[
+          \min_{\mathbf{p}} f(\mathbf{u}, \mathbf{p}) 
+          \quad \text{subject to} \quad 
+          \mathcal{R}(\mathbf{u}, \mathbf{p}) = 0
+        \]
+        \item Challenges:
+        \begin{itemize}
+            \item High dimensionality and nonlinearity.
+            \item Coupled multi-physics PDEs.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Adjoint Equation Derivation}
+\small
+\begin{enumerate}
+    \item Total derivative of objective function:
+      \[
+        \frac{\mathrm{d}f(\mathbf{u},\mathbf{p})}{\mathrm{d}\mathbf{p}} = \frac{\partial f}{\partial \mathbf{u}}\frac{\partial \mathbf{u}}{\partial\mathbf{p}} + \frac{\partial f}{\partial \mathbf{p}}
+      \]
+  
+      
+    \item From the PDE constraint $\mathcal{R}(\mathbf{u},\mathbf{p})=\mathbf{0}$:
+      \[
+        \frac{\mathrm{d}\mathcal{R}(\mathbf{u},\mathbf{p})}{\mathrm{d}\mathbf{p}} = \frac{\partial \mathcal{R}}{\partial \mathbf{u}}\frac{\partial \mathbf{u}}{\partial\mathbf{p}} + \frac{\partial \mathcal{R}}{\partial \mathbf{p}} = 0
+      \]
+      
+    \item Solving for the sensitivity matrix:
+      \[
+        \frac{\partial \mathbf{u}}{\partial\mathbf{p}} = -\left(\frac{\partial \mathcal{R}}{\partial \mathbf{u}}\right)^{-1}\frac{\partial \mathcal{R}}{\partial \mathbf{p}}
+      \]
+      
+    \item Challenge: Computing $\frac{\partial \mathbf{u}}{\partial\mathbf{p}}$ directly requires solving one system per parameter
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Adjoint Equation Derivation}
+\small
+\begin{enumerate}
+    \setcounter{enumi}{4}
+    \item Substituting sensitivity into objective gradient:
+      \[
+        \frac{\mathrm{d}f}{\mathrm{d}\mathbf{p}} = -\frac{\partial f}{\partial \mathbf{u}}\left(\frac{\partial \mathcal{R}}{\partial \mathbf{u}}\right)^{-1}\frac{\partial \mathcal{R}}{\partial \mathbf{p}} + \alpha \mathbf{p}
+      \]
+      
+    \item Define adjoint variable $\boldsymbol{\lambda}$:
+      \[
+        \boldsymbol{\lambda}^T = \frac{\partial f}{\partial \mathbf{u}}\left(\frac{\partial \mathcal{R}}{\partial \mathbf{u}}\right)^{-1}
+      \]
+      
+    \item Rearranging to get adjoint equation:
+      \[
+        \left(\frac{\partial \mathcal{R}}{\partial \mathbf{u}}\right)^T \boldsymbol{\lambda} = -\left(\frac{\partial f}{\partial \mathbf{u}}\right)^T
+      \]
+      
+    \item Final gradient expression:
+      \[
+        \frac{\mathrm{d}f}{\mathrm{d}\mathbf{p}} = \boldsymbol{\lambda}^T \frac{\partial \mathcal{R}}{\partial \mathbf{p}} +  \frac{\partial f}{\partial p}
+      \]
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Adjoint Method: Key Components for Inverse Problems}
+\begin{center}
+\fbox{\begin{minipage}{0.85\textwidth}
+\begin{center}
+\textbf{Essential Components for Any Inverse Problem}
+\end{center}
+\begin{itemize}
+    \item $\frac{\partial f}{\partial \mathbf{u}}$: Objective function sensitivity to state variables
+    \item $\frac{\partial f}{\partial \mathbf{p}}$: Direct parameter dependency (often regularization)
+    \item $\frac{\partial \mathcal{R}}{\partial \mathbf{p}}$: PDE residual sensitivity to parameters
+\end{itemize}
+ \[
+        \frac{\mathrm{d}f}{\mathrm{d}\mathbf{p}} = \boldsymbol{\lambda}^T \frac{\partial \mathcal{R}}{\partial \mathbf{p}} +  \frac{\partial f}{\partial p}
+      \]
+\[
+        \left(\frac{\partial \mathcal{R}}{\partial \mathbf{u}}\right)^T \boldsymbol{\lambda} = -\left(\frac{\partial f}{\partial \mathbf{u}}\right)^T
+      \]
+
+\end{minipage}}
+\end{center}
+\end{frame}
+
+%-------------------------------------------------
+\section{Steady-State Heat Conduction Inversion}
+\begin{frame}{Forward Problem \& Objective Function}
+\small
+\begin{itemize}
+    \item \textbf{General Forward PDE:}
+      \[
+        \mathcal{R}\bigl(T,\mathbf{p}\bigr) 
+        = 0,
+        \quad\text{where } 
+        \mathcal{R}
+        = \nabla \cdot \bigl(\kappa\nabla T\bigr) + g_b.
+      \]
+    \item \textbf{Objective Function (Data Misfit with Tikhonov Regularization)}:
+      \[
+        f\bigl(T,\mathbf{p}\bigr)
+        = \frac12 \sum_{i=1}^{N} \bigl[T(x_i) - \widetilde{T}_i\bigr]^2
+        \;+\; \frac{\alpha}{2} \|\mathbf{p}\|^2.
+      \]
+    \item \(\mathbf{p}\) are the design  parameters we want to estimate.
+    \item \(\alpha\) is the regularization parameter controlling the trade-off between data fit and solution stability.
+    \item We'll look at three specific parameterizations:
+      \begin{enumerate}
+        \item \(g_b(\mathbf{p})\) (heat source inversion),
+        \item \(\kappa\nabla T \cdot \mathbf{n} = h(\mathbf{p})\,(T - T_\infty)\) (convective BC),
+        \item \(\kappa(\mathbf{p})\) (material property inversion).
+      \end{enumerate}
+\end{itemize}
+\end{frame}
+%-------------------------------------------------
+\begin{frame}{Derivative of the Data-Misfit Objective}
+\small
+\begin{itemize}
+
+    \item The objective function with regularization:
+      \[
+        f(T,\mathbf{p}) = \frac12 \sum_{i=1}^N \bigl[T_i - \widetilde{T}_i\bigr]^2 + \frac{\alpha}{2} \|\mathbf{p}\|^2.
+      \]
+    \item Derivative with respect to parameters:
+      \[
+        \frac{\partial f}{\partial \mathbf{p}} = \alpha \mathbf{p}.
+      \]
+    \item Derivative of with respect to temperature:
+      \[
+        \frac{\partial f}{\partial T}(x) 
+        = \sum_{i=1}^N \delta(x - x_i)\,\bigl[T(x_i) - \widetilde{T}_i\bigr].
+      \]
+ 	\end{itemize}
+\end{frame}
+
+%-------------------------------------------------
+\subsection{Case 1: Parameterized Heat Source}
+
+\begin{frame}{Case 1: Parameterized Heat Source \(g_b(\mathbf{p})\)}
+\small
+\begin{itemize}
+    \item \textbf{PDE:}
+      \[
+        \underbrace{
+        \nabla \cdot \bigl(\kappa\nabla T\bigr)
+        + g_b(\mathbf{p})
+        }_{\mathcal{R}(T,\mathbf{p})}
+        = 0
+        \quad\text{in}\;\Omega.
+      \]
+    \item Here \(\kappa\) is fixed/known, but \(g_b\) depends on parameters \(\mathbf{p}\).
+    \item \(\displaystyle
+       \frac{\partial \mathcal{R}}{\partial \mathbf{p}}
+       = \frac{\partial}{\partial \mathbf{p}}
+         \bigl[g_b(\mathbf{p})\bigr],
+      \)
+      and \(\frac{\partial}{\partial \mathbf{p}}\bigl[\kappa\nabla T\bigr] = 0\).
+    \item \textbf{Example parameter forms}:
+      \begin{itemize}
+         \item Linear: \(g_b(x) = p_0 + p_1\,x.\)
+           \[
+             \frac{\partial g_b}{\partial p_0} = 1, 
+             \quad
+             \frac{\partial g_b}{\partial p_1} = x.
+           \]
+         \item Gaussian-like or \(\delta\)-functions: 
+           \(\;g_b(x) = \sum_{i}p_i\,\delta(x-x_i).\)
+           \[
+             \frac{\partial g_b}{\partial p_i}
+             = \delta(x - x_i).
+           \]
+      \end{itemize}
+    \item \(\boxed{\frac{\partial \mathcal{R}}{\partial \mathbf{p}}
+           = 
+           \int_{\Omega}
+             \phi\,
+             \frac{\partial g_b(\mathbf{p})}{\partial \mathbf{p}}
+           \,d\Omega 
+           \;\;\text{(in FEM form)}}\).
+\end{itemize}
+\end{frame}
+
+
+%-------------------------------------------------
+\subsection{Case 2: Parameterized Convective Boundary Condition}
+
+\begin{frame}{Case 2: Parameterized Convection \(h(\mathbf{p})\)}
+\small
+\begin{itemize}
+    \item \textbf{Forward PDE}: 
+      \[
+        \nabla \cdot \bigl(\kappa\nabla T\bigr) + g_b = 0
+        \quad\text{in}\;\Omega,
+      \]
+      with 
+      \[
+        \bigl(\kappa\nabla T\bigr)\cdot \mathbf{n}
+        = h(\mathbf{p})\,(T - T_\infty)
+        \quad\text{on}\;\Gamma_R.
+      \]
+    \item \(\mathbf{p}\) enters the PDE through the \textbf{Robin boundary flux}.
+    \item In a weak/FEM formulation, \(\frac{\partial \mathcal{R}}{\partial \mathbf{p}}\) arises from differentiating that boundary integral term \(\int_{\Gamma_R} \kappa \nabla T \cdot \mathbf{n}\,\phi - h(\mathbf{p})(T - T_\infty)\,\phi\).
+    \[
+       \frac{\partial \mathcal{R}}{\partial p_j}
+       \;\propto\;
+       \int_{\Gamma_R}
+         \phi\,\frac{\partial}{\partial p_j} \Bigl[h(\mathbf{p})(T - T_\infty)\Bigr]
+       \,d\Gamma.
+    \]
+    \item \textbf{If} \(h = p\) (a single scalar parameter):
+      \(\displaystyle
+       \frac{\partial}{\partial p} \bigl[h(T - T_\infty)\bigr]
+       = (T - T_\infty).
+      \)
+    \item \(\boxed{\frac{\partial \mathcal{R}}{\partial \mathbf{p}}
+           = 
+           \int_{\Gamma_R}
+             \phi\,
+             \frac{\partial}{\partial \mathbf{p}}
+             \bigl[h(\mathbf{p})(T - T_\infty)\bigr]
+           \,d\Gamma}\).
+\end{itemize}
+\end{frame}
+
+
+%-------------------------------------------------
+\subsection{Case 3: Parameterized Material}
+
+\begin{frame}{Case 3: Parameterized \(\kappa(\mathbf{p})\)}
+\small
+\begin{itemize}
+    \item \textbf{PDE}:
+      \[
+        \nabla \cdot \Bigl(\kappa(\mathbf{p})\,\nabla T\Bigr)
+        + g_b = 0
+        \quad\text{in}\;\Omega.
+      \]
+    \item Now \(\mathbf{p}\) enters the \(\kappa\) term in the PDE’s \textit{operator}.
+    \item \(\displaystyle
+      \frac{\partial \mathcal{R}}{\partial \mathbf{p}}
+      = 
+      \frac{\partial}{\partial \mathbf{p}}
+      \bigl[\nabla\cdot(\kappa(\mathbf{p})\nabla T)\bigr].
+      \)
+    \item \(\boxed{\frac{\partial \mathcal{R}}{\partial \mathbf{p}}
+           = \nabla \cdot \Bigl(\frac{\partial \kappa(\mathbf{p})}{\partial \mathbf{p}}\nabla T\Bigr)
+           \quad\text{(continuous form)}.}\)
+
+    \item \textbf{FEM (discrete) form example}:
+      \[
+        \frac{\partial \mathcal{R}}{\partial p_j}
+        =
+        \int_{\Omega}
+          \nabla \phi^\top
+          \,\frac{\partial \kappa}{\partial p_j}
+          \,\nabla T
+        \; d\Omega.
+      \]
+    \item \(\textbf{Example: } 
+       \kappa(T) = \alpha T^2 + \beta T 
+       \Rightarrow
+       \frac{\partial \kappa}{\partial \alpha} = T^2,\,
+       \frac{\partial \kappa}{\partial \beta} = T.
+    \)
+\end{itemize}
+\end{frame}
+
+%-------------------------------------------------
+%-------------------------------------------------
+\section{Implementation in MOOSE}
+\begin{frame}{Implementation in MOOSE: Overview}
+    \begin{itemize}
+        \item \textbf{Key Ingredients}:
+        \begin{itemize}
+            \item \textbf{AD} (Automatic Differentiation) for Jacobians and sensitivities.
+            \item \textbf{MultiApps} and Transfers for outer optimization loops.
+            \item \textbf{Executioner} and \textbf{Postprocessors} to evaluate objectives.
+        \end{itemize}
+        \item \textbf{Workflow}:
+        \begin{enumerate}
+            \item Define forward simulation (Kernels, BCs, Materials).
+            \item Set up an objective function (Postprocessor/AuxVariable).
+            \item Solve or approximate gradient (adjoint or FD).
+            \item Update design variables (force, material property, density, etc.).
+            \item Repeat until convergence.
+        \end{enumerate}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Automatic Adjoint Computation in MOOSE}
+    \begin{itemize}
+        \item \textbf{Key Insight}: The Jacobian matrix from the forward problem can be reused for the adjoint!
+        
+        \item \textbf{Forward Problem}: $\mathcal{R}(\mathbf{u}, \mathbf{p}) = 0$
+        \begin{itemize}
+            \item Converged nonlinear solve gives us $\frac{\partial \mathcal{R}}{\partial \mathbf{u}}$ (the Jacobian)
+        \end{itemize}
+        
+        \item \textbf{Adjoint Equation}: $\left(\frac{\partial \mathcal{R}}{\partial \mathbf{u}}\right)^T \boldsymbol{\lambda} = -\left(\frac{\partial f}{\partial \mathbf{u}}\right)^T$
+        \begin{itemize}
+            \item We can simply transpose the converged Jacobian and solve once
+            \item Saves enormous development time (no manual adjoint derivation)
+            \item Reuses existing nonlinear solution infrastructure
+        \end{itemize}
+        
+      
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Putting It All Together: Adjoint Workflow in MOOSE}
+    \begin{itemize}
+        \item \textbf{Full Adjoint-Based Optimization Workflow}:
+        \begin{enumerate}
+            \item Solve forward problem with AD-enabled physics
+            \item Compute objective function (also using AD)
+            \item Solve adjoint problem by transposing converged Jacobian
+            \item Assemble gradient $\frac{df}{d\mathbf{p}}$ using adjoint solution
+            \item Pass gradient to optimizer for parameter updates
+        \end{enumerate}
+        
+        \item \textbf{MOOSE Components Used}:
+        \begin{itemize}
+            \item OptimizationApp: manages optimization loop
+            \item Reporter system: transfers gradients and function values
+            \item MultiApps: handles forward/adjoint solves
+     
+        \end{itemize}
+        
+        \item \textbf{Benefits}:
+        \begin{itemize}
+            \item Minimal code duplication between forward and adjoint
+            \item Automatic differentiation reduces implementation errors
+            \item Leverages existing MOOSE parallelism and solver capabilities
+            \item Scales to complex multiphysics inverse problems
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+%-------------------------------------------------
+\section{Example Problems}
+\subsection{Force Inversion}
+
+
+\subsection{Nonlinear Material Parameterization}
+
+\subsection{Transient Inverse Problem}
+
+
+\subsection{Topology Optimization (SIMP)}
+
+
+
+%-------------------------------------------------
+\section{Conclusion}
+\begin{frame}{Summary and Future Directions}
+    \begin{itemize}
+        \item \textbf{Summary}:
+        \begin{itemize}
+            \item MOOSE provides a robust framework for PDE-based optimization (inverse or topology).
+            \item Adjoint methods are efficient for large-scale problems.
+        \end{itemize}
+        \item \textbf{Future Extensions}:
+        \begin{itemize}
+            \item Advanced multiphysics optimization (thermo-mechanical, fluid-structure).
+            \item More sophisticated constraint handling (stress, manufacturing, etc.).
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\end{document}
