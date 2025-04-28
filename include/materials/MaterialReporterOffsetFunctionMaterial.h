@@ -31,6 +31,9 @@ protected:
   /// Gradient of misfit with respect to the coupled_material
   GenericMaterialProperty<Real, is_ad> & _mat_prop_gradient;
 
+  /// just the misfit unsquared, NOT SQUARED like L2
+  GenericMaterialProperty<Real, is_ad> & _mat_prop_unsquared;
+
   /// values at each xyz coordinate
   const std::vector<Real> & _measurement_values;
 
