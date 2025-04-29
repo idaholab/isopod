@@ -30,6 +30,8 @@ MaterialReporterOffsetFunctionMaterialTempl<is_ad>::MaterialReporterOffsetFuncti
         this->template getParam<MaterialName>("sim_material"))),
     _mat_prop_gradient(
         this->template declareGenericProperty<Real, is_ad>(_prop_name + "_gradient")),
+    _mat_prop_unsquared(
+        this->template declareGenericProperty<Real, is_ad>(_prop_name + "_unsquared")),
     _measurement_values(
         this->template getReporterValue<std::vector<Real>>("value_name", REPORTER_MODE_REPLICATED))
 {
@@ -41,6 +43,7 @@ MaterialReporterOffsetFunctionMaterialTempl<is_ad>::computeQpProperties()
 {
   _material[_qp] = 0.0;
   _mat_prop_gradient[_qp] = 0.0;
+  _mat_prop_unsquared[_qp] = 0.0;
   auto num_pts = _read_in_points ? _points.size() : _coordx.size();
   if (!_read_in_points)
     mooseAssert((_coordx.size() == _coordy.size()) && (_coordx.size() == _coordz.size()),
@@ -65,6 +68,8 @@ MaterialReporterOffsetFunctionMaterialTempl<is_ad>::computeQpProperties()
         Utility::pow<2>(weighting) * Utility::pow<2>(measurement_value - simulation_value);
     _mat_prop_gradient[_qp] -=
         2.0 * Utility::pow<2>(weighting) * (measurement_value - simulation_value);
+
+    _mat_prop_unsquared[_qp] += weighting * (measurement_value - simulation_value);
   }
 }
 
