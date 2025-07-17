@@ -1,0 +1,2 @@
+id=1;frequencyKHz=0.1
+id=2;frequencyKHz=0.2
