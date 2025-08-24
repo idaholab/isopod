@@ -1,0 +1,20 @@
+#PBS -N TestInverse3D
+#PBS -l select=10:ncpus=48:mpiprocs=48
+#PBS -l place=scatter:excl
+#PBS -l walltime=0:30:00
+#PBS -j oe
+#PBS -P ne_ldrd
+cd $PBS_O_WORKDIR
+
+rm -r measurement
+cp -r synthetic measurement
+rm inputs/GrMesh.i
+cp inputs/GrGaussian.i inputs/GrMesh.i
+
+../../../isopod-opt -i inputs/GrMesh.i grid_size=12
+mv GrMesh12.e inputs/GrMesh.e
+
+mpirun ../../../isopod-opt -i invert.i maxiter=2 >& TestInv.out
+
+rm inputs/GrMesh.i
+rm -r measurement

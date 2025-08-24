@@ -1,0 +1,5 @@
+SAMPLE1=$(qsub scripts/samplerSWE.hpc)
+SAMPLE2=$(qsub -W depend=afterok:$SAMPLE1 scripts/samplerSWE.hpc)
+RES1=$(qsub -W depend=afterok:$SAMPLE2 scripts/res1SWE.hpc)
+RES2=$(qsub -W depend=afterok:$RES1 scripts/res2SWE.hpc)
+RES3=$(qsub -W depend=afterok:$RES2 scripts/res3SWE.hpc)
