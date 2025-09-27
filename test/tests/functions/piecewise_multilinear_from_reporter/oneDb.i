@@ -69,7 +69,7 @@
   [../]
   [./linear1_answer]
     type = ParsedFunction
-    value = x
+    expression = x
   [../]
 
 # This is a hat function
@@ -83,7 +83,7 @@
   [../]
   [./linear2_answer]
     type = ParsedFunction
-    value = min(x,1)+min(2-x,1)-1
+    expression = min(x,1)+min(2-x,1)-1
   [../]
 
 []
