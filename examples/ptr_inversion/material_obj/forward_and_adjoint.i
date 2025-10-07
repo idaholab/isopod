@@ -200,8 +200,8 @@
   [gradient]
     type = ParsedVectorReporter
     name = inner
-    reporter_names = 'gradient_real/inner_product gradient_imag/inner_product'
-    reporter_symbols = 'real imag'
+    vector_reporter_names = 'gradient_real/inner_product gradient_imag/inner_product'
+    vector_reporter_symbols = 'real imag'
     expression = 'real+imag'
     execute_on = ADJOINT_TIMESTEP_END
   []
