@@ -19,10 +19,6 @@ BatchStressGrad::validParams()
   params.addRequiredParam<MaterialPropertyName>(
       "elasticity_tensor_derivative",
       "Name of the elasticity tensor derivative material property.");
-  params.setDocString(
-      "execution_order_group",
-      "BatchStressGrad userObject needs to be completely executed before vectorPostprocessors.");
-  params.set<int>("execution_order_group") = -1;
   params.addClassDescription("Compute the double contraction of the elasticity tensor derivative "
                              "and the forward mechanical strain");
   return params;
