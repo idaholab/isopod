@@ -75,18 +75,20 @@ PiecewiseMultilinearFromReporter::sampleInternal(
       // shift i j-bits to the right and see if the result has a 0 as its right-most bit
       if ((i >> j) % 2 == 0)
       {
+        using std::abs;
         arg[j] = left[j];
         if (left[j] != right[j])
-          weight *= std::abs(pt[j] - _grid[j][right[j]]);
+          weight *= abs(pt[j] - _grid[j][right[j]]);
         else
           // unusual "end condition" case. weight by 0.5 because we will encounter this twice
           weight *= 0.5;
       }
       else
       {
+        using std::abs;
         arg[j] = right[j];
         if (left[j] != right[j])
-          weight *= std::abs(pt[j] - _grid[j][left[j]]);
+          weight *= abs(pt[j] - _grid[j][left[j]]);
         else
           // unusual "end condition" case. weight by 0.5 because we will encounter this twice
           weight *= 0.5;
