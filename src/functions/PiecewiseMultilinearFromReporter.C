@@ -68,6 +68,7 @@ PiecewiseMultilinearFromReporter::sampleInternal(
   Moose::GenericType<Real, is_ad> weight;
   GridIndex arg(_dim);
   // number of points in hypercube = 2^_dim
+  using std::abs;
   for (unsigned int i = 0; i < (1u << _dim); ++i)
   {
     weight = 1;
@@ -77,7 +78,7 @@ PiecewiseMultilinearFromReporter::sampleInternal(
       {
         arg[j] = left[j];
         if (left[j] != right[j])
-          weight *= std::abs(pt[j] - _grid[j][right[j]]);
+          weight *= abs(pt[j] - _grid[j][right[j]]);
         else
           // unusual "end condition" case. weight by 0.5 because we will encounter this twice
           weight *= 0.5;
@@ -86,7 +87,7 @@ PiecewiseMultilinearFromReporter::sampleInternal(
       {
         arg[j] = right[j];
         if (left[j] != right[j])
-          weight *= std::abs(pt[j] - _grid[j][left[j]]);
+          weight *= abs(pt[j] - _grid[j][left[j]]);
         else
           // unusual "end condition" case. weight by 0.5 because we will encounter this twice
           weight *= 0.5;
