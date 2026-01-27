@@ -1,0 +1,25 @@
+1. Make the mesh coarse, but not single element in inputs/globals.i
+   If you do this, you may comment out hpc command and include
+   "-np **" in the following scripts. It is also fine to limit
+   the number of runs by deleting rows in synthetic/acquisitions.csv
+
+2. After getting acquisition info into synthetic/, run sampler.hpc
+   two times to make sure that synthetic data is populated well,
+   and misfit is zero
+
+3. Run test_invert.hpc to make sure that misfit and gradient are zero
+
+4. Run check_grad.hpc to check gradients
+
+
+
+IF NO CODE CHANGES JUST DO THE FOLLOWING
+----------------------------------------
+
+5. After the above steps, if did coarsening in step 1, you need to 
+   refine the mesh back in inputs/globals.i. You need to rerun 
+   step 2 with fine mesh or checkout files from repo.
+
+6. Run test_invert.hpc to make sure that the objective is indeed zero
+
+7. Run multires.sh after checking res1,2,3.hpc make sense
