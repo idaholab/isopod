@@ -7,7 +7,7 @@
     rel_err = 1e-4
     input = main.i
     csvdiff = main_out_measured_0001.csv
-    method = opt
+    capabilities = 'method=opt'
     max_threads = 1
     # steady solve
     recover = false
