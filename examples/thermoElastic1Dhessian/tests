@@ -9,7 +9,7 @@
     input = main.i
     csvdiff = main_out_OptimizationReporter_0001.csv
     max_threads = 1
-    method = opt
+    capabilities = 'method=opt'
     recover = false
   []
 []

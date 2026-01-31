@@ -8,7 +8,7 @@
     input = main.i
     csvdiff = main_out_measured_0001.csv
     max_threads = 1
-    method = opt
+    capabilities = 'method=opt'
     # steady solve
     recover = false
   []
