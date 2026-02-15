@@ -22,7 +22,7 @@ isopodApp::~isopodApp() {}
 void
 isopodApp::registerAll(Factory & f, ActionFactory & af, Syntax & syntax)
 {
-  ModulesApp::registerAll(f, af, syntax);
+  ModulesApp::registerAllObjects<isopodApp>(f, af, syntax);
   Registry::registerObjectsTo(f, {"isopodApp"});
   Registry::registerActionsTo(af, {"isopodApp"});
 
