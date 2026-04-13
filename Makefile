@@ -24,24 +24,23 @@ include $(FRAMEWORK_DIR)/moose.mk
 # yes as needed.  Or set ALL_MODULES to yes to turn on everything (overrides
 # other set variables).
 
-ALL_MODULES                 := no
+ALL_MODULES                 := no 
 
 CHEMICAL_REACTIONS          := no
-CONTACT                     := no
+CONTACT                     := yes
 EXTERNAL_PETSC_SOLVER       := no
 FLUID_PROPERTIES            := no
 FUNCTIONAL_EXPANSION_TOOLS  := no
 HEAT_TRANSFER               := yes
-LEVEL_SET                   := no
+LEVEL_SET                   := yes
 MISC                        := no
 NAVIER_STOKES               := no
-PHASE_FIELD                 := no
-POROUS_FLOW                 := no
+PHASE_FIELD                 := yes
+POROUS_FLOW                 := yes
 RDG                         := no
 RICHARDS                    := no
-SOLID_MECHANICS             := no
-STOCHASTIC_TOOLS            := no
 SOLID_MECHANICS             := yes
+STOCHASTIC_TOOLS            := yes
 XFEM                        := no
 OPTIMIZATION                := yes
 

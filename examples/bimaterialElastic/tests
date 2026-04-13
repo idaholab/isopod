@@ -13,4 +13,18 @@
     # steady solve
     recover = false
   []
+  issues = '#9999' #modify this
+  design = 'OptimizationReporter.md'
+  [opt_auto]
+    requirement = "The system shall be able to invert for elastic moduli using automatic adjoint."
+    type = CSVDiff
+    abs_zero = 1E-3
+    rel_err = 1e-3
+    input = main_auto.i
+    csvdiff = main_auto_out_OptimizationReporter_0001.csv
+    max_threads = 1
+    method = opt
+    # steady solve
+    recover = false
+  []
 []
