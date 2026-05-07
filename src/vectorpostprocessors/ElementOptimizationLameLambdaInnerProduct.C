@@ -15,19 +15,27 @@ InputParameters
 ElementOptimizationLameLambdaInnerProduct::validParams()
 {
   InputParameters params = ElementOptimizationFunctionInnerProduct::validParams();
+  params.addRequiredParam<MaterialPropertyName>(
+      "forward_strain_name", "Name of the strain property in the forward problem");
+  params.addRequiredParam<MaterialPropertyName>(
+      "adjoint_strain_name", "Name of the strain property in the adjoint problem");
   params.addClassDescription("Compute the gradient for material inversion, with respect"
                              "to Lame parameter Lambda by taking the inner product of"
                              "forward and adjoint strains");
+
   return params;
 }
 ElementOptimizationLameLambdaInnerProduct::ElementOptimizationLameLambdaInnerProduct(
     const InputParameters & parameters)
   : ElementOptimizationFunctionInnerProduct(parameters),
     _base_name(isParamValid("base_name") ? getParam<std::string>("base_name") + "_" : ""),
-    _adjoint_strain(getMaterialPropertyByName<RankTwoTensor>("mechanical_strain")),
-    _forward_strain(getMaterialPropertyByName<RankTwoTensor>("forward_mechanical_strain"))
+    _forward_strain(getMaterialPropertyByName<RankTwoTensor>(
+        getParam<MaterialPropertyName>("forward_strain_name"))),
+    _adjoint_strain(getMaterialPropertyByName<RankTwoTensor>(
+        getParam<MaterialPropertyName>("adjoint_strain_name")))
 {
 }
+
 
 Real
 ElementOptimizationLameLambdaInnerProduct::computeQpInnerProduct()

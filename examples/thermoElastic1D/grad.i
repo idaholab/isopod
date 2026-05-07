@@ -221,11 +221,15 @@
      type = ElementOptimizationLameLambdaInnerProduct
      variable = dummy
      function = lambda
+     adjoint_strain_name = mechanical_strain
+     forward_strain_name = forward_mechanical_strain
   []
   [grad_mu]
      type = ElementOptimizationLameMuInnerProduct
      variable = dummy
      function = mu
+     adjoint_strain_name = mechanical_strain
+     forward_strain_name = forward_mechanical_strain
   []
 []
 

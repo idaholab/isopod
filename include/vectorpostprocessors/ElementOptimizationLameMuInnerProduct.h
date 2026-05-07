@@ -22,8 +22,8 @@ protected:
   virtual Real computeQpInnerProduct() override;
   /// Base name of the material system
   const std::string _base_name;
-  /// Holds adjoint strain at current quadrature points
-  const MaterialProperty<RankTwoTensor> & _adjoint_strain;
   /// Holds forward strain at current quadrature points
   const MaterialProperty<RankTwoTensor> & _forward_strain;
+  /// Holds adjoint strain at current quadrature points
+  const MaterialProperty<RankTwoTensor> & _adjoint_strain;
 };

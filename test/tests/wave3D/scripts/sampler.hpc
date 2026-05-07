@@ -1,0 +1,49 @@
+#PBS -N Sampler3D
+#PBS -l select=18:ncpus=48:mpiprocs=48
+#PBS -l place=scatter:excl
+#PBS -l walltime=0:15:00
+#PBS -j oe
+#PBS -P ne_ldrd
+cd $PBS_O_WORKDIR
+
+rm -r measurement
+cp -r synthetic measurement
+rm inputs/GrMesh.i
+cp inputs/GrGaussian.i inputs/GrMesh.i
+../../../isopod-opt -i inputs/GrMesh.i grid_size=12
+mv GrMesh12.e inputs/GrMesh.e
+
+mpirun ../../../isopod-opt -i model_sampler.i
+
+tail -n +2 sampler/_model0_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq1.csv
+tail -n +2 sampler/_model1_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push2freq1.csv
+tail -n +2 sampler/_model2_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push3freq1.csv
+tail -n +2 sampler/_model3_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq2.csv
+tail -n +2 sampler/_model4_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push2freq2.csv
+tail -n +2 sampler/_model5_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push3freq2.csv
+tail -n +2 sampler/_model6_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push1freq3.csv
+tail -n +2 sampler/_model7_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push2freq3.csv
+tail -n +2 sampler/_model8_measure_data_0001.csv > synthetic/junk
+cat synthetic/header synthetic/junk > synthetic/push3freq3.csv
+rm synthetic/junk
+
+mv sampler/_model0.e synthetic/push1freq1.e
+mv sampler/_model1.e synthetic/push2freq1.e
+mv sampler/_model2.e synthetic/push3freq1.e
+mv sampler/_model3.e synthetic/push1freq2.e
+mv sampler/_model4.e synthetic/push2freq2.e
+mv sampler/_model5.e synthetic/push3freq2.e
+mv sampler/_model6.e synthetic/push1freq3.e
+mv sampler/_model7.e synthetic/push2freq3.e
+mv sampler/_model8.e synthetic/push3freq3.e
+
+rm inputs/GrMesh.i
+rm -r measurement
