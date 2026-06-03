@@ -1,0 +1,16 @@
+[Tests]
+  issues = '#9999'
+  design = 'OptimizationReporter.md'
+  [opt]
+    requirement = "The system shall be able to invert for shear moduli of incompressible media."
+    type = CSVDiff
+    abs_zero = 1E-3
+    rel_err = 1E-3
+    input = inversion.i
+    csvdiff = inversion_out_OptimizationReporter_0001.csv
+    max_threads = 1
+    method = opt
+    # steady solve
+    recover = false
+  []
+[]
