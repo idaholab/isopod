@@ -22,11 +22,9 @@ isopodApp::~isopodApp() {}
 void
 isopodApp::registerAll(Factory & f, ActionFactory & af, Syntax & syntax)
 {
-  ModulesApp::registerAll(f, af, syntax);
+  ModulesApp::registerAllObjects<isopodApp>(f, af, syntax);
   Registry::registerObjectsTo(f, {"isopodApp"});
   Registry::registerActionsTo(af, {"isopodApp"});
-
-  /* register custom execute flags, action syntax, etc. here */
 }
 
 void
@@ -43,9 +41,4 @@ extern "C" void
 isopodApp__registerAll(Factory & f, ActionFactory & af, Syntax & s)
 {
   isopodApp::registerAll(f, af, s);
-}
-extern "C" void
-isopodApp__registerApps()
-{
-  isopodApp::registerApps();
 }
