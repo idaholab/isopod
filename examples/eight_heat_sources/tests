@@ -1,6 +1,6 @@
 [Tests]
   issues = '#61'
-  design = 'OptimizationReporter.md'
+  design = 'GeneralOptimization.md'
   [grad]
     requirement = "The system shall be able to scale point loads to match a specified temeprature field."
     type = CSVDiff
