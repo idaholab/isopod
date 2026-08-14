@@ -2,11 +2,10 @@
 []
 
 [OptimizationReporter]
-  type = OptimizationReporter
+  type = GeneralOptimization
+  objective_name = objective_value
   parameter_names = 'parameter_results'
   num_values = '8'
-  measurement_file = 'measurementData.csv'
-  file_value = 'temperature'
 []
 
 [Executioner]
@@ -34,11 +33,11 @@
   [toForward_measument]
     type = MultiAppReporterTransfer
     to_multi_app = forward
-    from_reporters = 'OptimizationReporter/measurement_xcoord
-                      OptimizationReporter/measurement_ycoord
-                      OptimizationReporter/measurement_zcoord
-                      OptimizationReporter/measurement_time
-                      OptimizationReporter/measurement_values
+    from_reporters = 'main/measurement_xcoord
+                      main/measurement_ycoord
+                      main/measurement_zcoord
+                      main/measurement_time
+                      main/measurement_values
                       OptimizationReporter/parameter_results'
     to_reporters = 'measure_data/measurement_xcoord
                     measure_data/measurement_ycoord
@@ -50,20 +49,22 @@
   [fromForward]
     type = MultiAppReporterTransfer
     from_multi_app = forward
-    from_reporters = 'measure_data/simulation_values
-                      measure_data/simulation_values'
-    to_reporters = 'OptimizationReporter/simulation_values
-                    measured/values'
+    from_reporters = 'measure_data/objective_value
+                      measure_data/simulation_values
+                      measure_data/misfit_values'
+    to_reporters = 'OptimizationReporter/objective_value
+                    measured/values
+                    main/misfit_values'
   []
   # ADJOINT transfers
   [toAdjoint]
     type = MultiAppReporterTransfer
     to_multi_app = adjoint
-    from_reporters = 'OptimizationReporter/measurement_xcoord
-                      OptimizationReporter/measurement_ycoord
-                      OptimizationReporter/measurement_zcoord
-                      OptimizationReporter/measurement_time
-                      OptimizationReporter/misfit_values'
+    from_reporters = 'main/measurement_xcoord
+                      main/measurement_ycoord
+                      main/measurement_zcoord
+                      main/measurement_time
+                      main/misfit_values'
     to_reporters = 'misfit/measurement_xcoord
                     misfit/measurement_ycoord
                     misfit/measurement_zcoord
@@ -79,6 +80,11 @@
 []
 
 [Reporters]
+  [main]
+    type = OptimizationData
+    measurement_file = 'measurementData.csv'
+    file_value = 'temperature'
+  []
   [measured]
     type = ConstantReporter
     real_vector_names = values

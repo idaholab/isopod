@@ -1,6 +1,6 @@
 [Tests]
   issues = '#65'
-  design = 'OptimizationReporter.md'
+  design = 'GeneralOptimization.md'
   [opt]
     requirement = "The system shall be able to invert for thermal conductivity from displacement measurements."
     type = CSVDiff
