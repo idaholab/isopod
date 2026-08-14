@@ -10,16 +10,13 @@
 []
 
 [OptimizationReporter]
-  type = OptimizationReporter
+  type = GeneralOptimization
+  objective_name = objective_value
   parameter_names = 'Q'
   num_values = '1'
   initial_condition = '0.2'
   lower_bounds = '0.1'
   upper_bounds = '100'
-  measurement_points = '0.0 0.0 0.0
-                        1.0 0.0 0.0
-                        2.0 0.0 0.0'
-  measurement_values = '0.000000 4.333333333e-03 16.666666667e-03'
 []
 
 [Executioner]
@@ -57,11 +54,11 @@
   [toForward]
     type = MultiAppReporterTransfer
     to_multi_app = forward
-    from_reporters = 'OptimizationReporter/measurement_xcoord
-                      OptimizationReporter/measurement_ycoord
-                      OptimizationReporter/measurement_zcoord
-                      OptimizationReporter/measurement_time
-                      OptimizationReporter/measurement_values
+    from_reporters = 'main/measurement_xcoord
+                      main/measurement_ycoord
+                      main/measurement_zcoord
+                      main/measurement_time
+                      main/measurement_values
                       OptimizationReporter/Q'
     to_reporters = 'measure_data/measurement_xcoord
                     measure_data/measurement_ycoord
@@ -70,11 +67,13 @@
                     measure_data/measurement_values
                     parametrization/Q'
   []
-  [get_misfit]
+  [fromForward]
     type = MultiAppReporterTransfer
     from_multi_app = forward
-    from_reporters = 'measure_data/simulation_values'
-    to_reporters = 'OptimizationReporter/simulation_values'
+    from_reporters = 'measure_data/objective_value
+                      measure_data/misfit_values'
+    to_reporters = 'OptimizationReporter/objective_value
+                    main/misfit_values'
   []
   [set_state_for_adjoint]
     type = MultiAppCopyTransfer
@@ -86,11 +85,11 @@
   [setup_adjoint_run]
     type = MultiAppReporterTransfer
     to_multi_app = adjoint
-    from_reporters = 'OptimizationReporter/measurement_xcoord
-                      OptimizationReporter/measurement_ycoord
-                      OptimizationReporter/measurement_zcoord
-                      OptimizationReporter/measurement_time
-                      OptimizationReporter/misfit_values
+    from_reporters = 'main/measurement_xcoord
+                      main/measurement_ycoord
+                      main/measurement_zcoord
+                      main/measurement_time
+                      main/misfit_values
                       OptimizationReporter/Q'
     to_reporters = 'misfit/measurement_xcoord
                     misfit/measurement_ycoord
@@ -109,11 +108,11 @@
   [toHomoForward]
     type = MultiAppReporterTransfer
     to_multi_app = homoForward
-    from_reporters = 'OptimizationReporter/measurement_xcoord
-                      OptimizationReporter/measurement_ycoord
-                      OptimizationReporter/measurement_zcoord
-                      OptimizationReporter/measurement_time
-                      OptimizationReporter/measurement_values
+    from_reporters = 'main/measurement_xcoord
+                      main/measurement_ycoord
+                      main/measurement_zcoord
+                      main/measurement_time
+                      main/measurement_values
                       OptimizationReporter/Q'
     to_reporters = 'measure_data/measurement_xcoord
                     measure_data/measurement_ycoord
@@ -125,12 +124,21 @@
   [get_misfit_from_homoForward]
     type = MultiAppReporterTransfer
     from_multi_app = homoForward
+    # Note: We are transferring the simulation values into misfit.
+    # This has to be done when using general opt and homogeneous forward.
     from_reporters = 'measure_data/simulation_values'
-    to_reporters = 'OptimizationReporter/simulation_values'
+    to_reporters = 'main/misfit_values'
   []
 []
 
 [Reporters]
+  [main]
+    type = OptimizationData
+    measurement_points = '0.0 0.0 0.0
+                          1.0 0.0 0.0
+                          2.0 0.0 0.0'
+    measurement_values = '0.000000 4.333333333e-03 16.666666667e-03'
+  []
   [optInfo]
     type = OptimizationInfo
     items = 'current_iterate function_value gnorm'
