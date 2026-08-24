@@ -20,7 +20,7 @@ class MaterialReporterOffsetFunctionMaterialTempl
 public:
   static InputParameters validParams();
 
-  MaterialReporterOffsetFunctionMaterialTempl<is_ad>(const InputParameters & parameters);
+  MaterialReporterOffsetFunctionMaterialTempl(const InputParameters & parameters);
 
 protected:
   virtual void computeQpProperties() override;
