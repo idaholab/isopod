@@ -235,8 +235,8 @@
   adjoint_system = adjoint
   nl_rel_tol = 1e-12
   nl_abs_tol = 1e-10
-  petsc_options_iname = '-pc_type'
-  petsc_options_value = 'lu'
+  petsc_options_iname = '-pc_type -pc_factor_mat_solver_type -mat_mumps_cntl_1 -mat_mumps_icntl_24'
+  petsc_options_value = 'lu mumps 0.1 1'
   verbose = true
 []
 
