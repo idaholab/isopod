@@ -28,7 +28,7 @@ line_colors=['red', 'blue','green','cyan']
 marker_styles=['o', 's','*','.']
 
 fig = plt.figure(figsize=(7.25, 2.5))
-solvertype=['nm', 'cg', 'lmvm']
+solvertype=['nm', 'cg', 'bqnls']
 
 ax = fig.add_subplot(1,2,1)
 for i in range(3):

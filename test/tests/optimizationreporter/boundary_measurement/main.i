@@ -25,7 +25,7 @@
 
 [Executioner]
   type = Optimize
-  tao_solver = taolmvm
+  tao_solver = taobqnls
   petsc_options_iname = '-tao_gatol -tao_ls_type'
   petsc_options_value = '1e-4 unit'
   verbose = true
